@@ -1,0 +1,64 @@
+name: deploy
+
+# Lectern 落地页：纯静态站点，push main 即 scp 到香港服务器 /var/www/lectern。
+# Caddy 静态托管，传完即生效，无需 reload。
+# 首次使用：仓库 Settings → Secrets → 配 HK_DEPLOY_KEY（能登 root@149.88.84.189 的
+# ed25519 私钥，可与 relay 仓库用同一把）。未配置时部署步骤自动跳过并告警，不红。
+
+"on":
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-lectern-site
+  cancel-in-progress: false
+
+env:
+  HK_HOST: 149.88.84.189
+  HK_USER: root
+  DEPLOY_PATH: /var/www/lectern
+  SITE_URL: https://lectern.zmzai.cloud
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 准备部署密钥
+        id: key
+        run: |
+          if [ -z "${{ secrets.HK_DEPLOY_KEY }}" ]; then
+            echo "ready=no" >> "$GITHUB_OUTPUT"
+            echo "::warning::未配置 secrets.HK_DEPLOY_KEY，跳过部署（只跑校验）"
+            exit 0
+          fi
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.HK_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$HK_HOST" >> ~/.ssh/known_hosts
+          echo "ready=yes" >> "$GITHUB_OUTPUT"
+
+      - name: 污染自检（data-page-node-id 残留）
+        run: ./scripts/guard-pollution.sh --check
+
+      - name: 部署
+        if: steps.key.outputs.ready == 'yes'
+        run: |
+          TS=$(date -u +%Y%m%d-%H%M%S)
+          ssh -o StrictHostKeyChecking=accept-new "$HK_USER@$HK_HOST" \
+            "set -e; cd $DEPLOY_PATH; mkdir -p .bak-$TS; for f in index.html features.html why.html roadmap.html theme.css; do [ -f \"\$f\" ] && cp -p \"\$f\" .bak-$TS/; done"
+          scp -o StrictHostKeyChecking=accept-new \
+            index.html features.html why.html roadmap.html theme.css theme.js \
+            "$HK_USER@$HK_HOST:$DEPLOY_PATH/"
+
+      - name: 冒烟
+        if: steps.key.outputs.ready == 'yes'
+        run: |
+          for p in / /features.html /why.html /roadmap.html /theme.css; do
+            code=$(curl -s --compressed -o /dev/null -w '%{http_code}' "$SITE_URL$p")
+            echo "$p -> $code"
+            if [ "$code" != "200" ]; then echo "::error::$p 返回 $code"; exit 1; fi
+          done
