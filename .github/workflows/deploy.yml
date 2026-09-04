@@ -44,13 +44,24 @@ jobs:
       - name: 污染自检（data-page-node-id 残留）
         run: ./scripts/guard-pollution.sh --check
 
-      - name: 部署
+      # 拆成三步（预检 / 备份 / 上传）：失败时步骤名直接指向原因，不用翻日志
+      - name: 预检 SSH 连通性
+        if: steps.key.outputs.ready == 'yes'
+        run: |
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 \
+            "$HK_USER@$HK_HOST" 'echo preflight-ok; hostname'
+
+      - name: 备份线上版本
         if: steps.key.outputs.ready == 'yes'
         run: |
           TS=$(date -u +%Y%m%d-%H%M%S)
-          ssh -o StrictHostKeyChecking=accept-new "$HK_USER@$HK_HOST" \
-            "set -e; cd $DEPLOY_PATH; mkdir -p .bak-$TS; for f in index.html features.html why.html roadmap.html theme.css; do [ -f \"\$f\" ] && cp -p \"\$f\" .bak-$TS/; done"
-          scp -o StrictHostKeyChecking=accept-new \
+          ssh -o BatchMode=yes -o ConnectTimeout=15 "$HK_USER@$HK_HOST" \
+            "cd $DEPLOY_PATH && mkdir -p .bak-$TS && cp -p index.html features.html why.html roadmap.html theme.css .bak-$TS/ 2>/dev/null; echo backup-done .bak-$TS"
+
+      - name: 上传文件
+        if: steps.key.outputs.ready == 'yes'
+        run: |
+          scp -o BatchMode=yes -o ConnectTimeout=15 -p \
             index.html features.html why.html roadmap.html theme.css theme.js \
             "$HK_USER@$HK_HOST:$DEPLOY_PATH/"
 
