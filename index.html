@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lectern — 桌面 Agent 工作台 · 知末智云</title>
+<meta name="description" content="本地运行 agent loop 的 Electron 桌面工作台。断点续传、增量投影、Shiki diff、权限审计——与 Quill、Folio 同一设计系统。">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-inner">
+    <a class="lockup" href="index.html">
+      <img src="/logo.png" alt="zmzai">
+      <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#workflow">工作流</a>
+      <a href="#features">特性</a>
+      <a href="why.html">优势</a>
+      <a href="roadmap.html">路线</a>
+      <a href="#ecosystem">生态</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
+      <a class="nav-cta" href="#download">下载 v0.4.3</a>
+    </div>
+      <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-stage">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.4.3 · 历史会话不再凭空消失</div>
+        <h1 class="reveal in" data-delay="1">桌面级 Agent 工作台。</h1>
+        <p class="hero-desc reveal in" data-delay="2">云端推理，本机执行。读你的仓库、执行命令、请求授权、提交变更；会话与审计留在你自己的磁盘上。</p>
+        <div class="hero-actions reveal in" data-delay="3">
+          <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-0.4.3-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
+          <a class="btn btn-outline" href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub 仓库</a>
+          <span class="hero-meta">Apple Silicon · macOS 14+</span>
+        </div>
+      </div>
+      <div class="workbench-scene reveal in" data-delay="1" aria-label="Lectern 工作台：会话、任务执行、文件变更和测试结果">
+        <div class="workbench-window">
+          <div class="workbench-topbar"><span class="window-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="workbench-title">lectern · client-reconnect</span><span class="workbench-status"><i></i>running</span></div>
+          <div class="workbench-body">
+            <aside class="wb-sidebar"><div class="wb-brand">LECTERN</div><span class="wb-plus">＋ 新会话</span><span>今天</span><span class="active">连接逻辑重构</span><span>发布前检查</span><span>上周</span><span>设计审阅</span></aside>
+            <div class="wb-conversation"><div class="wb-badge">coding session · 00:18:24</div><div class="wb-message"><div class="wb-person">你</div>重构客户端的重连逻辑，跑通测试后提交。</div><div class="wb-message"><div class="wb-person wb-agent">Agent</div>我会先阅读事件订阅与退避逻辑，再提出最小修改。</div><div class="wb-tool"><b>edit</b>&nbsp;&nbsp;lib/client.ts<br><span>backoff 1s → 15s · 3 failures → offline</span></div><div class="wb-input">继续输入任务…</div></div>
+            <aside class="wb-changes"><h3>CHANGES</h3><span class="change-file"><span class="change-good">+ </span>client.ts</span><span class="change-file"><span class="change-good">+ </span>retry.ts</span><div class="wb-tests">✓ 14 tests passed</div></aside>
+          </div>
+        </div>
+        <div class="scene-orbit" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="hero-runline" aria-hidden="true"><span><i></i><b>LOCAL EXECUTION</b></span><span>READ</span><span>EDIT</span><span>AUTHORIZE</span><span>DIFF</span><span>COMMIT</span></div>
+  </div>
+</header>
+<section id="features">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">What it does</div>
+    <h2 class="reveal" data-delay="1">为长会话而建的工作台。</h2>
+    <p class="sec-desc reveal" data-delay="2">v0.4.0 把执行过程摊开给你看，v0.4.1 补上被忽略的信号，v0.4.2 补上被忽略的现场。v0.4.3 收掉一处会让历史会话凭空消失的隐患：桌面版与源码运行从此读写同一份数据，老用户原有的会话与密钥原地沿用，不做任何搬迁。</p>
+    <div class="features reveal" data-delay="2">
+      <div class="feature-row">
+        <div class="feature-no">01</div>
+        <div class="feature-name">断点续传<small>sse resume · reconnect</small></div>
+        <div class="feature-text">事件流带序号，断线后从断点重放，配指数退避重连。弱网、休眠唤醒、代理切换都不再整页刷新重来。</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-no">02</div>
+        <div class="feature-name">增量投影<small>o(1) per event</small></div>
+        <div class="feature-text">事件流增量折叠成消息树，替代旧的全量重投影。几千条消息的会话照样流畅滚动，触顶自动分页加载历史。</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-no">03</div>
+        <div class="feature-name">Diff 审阅<small>shiki highlight</small></div>
+        <div class="feature-text">右侧看板实时呈现本轮触碰的文件与变更，Shiki 按语言按需加载高亮，明暗主题跟随系统。</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-no">04</div>
+        <div class="feature-name">命令与搜索<small>cmd-K · cmd-P · cmd-Shift-F</small></div>
+        <div class="feature-text">三模式命令面板：执行命令、跳转会话、全文搜索历史。键盘优先，和引擎对话不离开键盘。</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-no">05</div>
+        <div class="feature-name">权限审计<small>audit.db</small></div>
+        <div class="feature-text">每一次文件写入与命令执行都落独立审计库，manual / auto / fine-grained 三种来源分开记账，失败不阻塞主流程。</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-no">06</div>
+        <div class="feature-name">托盘常驻<small>menubar · darwin</small></div>
+        <div class="feature-text">菜单栏显示运行状态——运行中、等待授权一目了然；任务完成发系统通知，人不在屏幕前也不错过。</div>
+      </div>
+    </div>
+    <div class="feature-proof reveal" data-delay="2" aria-label="Lectern 变更审阅示意图">
+      <div class="proof-head"><span>●</span><b>review changes · lib/client.ts</b><span>14 tests passed</span></div>
+      <div class="proof-grid">
+        <div class="proof-code"><span>27&nbsp;&nbsp; function retryDelay(attempt: number) {</span><span class="removed">28&nbsp;&nbsp;&nbsp;&nbsp;return 1000;</span><span class="added">28&nbsp;&nbsp;&nbsp;&nbsp;return Math.min(1000 * 2 ** attempt, 15000);</span><span>29&nbsp;&nbsp; }</span><span>30</span><span class="added">31&nbsp;&nbsp; if (attempt &gt;= 3) setStatus(&quot;offline&quot;);</span></div>
+        <aside class="proof-aside"><b>本轮触碰的文件</b><div class="file"><span>lib/client.ts</span><span>+8 −1</span></div><div class="file"><span>lib/retry.ts</span><span>+12</span></div><div class="file"><span>tests/client.test.ts</span><span>+4</span></div></aside>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="workflow">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">Workflow</div>
+    <h2 class="reveal" data-delay="1">三步，一个本地循环。</h2>
+    <p class="sec-desc reveal" data-delay="2">没有云端排队，没有浏览器标签页——任务从下达到落地，全程跑在你自己的机器上。</p>
+    <div class="flow-grid reveal" data-delay="2">
+      <div class="flow-step">
+        <div class="flow-vignette" aria-hidden="true"><div class="prompt-box"><span>你</span><br>重构客户端的重连逻辑，跑通测试后提交。</div><span class="prompt-send">发送　↵</span></div>
+        <div class="flow-no">01</div>
+        <div class="flow-name">下达任务<small class="flow-tag">prompt · natural language</small></div>
+        <p>用一句话交代要做什么，就像跟同事说话。要改哪个文件、跑什么命令、按什么标准收尾，一次说清。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-vignette" aria-hidden="true"><span style="color:var(--color-ink-3)">bash · pnpm test client</span><div class="permission-dialog"><b>允许执行此命令？</b><p>需要在本机工作区运行测试。</p><div class="permission-actions"><span>拒绝</span><span>允许一次</span><span>总是允许</span></div></div></div>
+        <div class="flow-no">02</div>
+        <div class="flow-name">授权执行<small class="flow-tag">read · edit · bash · authorize</small></div>
+        <p>Agent 读文件、改代码、跑命令、看结果，迭代推进。需要权限的动作会停下来问你，而不是擅自执行。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-vignette" aria-hidden="true"><div class="diff-vignette"><span class="minus">− return 1000;</span><br><span class="plus">+ return Math.min(1000 * 2 ** attempt, 15000);</span><br><br><em>✓ 14 tests passed</em></div></div>
+        <div class="flow-no">03</div>
+        <div class="flow-name">审阅落地<small class="flow-tag">diff · commit</small></div>
+        <p>每一处改动都呈现在右侧看板，带语法高亮。确认后由你决定提交——机器不替你拍板。</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="download">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">Download</div>
+    <h2 class="reveal" data-delay="1">v0.4.3 · 打开就是你的那台机器。</h2>
+    <div class="dl-table reveal" data-delay="2">
+      <div class="dl-row">
+        <div class="dl-os"><b>macOS</b><small>apple silicon · 14+</small></div>
+        <div class="dl-links">
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-0.4.3-arm64-mac.zip">.zip · 382 MB</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/SHA256SUMS.txt">SHA256</a>
+        </div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-os"><b>Windows</b><small>x64 · 10 1809+</small></div>
+        <div class="dl-links">
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-Setup-0.4.3.exe">.exe · 275 MB</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-0.4.3-win.zip">.zip · 369 MB</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/SHA256SUMS.txt">SHA256</a>
+        </div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-os"><b>源码运行</b><small>node 20+ · pnpm</small></div>
+        <div class="dl-links">
+          <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub 仓库</a>
+          <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.4.3" target="_blank" rel="noopener">Release Notes</a>
+        </div>
+      </div>
+    </div>
+    <p class="dl-note reveal" data-delay="2">
+      安装包为 ad-hoc 签名（未做开发者签名与公证），首次运行可能触发系统拦截——各平台的处理方式见下方 FAQ。
+    </p>
+  </div>
+</section>
+<section id="ecosystem">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">Ecosystem</div>
+    <h2 class="reveal" data-delay="1">知末智云的一件工程。</h2>
+    <p class="sec-desc reveal" data-delay="2">
+      Lectern 是 zmzai.cloud 生态的桌面端入口——同一套设计系统、同一套账号与语义图标，
+      与生态里其余工程互通。完整索引见 <a href="https://zmzai.cloud" target="_blank" rel="noopener" style="border-bottom:1px solid var(--color-line-strong)">zmzai.cloud</a>。
+    </p>
+    <div class="eco-grid">
+      <div class="eco-row">
+        <div class="eco-name"><b>Lectern</b><span>桌面工作台</span></div>
+        <span class="eco-here">● 你在这里</span>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>Folio</b><span>门户 · Cloud</span></div>
+        <a class="eco-link" href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>Quill</b><span>Agent 工作台</span></div>
+        <a class="eco-link" href="https://agent.zmzai.cloud/quill" target="_blank" rel="noopener">agent.zmzai.cloud ↗</a>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>Margin</b><span>模型中继</span></div>
+        <a class="eco-link" href="https://relay.zmzai.cloud" target="_blank" rel="noopener">relay.zmzai.cloud ↗</a>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>Plate</b><span>代码沙箱</span></div>
+        <a class="eco-link" href="https://sandbox.zmzai.cloud" target="_blank" rel="noopener">sandbox.zmzai.cloud ↗</a>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>Index</b><span>收件箱 · WorkOS</span></div>
+        <a class="eco-link" href="https://workos.zmzai.cloud" target="_blank" rel="noopener">workos.zmzai.cloud ↗</a>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>Tome</b><span>记忆中心</span></div>
+        <a class="eco-link" href="https://memory.zmzai.cloud" target="_blank" rel="noopener">memory.zmzai.cloud ↗</a>
+      </div>
+      <div class="eco-row">
+        <div class="eco-name"><b>muzhi</b><span>内容站 · 牧之</span></div>
+        <a class="eco-link" href="https://muzhi.zmzai.cloud" target="_blank" rel="noopener">muzhi.zmzai.cloud ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta">
+  <div class="wrap cta-block reveal">
+    <h2>下载即用，数据归你。</h2>
+    <p class="sec-desc">macOS 与 Windows 双平台，本地运行，数据归你。下载即用，五分钟进入第一个会话。</p>
+    <div class="cta-actions">
+      <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-0.4.3-arm64-mac.zip">
+        下载 macOS <span class="arrow">→</span>
+      </a>
+      <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-Setup-0.4.3.exe">下载 Windows</a>
+    </div>
+    <p class="cta-meta">v0.4.3 · Apple Silicon / Windows x64 · 会话数据全程本地</p>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-left">zmzai.cloud · 知末智云 · 知其末梢，智在云端</div>
+    <div class="foot-links">
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.4.3" target="_blank" rel="noopener">v0.4.3</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/theme.js"></script>
+</body>
+</html>

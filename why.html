@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Lectern · 桌面 Agent 工作台</title>
+<meta name="description" content="桌面工作台与终端 CLI、IDE 面板、Web 控制台不是同一物种——但人总想横向比一比。下面是按日常使用场景的对照，切换看差异。">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-inner">
+    <a class="lockup" href="index.html">
+      <img src="/logo.png" alt="zmzai">
+      <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#workflow">工作流</a>
+      <a href="index.html#features">特性</a>
+      <a href="why.html" class="active">优势</a>
+      <a href="roadmap.html">路线</a>
+      <a href="index.html#ecosystem">生态</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.4.3</a>
+    </div>
+      <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal in">Why Lectern</div>
+    <h1 class="reveal in" data-delay="1">不是又一个 agent harness。</h1>
+    <p class="sec-desc reveal in" data-delay="2">桌面工作台与终端 CLI、IDE 面板、Web 控制台不是同一物种——但人总想横向比一比。下面是按日常使用场景的对照，切换看差异。</p>
+  </div>
+</header>
+<section id="compare">
+  <div class="wrap">
+    
+    <div class="vs-shell reveal" data-delay="2">
+      <input type="radio" name="vs" id="vs-cli" checked>
+      <input type="radio" name="vs" id="vs-ide">
+      <input type="radio" name="vs" id="vs-web">
+      <div class="vs-tabs" role="tablist" aria-label="对照形态">
+        <label for="vs-cli">终端 CLI</label>
+        <label for="vs-ide">IDE 面板</label>
+        <label for="vs-web">Web 控制台</label>
+      </div>
+
+      <!-- 终端 CLI -->
+      <div class="vs-panel" data-tab="cli">
+        <div class="vs-note">终端里跑 agent 的那一类</div>
+        <div class="vs-head"><span>场景</span><span class="vs-le">Lectern 桌面工作台</span><span>终端 CLI 常见形态</span></div>
+        <div class="vs-row"><span class="vs-dim">看变更</span><span class="vs-le">变更摊在右侧看板：<b>本轮触碰的文件 + Shiki 高亮 diff</b>，与代码编辑区同屏对照</span><span class="vs-them">滚动终端输出里的 patch 文本，靠眼睛比对</span></div>
+        <div class="vs-row"><span class="vs-dim">长会话</span><span class="vs-le">几千条消息不卡：<b>增量投影 O(1)</b>，触顶自动分页加载历史</span><span class="vs-them">上下文一滚出视野就找不回来，长会话靠人工 summary</span></div>
+        <div class="vs-row"><span class="vs-dim">断线续传</span><span class="vs-le"><b>SSE 序号续传 + 指数退避重连</b>——弱网、休眠、代理切换不重来</span><span class="vs-them">进程一断任务即丢，恢复靠重跑或 luck</span></div>
+        <div class="vs-row"><span class="vs-dim">审计</span><span class="vs-le">每次写文件/执行命令落<b>独立 audit.db</b>，三类来源分开记账</span><span class="vs-them">执行过的命令随时间滚出屏幕，事后无账可查</span></div>
+        <div class="vs-row"><span class="vs-dim">运行感知</span><span class="vs-le"><b>菜单栏常驻</b>：运行中/等待授权一目了然，完成发系统通知</span><span class="vs-them">想确认任务状态必须切回终端窗口盯着</span></div>
+      </div>
+
+      <!-- IDE 面板 -->
+      <div class="vs-panel" data-tab="ide">
+        <div class="vs-note">寄生在编辑器里跑 agent 的那一类</div>
+        <div class="vs-head"><span>场景</span><span class="vs-le">Lectern 桌面工作台</span><span>IDE 面板常见形态</span></div>
+        <div class="vs-row"><span class="vs-dim">独立性</span><span class="vs-le">独立桌面应用，<b>不绑定编辑器</b>——不因换 IDE、升级插件而丢失工作流</span><span class="vs-them">深度依赖宿主编辑器，离开它即失效</span></div>
+        <div class="vs-row"><span class="vs-dim">隔离</span><span class="vs-le"><b>worktree 会话隔离</b>：新会话跑在隔离副本，合并前可审可弃</span><span class="vs-them">直接在当前工作区动手，试错与正式改动混在一起</span></div>
+        <div class="vs-row"><span class="vs-dim">数据</span><span class="vs-le">会话、审计、配置<b>独立落盘可带走</b>，跨项目聚合成一个时间线</span><span class="vs-them">数据散在编辑器缓存里，换机器即失</span></div>
+        <div class="vs-row"><span class="vs-dim">多会话</span><span class="vs-le"><b>原生多会话管理</b>：搜索、归档、置顶，互不干扰并行跑</span><span class="vs-them">面板一次一个上下文，多任务靠开多个标签页将就</span></div>
+        <div class="vs-row"><span class="vs-dim">授权</span><span class="vs-le">权限请求<b>卡片化确认</b>，卡住时侧边栏亮「待确认」，还有独立审计追溯</span><span class="vs-them">授权提示与编辑窗口抢焦点，粒度粗且无事后追溯</span></div>
+      </div>
+
+      <!-- Web 控制台 -->
+      <div class="vs-panel" data-tab="web">
+        <div class="vs-note">云端网页里跑 agent 的那一类</div>
+        <div class="vs-head"><span>场景</span><span class="vs-le">Lectern 桌面工作台</span><span>Web 控制台常见形态</span></div>
+        <div class="vs-row"><span class="vs-dim">数据主权</span><span class="vs-le"><b>数据不上云</b>：会话与审计存本地磁盘，模型推理只过 relay 一层</span><span class="vs-them">代码与上下文整体上云，隐私依赖平台承诺</span></div>
+        <div class="vs-row"><span class="vs-dim">连续性</span><span class="vs-le"><b>事件流驱动 + 断点续跑</b>，刷新页面也不会丢中间态</span><span class="vs-them">页面一关上下文归零，续接靠重新上传全部资料</span></div>
+        <div class="vs-row"><span class="vs-dim">延迟</span><span class="vs-le">编辑、diff、搜索<b>全本地渲染</b>，操作零网络往返，弱网依旧可用</span><span class="vs-them">每次击键与滚动都取决于网络与远端渲染</span></div>
+        <div class="vs-row"><span class="vs-dim">工作流</span><span class="vs-le">对接<b>本机文件系统与终端</b>：改完即测、出包即验，agent 能碰真实产物</span><span class="vs-them">跑在沙箱里，看得到代码看不到真实运行环境</span></div>
+        <div class="vs-row"><span class="vs-dim">离线</span><span class="vs-le">断网时<b>可继续编辑与审阅</b>本地会话，联网后自动续上推理</span><span class="vs-them">断网即停摆，什么都做不了</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="local-first">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">Local first</div>
+    <h2 class="reveal" data-delay="1">执行在本机，记录在你手里。</h2>
+    <p class="sec-desc reveal" data-delay="2">推理通过 relay 连接模型；会话、审计和运行进度则存放在你自己的磁盘上，随时可查看、可带走。</p>
+    <div class="local-grid reveal" data-delay="2">
+      <div class="local-card">
+        <span class="local-tag">sessions</span>
+        <div class="local-name">会话 · SQLite 单文件</div>
+        <p>所有会话落在 <code class="local-code">zmzai.db</code>，旧版 JSONL 自动导入。历史和上下文都由你保管。</p>
+      </div>
+      <div class="local-card">
+        <span class="local-tag">audit</span>
+        <div class="local-name">审计 · 独立审计库</div>
+        <p>每一次文件写入与命令执行都记入 <code class="local-code">audit.db</code>，manual / auto / fine-grained 三类来源分开记账。</p>
+      </div>
+      <div class="local-card">
+        <span class="local-tag">resume</span>
+        <div class="local-name">进度 · 离开即续</div>
+        <p>事件流带序号，断线后从断点重放，指数退避自动重连。休眠、弱网、代理切换都不会打断手上的活。</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sub-cta">
+  <div class="wrap">
+    <h2 class="reveal">桌面工作台,不是又一种跑命令的方式。</h2>
+    <p class="sec-desc reveal">对照看完了,回主页看它怎么落地成产品。</p>
+    <div class="cta-actions reveal" data-delay="1">
+      <a class="btn btn-outline" href="index.html#download">返回下载 <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-left">zmzai.cloud · 知末智云 · 知其末梢，智在云端</div>
+    <div class="foot-links">
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.4.3" target="_blank" rel="noopener">v0.4.3</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/theme.js"></script>
+</body>
+</html>

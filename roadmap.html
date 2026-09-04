@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap · Lectern 桌面工作台</title>
+<meta name="description" content="方向收敛、节奏保守——每一项都先解决真实使用里绊脚的事，再谈宏大叙事。">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-inner">
+    <a class="lockup" href="index.html">
+      <img src="/logo.png" alt="zmzai">
+      <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#workflow">工作流</a>
+      <a href="index.html#features">特性</a>
+      <a href="why.html">优势</a>
+      <a href="roadmap.html" class="active">路线</a>
+      <a href="index.html#ecosystem">生态</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.4.3</a>
+    </div>
+      <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal in">Roadmap</div>
+    <h1 class="reveal in" data-delay="1">接下来往哪走。</h1>
+    <p class="sec-desc reveal in" data-delay="2">方向收敛、节奏保守——每一项都先解决真实使用里绊脚的事，再谈宏大叙事。</p>
+  </div>
+</header>
+<section id="roadmap">
+  <div class="wrap">
+    
+    <div class="rm-grid reveal" data-delay="2">
+      <div class="rm-col">
+        <div class="rm-flag">NOW · 正在做</div>
+        <h3>把能力接回地面</h3>
+        <p>内核已铺好的路，逐段铺到界面与真实链路。</p>
+        <ul class="rm-items">
+          <li><b>推理档位贯通</b><small>模型目录已返回 allowedReasoningEfforts，provider 层接入并下发，不再对所有模型一视同仁</small></li>
+          <li><b>故障转移可视化</b><small>备用模型端点从环境变量搬进设置页，断流切换人可感知、可配置</small></li>
+          <li><b>Windows 真机冒烟</b><small>node-pty 终端、SmartScreen 流程在真实 Windows 上过一遍，而不只是交叉构建</small></li>
+        </ul>
+      </div>
+      <div class="rm-col">
+        <div class="rm-flag">NEXT · 接下来</div>
+        <h3>把它养成长期伙伴</h3>
+        <p>会话不是用完即弃的草稿，是可以回去翻的资产。</p>
+        <ul class="rm-items">
+          <li><b>跨会话记忆</b><small>与 Tome 打通：长期偏好、项目约定沉淀进工作区记忆，新会话开局即知情</small></li>
+          <li><b>自动更新</b><small>latest.yml 已在发布产物里，桌面端接入自动检查与静默升级，不再手动换包</small></li>
+          <li><b>离线可用收窄</b><small>会话编辑、审阅、命令面板完全离线可用；本地模型（Ollama）作后备推理源</small></li>
+        </ul>
+      </div>
+      <div class="rm-col">
+        <div class="rm-flag">LATER · 更远</div>
+        <h3>让 loop 更省心</h3>
+        <p>更长的自主、更少的人工照看，仍守住「你说了算」的底线。</p>
+        <ul class="rm-items">
+          <li><b>长期运行会话</b><small>watchdog + 恢复机制成熟后，任务可跨天执行、随时回来接管，全程可审计</small></li>
+          <li><b>生态协作桌面化</b><small>与 Plate 沙箱、Quill 团队工作台同链：本地执行 + 团队共享同一套会话格式</small></li>
+          <li><b>对外发布收尾</b><small>Developer ID + 公证，去 Gatekeeper 拦路——这是公开分发给世界的最后一道工事</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">FAQ</div>
+    <h2 class="reveal" data-delay="1">常见问题。</h2>
+    <div class="faq-list reveal" data-delay="2">
+      <details class="faq">
+        <summary class="faq-q">macOS 提示「无法打开 Lectern」？</summary>
+        <div class="faq-a">
+          安装包是 ad-hoc 签名（未做开发者签名与公证），Gatekeeper 首次会拦截。<b>右键点「Lectern.app」→「打开」→ 确认</b>即可，仅此一次；仍被拦截时再在终端执行
+          <code>xattr -cr "/Applications/Lectern.app"</code>。
+        </div>
+      </details>
+      <details class="faq">
+        <summary class="faq-q">Windows 弹出「Windows 已保护你的电脑」？</summary>
+        <div class="faq-a">
+          同样因为未做代码签名，SmartScreen 首次会提示。点「更多信息」→「仍要运行」即可。安装器支持自定义安装目录与桌面快捷方式，zip 版解压即用、免安装。
+        </div>
+      </details>
+      <details class="faq">
+        <summary class="faq-q">数据存在哪里？</summary>
+        <div class="faq-a">
+          全部在你的磁盘上：会话库 <code>~/Library/Application Support/Lectern</code>（Windows 为 <code>%APPDATA%\Lectern</code>），审计库独立落盘为 <code>audit.db</code>。卸载应用不自动删除数据，需要手动清理。
+        </div>
+      </details>
+      <details class="faq">
+        <summary class="faq-q">以后怎么升级？</summary>
+        <div class="faq-a">
+          下载新版安装包覆盖安装即可升级，会话与配置都会保留；GitHub Release 与本站会第一时间同步最新版本。
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+<section class="sub-cta">
+  <div class="wrap">
+    <h2 class="reveal">先跑起来,再看它长大。</h2>
+    <p class="sec-desc reveal">路线图之外,当前版本已经值得一试。</p>
+    <div class="cta-actions reveal" data-delay="1">
+      <a class="btn btn-outline" href="index.html#download">返回下载 <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-left">zmzai.cloud · 知末智云 · 知其末梢，智在云端</div>
+    <div class="foot-links">
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.4.3" target="_blank" rel="noopener">v0.4.3</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/theme.js"></script>
+</body>
+</html>
