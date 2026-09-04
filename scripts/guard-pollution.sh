@@ -19,7 +19,7 @@ set -e
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
 
-FILES="index.html why.html roadmap.html"
+FILES="index.html why.html roadmap.html features.html"
 ONLINE="https://lectern.zmzai.cloud"
 
 check_one() {

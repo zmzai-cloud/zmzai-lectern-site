@@ -18,6 +18,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#workflow">工作流</a>
       <a href="#features">特性</a>
+      <a href="features.html">功能说明</a>
       <a href="why.html">优势</a>
       <a href="roadmap.html">路线</a>
       <a href="#ecosystem">生态</a>
@@ -66,35 +67,40 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal">What it does</div>
     <h2 class="reveal" data-delay="1">为长会话而建的工作台。</h2>
-    <p class="sec-desc reveal" data-delay="2">v0.4.0 把执行过程摊开给你看，v0.4.1 补上被忽略的信号，v0.4.2 补上被忽略的现场。v0.4.3 收掉一处会让历史会话凭空消失的隐患：桌面版与源码运行从此读写同一份数据，老用户原有的会话与密钥原地沿用，不做任何搬迁。</p>
+    <p class="sec-desc reveal" data-delay="2">v0.4.0 把执行过程摊开给你看，v0.4.1 补上被忽略的信号，v0.4.2 补上被忽略的现场。v0.4.3 收掉一处会让历史会话凭空消失的隐患：桌面版与源码运行从此读写同一份数据，老用户原有的会话与密钥原地沿用，不做任何搬迁。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
     <div class="features reveal" data-delay="2">
       <div class="feature-row">
         <div class="feature-no">01</div>
+        <div class="feature-name">会话回卷<small>rewind · truncate-from</small></div>
+        <div class="feature-text">会话底部的时间轴可拖回任意一轮之前，消息树在该点截断、agent 从那里重新出发。截断走事件溯源并下发 rewound 事件，被切掉的消息不会在重连重放时复活。</div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-no">02</div>
         <div class="feature-name">断点续传<small>sse resume · reconnect</small></div>
         <div class="feature-text">事件流带序号，断线后从断点重放，配指数退避重连。弱网、休眠唤醒、代理切换都不再整页刷新重来。</div>
       </div>
       <div class="feature-row">
-        <div class="feature-no">02</div>
+        <div class="feature-no">03</div>
         <div class="feature-name">增量投影<small>o(1) per event</small></div>
         <div class="feature-text">事件流增量折叠成消息树，替代旧的全量重投影。几千条消息的会话照样流畅滚动，触顶自动分页加载历史。</div>
       </div>
       <div class="feature-row">
-        <div class="feature-no">03</div>
+        <div class="feature-no">04</div>
         <div class="feature-name">Diff 审阅<small>shiki highlight</small></div>
         <div class="feature-text">右侧看板实时呈现本轮触碰的文件与变更，Shiki 按语言按需加载高亮，明暗主题跟随系统。</div>
       </div>
       <div class="feature-row">
-        <div class="feature-no">04</div>
+        <div class="feature-no">05</div>
         <div class="feature-name">命令与搜索<small>cmd-K · cmd-P · cmd-Shift-F</small></div>
         <div class="feature-text">三模式命令面板：执行命令、跳转会话、全文搜索历史。键盘优先，和引擎对话不离开键盘。</div>
       </div>
       <div class="feature-row">
-        <div class="feature-no">05</div>
+        <div class="feature-no">06</div>
         <div class="feature-name">权限审计<small>audit.db</small></div>
         <div class="feature-text">每一次文件写入与命令执行都落独立审计库，manual / auto / fine-grained 三种来源分开记账，失败不阻塞主流程。</div>
       </div>
       <div class="feature-row">
-        <div class="feature-no">06</div>
+        <div class="feature-no">07</div>
         <div class="feature-name">托盘常驻<small>menubar · darwin</small></div>
         <div class="feature-text">菜单栏显示运行状态——运行中、等待授权一目了然；任务完成发系统通知，人不在屏幕前也不错过。</div>
       </div>

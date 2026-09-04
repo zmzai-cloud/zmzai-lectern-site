@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>功能说明 · Lectern 桌面工作台</title>
+<meta name="description" content="Lectern 每一个功能到底是什么、在哪里找到、怎么用——逐项讲清楚。会话回卷、断点续传、worktree 隔离、权限授权、Diff 审阅、命令面板、本地审计。">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+<nav>
+  <div class="wrap nav-inner">
+    <a class="lockup" href="index.html">
+      <img src="/logo.png" alt="zmzai">
+      <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#workflow">工作流</a>
+      <a href="index.html#features">特性</a>
+      <a href="features.html" class="active">功能说明</a>
+      <a href="why.html">优势</a>
+      <a href="roadmap.html">路线</a>
+      <a href="index.html#ecosystem">生态</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.4.3</a>
+    </div>
+      <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal in">Features</div>
+    <h1 class="reveal in" data-delay="1">每一个功能，摊开讲。</h1>
+    <p class="sec-desc reveal in" data-delay="2">首页的特性列表只给结论，hero 里的活工作台只给一眼。这一页把 v0.4.3 的十个功能逐项讲清楚——它是什么、在哪里找到、怎么用。拖动下面回卷那条的时间轴，可以先亲手试一下最新的一项。</p>
+    <aside class="page-pullquote reveal in" data-delay="3" aria-label="本页覆盖的四组功能">
+      <span class="pq-cell pq-le">会话</span>
+      <span class="pq-sep" aria-hidden="true"></span>
+      <span class="pq-cell pq-le">执行与审阅</span>
+      <span class="pq-sep" aria-hidden="true"></span>
+      <span class="pq-cell pq-le">效率</span>
+      <span class="pq-sep" aria-hidden="true"></span>
+      <span class="pq-cell pq-le">数据与安全</span>
+    </aside>
+  </div>
+</header>
+
+<section id="features-docs">
+  <div class="wrap">
+    <div class="docs-layout">
+
+      <aside class="docs-side" aria-label="功能目录">
+        <div class="docs-side-group">会话</div>
+        <a href="#f-sessions"><span class="docs-item-no">01</span>多会话管理</a>
+        <a href="#f-rewind"><span class="docs-item-no">02</span>回卷</a>
+        <a href="#f-resume"><span class="docs-item-no">03</span>断点续传</a>
+        <a href="#f-worktree"><span class="docs-item-no">04</span>worktree 隔离</a>
+        <div class="docs-side-group">执行与审阅</div>
+        <a href="#f-permission"><span class="docs-item-no">05</span>权限授权</a>
+        <a href="#f-diff"><span class="docs-item-no">06</span>Diff 审阅</a>
+        <div class="docs-side-group">效率</div>
+        <a href="#f-cmdk"><span class="docs-item-no">07</span>命令与搜索</a>
+        <a href="#f-context"><span class="docs-item-no">08</span>上下文掌控</a>
+        <div class="docs-side-group">数据与安全</div>
+        <a href="#f-tray"><span class="docs-item-no">09</span>托盘常驻与通知</a>
+        <a href="#f-audit"><span class="docs-item-no">10</span>本地数据与审计</a>
+      </aside>
+
+      <div class="docs-main">
+
+        <article class="docs-item" id="f-sessions">
+          <div class="docs-no">01</div>
+          <h2>多会话管理</h2>
+          <div class="docs-tag">sessions · sidebar</div>
+          <p class="docs-what">左侧栏是全部会话的时间线：今天、本周、更早。会话可以置顶、归档、重命名，跨项目聚在一起，也能用 <span class="local-code">⌘P</span> 直接按名字跳转。</p>
+          <p class="docs-what">有 agent 停下来等授权的会话，侧栏里会亮「待确认」徽标——它的优先级高于一切状态，扫一眼就知道哪条线卡住需要你。</p>
+          <p class="docs-where"><b>在哪：</b>主窗口左侧栏；跳转在 <span class="local-code">⌘P</span> 面板。</p>
+        </article>
+
+        <article class="docs-item" id="f-rewind">
+          <div class="docs-no">02</div>
+          <h2>回卷</h2>
+          <div class="docs-tag">rewind · truncate-from · event sourcing</div>
+          <p class="docs-what">会话底部有一条时间轴。把游标拖回任意一轮之前，消息树就在那个点截断，agent 从那里重新出发——不是清空上下文重来，是把走错的那一段切掉。</p>
+          <p class="docs-what">截断走事件溯源，同时下发 rewound 事件：被切掉的消息不会在断线重连重放时「复活」。这一步是 v0.4.x 里最花力气的一处工程，因为要让回放和现场保持一致。</p>
+          <div class="docs-demo" aria-label="回卷演示：拖动时间轴回卷会话">
+            <div class="demo-head">
+              <span>●</span><b>session · 连接逻辑重构</b>
+              <span class="demo-state" id="demoState"><i aria-hidden="true"></i><span id="demoStateText">running</span></span>
+            </div>
+            <div class="demo-steps">
+              <div class="demo-step" id="st1"><b>你</b>　重构客户端的重连逻辑，跑通测试后提交。</div>
+              <div class="demo-step" id="st2"><span class="st-tag">read</span><span class="st-path">lib/client.ts</span>　订阅与退避逻辑</div>
+              <div class="demo-step" id="st3"><span class="st-tag">edit</span><span class="st-path">lib/retry.ts</span>　backoff 1s → 15s</div>
+              <div class="demo-step" id="st4"><span class="st-tag">bash</span><span class="st-path">pnpm test client</span>　✓ 14 passed</div>
+            </div>
+            <div class="demo-foot">
+              <button class="pp" id="demoPp" aria-label="播放 / 暂停"><svg id="demoPpIcon" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/></svg></button>
+              <div class="track" id="demoTrack" role="slider" aria-label="回卷时间轴，可拖动"><div class="track-fill" id="demoFill"></div><i class="tick" style="left:24%"></i><i class="tick" style="left:46%"></i><i class="tick" style="left:68%"></i><i class="tick" style="left:90%"></i><div class="head" id="demoHead"></div></div>
+              <span class="tclock" id="demoClock">00:00 / 00:06</span>
+            </div>
+          </div>
+          <p class="docs-where"><b>在哪：</b>会话窗口底部的时间轴，拖动即回卷；游标停在哪一轮，续跑就从哪一轮开始。</p>
+        </article>
+
+        <article class="docs-item" id="f-resume">
+          <div class="docs-no">03</div>
+          <h2>断点续传</h2>
+          <div class="docs-tag">sse resume · reconnect</div>
+          <p class="docs-what">事件流带序号，断线后从断点重放而不是整页重来；重连按指数退避自动进行。合盖休眠、切代理、弱网——回来时画面接着刚才的地方继续走。</p>
+          <p class="docs-what">这条链路同样覆盖中途断流的模型故障转移：备用端点接上后，会话状态不丢。</p>
+          <div class="docs-how">
+            <div class="docs-how-t">你会遇到它的时候</div>
+            <ol>
+              <li>合上盖子再打开，会话自动续上，中间输出不缺页。</li>
+              <li>状态栏短暂显示重连中，无需手动刷新或重开会话。</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="docs-item" id="f-worktree">
+          <div class="docs-no">04</div>
+          <h2>worktree 隔离</h2>
+          <div class="docs-tag">git worktree · sandbox</div>
+          <p class="docs-what">新会话可以跑在当前仓库的 git worktree 副本里：agent 的所有改动落在隔离分支，合并回主工作区之前，先审、再合；不要就整枝丢弃。</p>
+          <p class="docs-what">试错和正式改动从此是两棵树——放心让它大改，主分支始终干净。</p>
+          <p class="docs-where"><b>在哪：</b>新建会话时勾选「worktree 隔离」，合并入口在会话的变更看板。</p>
+        </article>
+
+        <article class="docs-item" id="f-permission">
+          <div class="docs-no">05</div>
+          <h2>权限授权</h2>
+          <div class="docs-tag">hitl · permission cards</div>
+          <p class="docs-what">需要权限的动作——读文件之外的一切写操作与命令执行——agent 会停下来，弹出授权卡片：动什么、为什么、影响哪个路径，说清楚再问你。</p>
+          <p class="docs-what">三个按钮对应三种信任粒度：<b>拒绝</b>、<b>允许一次</b>、<b>总是允许</b>。选择会记入审计，事后可查可撤销。</p>
+          <p class="docs-what">人不在时任务卡在授权，侧栏亮「待确认」，托盘图标同步变化，系统通知提醒你回来拍板。</p>
+          <div class="docs-how">
+            <div class="docs-how-t">典型流程</div>
+            <ol>
+              <li>agent 请求执行 <span class="local-code">pnpm test</span>，卡片说明命令与工作区。</li>
+              <li>选「允许一次」——本轮生效；选「总是允许」——同类命令后续静默放行。</li>
+              <li>每一次决定都落 <span class="local-code">audit.db</span>，来源分开记账。</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="docs-item" id="f-diff">
+          <div class="docs-no">06</div>
+          <h2>Diff 审阅</h2>
+          <div class="docs-tag">shiki highlight · changes panel</div>
+          <p class="docs-what">右侧看板实时呈现本轮触碰的文件与变更，Shiki 按语言按需加载语法高亮，明暗主题跟随系统。改动是逐行的，不是一段模糊的「已修改」。</p>
+          <p class="docs-what">确认与提交由你决定——机器不替你拍板。</p>
+          <p class="docs-where"><b>在哪：</b>会话右侧的 CHANGES 看板，随执行实时更新。</p>
+        </article>
+
+        <article class="docs-item" id="f-cmdk">
+          <div class="docs-no">07</div>
+          <h2>命令与搜索</h2>
+          <div class="docs-tag">cmd-K · cmd-P · cmd-Shift-F</div>
+          <p class="docs-what">三模式命令面板，键盘优先：<kbd>⌘K</kbd> 执行命令，<kbd>⌘P</kbd> 跳转会话，<kbd>⌘⇧F</kbd> 全文搜索全部历史——不只是标题，消息正文也在索引里。</p>
+          <p class="docs-what">和引擎对话不离开键盘，是这套工作台的基本假设。</p>
+          <div class="docs-how">
+            <div class="docs-how-t">快捷键速查</div>
+            <ol>
+              <li><kbd>⌘K</kbd> —— 命令面板：新建会话、切换模型、打开设置。</li>
+              <li><kbd>⌘P</kbd> —— 会话跳转：按名字或项目过滤，回车即达。</li>
+              <li><kbd>⌘⇧F</kbd> —— 全文搜索：跨全部会话找一句话。</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="docs-item" id="f-context">
+          <div class="docs-no">08</div>
+          <h2>上下文掌控</h2>
+          <div class="docs-tag">@-mention · context meter</div>
+          <p class="docs-what">输入框里 <span class="local-code">@</span> 可以直接引用文件与目录，agent 读的是你指的那一份，不靠猜。Composer 下方的占用条实时显示当前上下文用量，快满的时候你先知道。</p>
+          <p class="docs-what">每个会话可以单独选模型，长任务和轻问答不必共用一个配置。</p>
+          <p class="docs-where"><b>在哪：</b>底部 Composer 的 <span class="local-code">@</span> 引用与上下文占用条；模型选择在 Composer 右下角。</p>
+        </article>
+
+        <article class="docs-item" id="f-tray">
+          <div class="docs-no">09</div>
+          <h2>托盘常驻与通知</h2>
+          <div class="docs-tag">menubar · notifications</div>
+          <p class="docs-what">菜单栏图标常驻显示运行状态：运行中、等待授权一目了然。任务完成或需要你回来时发系统通知——人不在屏幕前，也不错过任何一条线。</p>
+          <p class="docs-where"><b>在哪：</b>macOS 菜单栏（屏幕右上角）；通知走系统通知中心。</p>
+        </article>
+
+        <article class="docs-item" id="f-audit">
+          <div class="docs-no">10</div>
+          <h2>本地数据与审计</h2>
+          <div class="docs-tag">sqlite · audit.db · local first</div>
+          <p class="docs-what">全部数据在你的磁盘上：会话落在单文件 SQLite（<span class="local-code">zmzai.db</span>），每一次文件写入与命令执行单独记入 <span class="local-code">audit.db</span>，manual / auto / fine-grained 三种来源分开记账，失败不阻塞主流程。</p>
+          <p class="docs-what">卸载应用不会自动删数据；备份就是把目录拷走。模型推理经过 relay，其余什么都不上云。</p>
+          <p class="docs-where"><b>在哪：</b><span class="local-code">~/Library/Application Support/Lectern</span>（Windows 为 <span class="local-code">%APPDATA%\Lectern</span>）。</p>
+        </article>
+
+        <p class="docs-foot-note">功能在持续补齐，推理档位贯通、跨会话记忆、自动更新都在路上——完整清单见 <a href="roadmap.html">路线图</a>；与同类形态的横向对比见 <a href="why.html">为什么是 Lectern</a>。</p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sub-cta">
+  <div class="wrap">
+    <h2 class="reveal">看完功能，跑一个会话试试。</h2>
+    <p class="sec-desc reveal">下载即用，数据归你。五分钟进入第一个会话。</p>
+    <div class="cta-actions reveal" data-delay="1">
+      <a class="btn btn-outline" href="index.html#download">返回下载 <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-left">zmzai.cloud · 知末智云 · 知其末梢，智在云端</div>
+    <div class="foot-links">
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.4.3" target="_blank" rel="noopener">v0.4.3</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/theme.js"></script>
+<script>
+/* 回卷演示：拖动时间轴 = 把会话截断到游标处，越过游标的轮次划掉 */
+(function () {
+  var ids = ['st1', 'st2', 'st3', 'st4'];
+  var steps = ids.map(function (id) { return document.getElementById(id); });
+  var AT = [24, 46, 68, 90];
+  var track = document.getElementById('demoTrack');
+  var fill = document.getElementById('demoFill');
+  var head = document.getElementById('demoHead');
+  var pp = document.getElementById('demoPp');
+  var ppIcon = document.getElementById('demoPpIcon');
+  var clock = document.getElementById('demoClock');
+  var state = document.getElementById('demoState');
+  var stateText = document.getElementById('demoStateText');
+  var T = 0, peak = 0, playing = true, dragging = false, last = null;
+  var DUR = 6000;
+  function clamp01(x) { return x < 0 ? 0 : (x > 1 ? 1 : x); }
+  function render(t) {
+    if (t > peak) peak = t;
+    for (var i = 0; i < steps.length; i++) {
+      var reached = peak >= AT[i];
+      var on = t >= AT[i];
+      steps[i].classList.toggle('on', reached && on);
+      steps[i].classList.toggle('st-cut', reached && !on);
+      steps[i].style.display = reached ? '' : 'none';
+    }
+    fill.style.width = t + '%';
+    head.style.left = t + '%';
+    var sec = Math.round(t / 100 * 6);
+    clock.textContent = '00:0' + sec + ' / 00:06';
+    var rewound = dragging || (!playing && t < 100);
+    state.classList.toggle('rewound', rewound);
+    stateText.textContent = rewound ? 'rewound' : 'running';
+  }
+  function frame(ts) {
+    if (last === null) last = ts;
+    var dt = ts - last; last = ts;
+    if (playing && !dragging) {
+      T += dt / DUR * 100;
+      if (T >= 100) { T = 100; playing = false; }
+    }
+    render(T);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  pp.addEventListener('click', function () {
+    playing = !playing;
+    if (playing && T >= 100) { T = 0; peak = 0; }
+    ppIcon.innerHTML = playing
+      ? '<rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/>'
+      : '<path d="M2 1 L9 5 L2 9 Z"/>';
+    render(T);
+  });
+  function trackT(e) {
+    var r = track.getBoundingClientRect();
+    var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    return clamp01(x / r.width) * 100;
+  }
+  function down(e) { dragging = true; playing = false; T = trackT(e); render(T); e.preventDefault(); }
+  function move(e) { if (dragging) { T = trackT(e); render(T); } }
+  function up() { if (dragging) { dragging = false; render(T); } }
+  track.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+  track.addEventListener('touchstart', down, { passive: false });
+  window.addEventListener('touchmove', move);
+  window.addEventListener('touchend', up);
+})();
+</script>
+</body>
+</html>
