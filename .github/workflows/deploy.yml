@@ -2,8 +2,10 @@ name: deploy
 
 # Lectern 落地页：纯静态站点，push main 即 scp 到香港服务器 /var/www/lectern。
 # Caddy 静态托管，传完即生效，无需 reload。
-# 首次使用：仓库 Settings → Secrets → 配 HK_DEPLOY_KEY（能登 root@149.88.84.189 的
-# ed25519 私钥，可与 relay 仓库用同一把）。未配置时部署步骤自动跳过并告警，不红。
+# 首次使用：仓库 Settings → Secrets and variables → Actions → New repository secret
+# 名称 LECTERN_DEPLOY_KEY，值为专用部署钥匙的 ed25519 私钥（与 relay 的
+# HK_DEPLOY_KEY 不是同一把：那把受限在 receive-deploy.sh，只服务 pm2 应用）。
+# 未配置时部署步骤自动跳过并告警，不红。
 
 "on":
   push:
@@ -30,13 +32,13 @@ jobs:
       - name: 准备部署密钥
         id: key
         run: |
-          if [ -z "${{ secrets.HK_DEPLOY_KEY }}" ]; then
+          if [ -z "${{ secrets.LECTERN_DEPLOY_KEY }}" ]; then
             echo "ready=no" >> "$GITHUB_OUTPUT"
-            echo "::warning::未配置 secrets.HK_DEPLOY_KEY，跳过部署（只跑校验）"
+            echo "::warning::未配置 secrets.LECTERN_DEPLOY_KEY，跳过部署（只跑校验）"
             exit 0
           fi
           mkdir -p ~/.ssh
-          printf '%s\n' "${{ secrets.HK_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.LECTERN_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$HK_HOST" >> ~/.ssh/known_hosts
           echo "ready=yes" >> "$GITHUB_OUTPUT"
