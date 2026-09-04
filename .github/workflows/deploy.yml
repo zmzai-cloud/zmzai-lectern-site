@@ -44,26 +44,16 @@ jobs:
       - name: 污染自检（data-page-node-id 残留）
         run: ./scripts/guard-pollution.sh --check
 
-      # 拆成三步（预检 / 备份 / 上传）：失败时步骤名直接指向原因，不用翻日志
-      - name: 预检 SSH 连通性
+      # 不用 scp：HK_DEPLOY_KEY 是受限钥匙，authorized_keys 里 command= 指向
+      # 服务器上的 /opt/zmzai/scripts/receive-static.sh（静态站点接收器，
+      # 只放行 html/css/js/png，解包前自动备份）。把 tar 从 stdin 管道灌进去即可。
+      - name: 打包并部署
         if: steps.key.outputs.ready == 'yes'
         run: |
-          ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 \
-            "$HK_USER@$HK_HOST" 'echo preflight-ok; hostname'
-
-      - name: 备份线上版本
-        if: steps.key.outputs.ready == 'yes'
-        run: |
-          TS=$(date -u +%Y%m%d-%H%M%S)
-          ssh -o BatchMode=yes -o ConnectTimeout=15 "$HK_USER@$HK_HOST" \
-            "cd $DEPLOY_PATH && mkdir -p .bak-$TS && cp -p index.html features.html why.html roadmap.html theme.css .bak-$TS/ 2>/dev/null; echo backup-done .bak-$TS"
-
-      - name: 上传文件
-        if: steps.key.outputs.ready == 'yes'
-        run: |
-          scp -o BatchMode=yes -o ConnectTimeout=15 -p \
-            index.html features.html why.html roadmap.html theme.css theme.js \
-            "$HK_USER@$HK_HOST:$DEPLOY_PATH/"
+          tar -czf site.tgz index.html features.html why.html roadmap.html theme.css theme.js
+          ssh -o BatchMode=yes -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 \
+              "$HK_USER@$HK_HOST" < site.tgz
 
       - name: 冒烟
         if: steps.key.outputs.ready == 'yes'
