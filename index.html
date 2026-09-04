@@ -34,8 +34,8 @@
     <div class="wrap hero-grid">
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.4.3 · 历史会话不再凭空消失</div>
-        <h1 class="reveal in" data-delay="1">桌面级 Agent 工作台。</h1>
-        <p class="hero-desc reveal in" data-delay="2">云端推理，本机执行。读你的仓库、执行命令、请求授权、提交变更；会话与审计留在你自己的磁盘上。</p>
+        <h1 class="reveal in" data-delay="1">桌面级<br>Agent 工作台。</h1>
+        <p class="hero-desc reveal in" data-delay="2">云端推理，本机执行。读你的仓库、执行命令、请求授权、提交变更；<b>会话与审计留在你自己的磁盘上</b>。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.4.3/Lectern-0.4.3-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
           <a class="btn btn-outline" href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub 仓库</a>
@@ -43,12 +43,17 @@
         </div>
       </div>
       <div class="workbench-scene reveal in" data-delay="1" aria-label="Lectern 工作台：会话、任务执行、文件变更和测试结果">
-        <div class="workbench-window">
-          <div class="workbench-topbar"><span class="window-lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="workbench-title">lectern · client-reconnect</span><span class="workbench-status"><i></i>running</span></div>
-          <div class="workbench-body">
-            <aside class="wb-sidebar"><div class="wb-brand">LECTERN</div><span class="wb-plus">＋ 新会话</span><span>今天</span><span class="active">连接逻辑重构</span><span>发布前检查</span><span>上周</span><span>设计审阅</span></aside>
-            <div class="wb-conversation"><div class="wb-badge">coding session · 00:18:24</div><div class="wb-message"><div class="wb-person">你</div>重构客户端的重连逻辑，跑通测试后提交。</div><div class="wb-message"><div class="wb-person wb-agent">Agent</div>我会先阅读事件订阅与退避逻辑，再提出最小修改。</div><div class="wb-tool"><b>edit</b>&nbsp;&nbsp;lib/client.ts<br><span>backoff 1s → 15s · 3 failures → offline</span></div><div class="wb-input">继续输入任务…</div></div>
-            <aside class="wb-changes"><h3>CHANGES</h3><span class="change-file"><span class="change-good">+ </span>client.ts</span><span class="change-file"><span class="change-good">+ </span>retry.ts</span><div class="wb-tests">✓ 14 tests passed</div></aside>
+        <div class="wb">
+          <div class="wb-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="wb-title">lectern · client-reconnect</span><span class="wb-status" id="status"><i aria-hidden="true"></i><span id="statusText">running</span></span></div>
+          <div class="wb-body">
+            <aside class="wb-side"><div class="side-brand">LECTERN</div><div class="side-new">＋ 新会话</div><div class="side-cap">今天</div><div class="side-item on">连接逻辑重构</div><div class="side-item">发布前检查</div><div class="side-cap">上周</div><div class="side-item">设计审阅</div></aside>
+            <div class="wb-main"><div class="session-meta">coding session · <span id="clock">00:13:24</span></div><div class="msg msg-user" id="msgUser"></div><div class="msg msg-agent" id="msgAgent"></div><div class="edit-block" id="editBlock"><div><span class="edit-tag">edit</span>&nbsp;<span class="edit-path">lib/client.ts</span></div><div class="edit-diff" id="editDiff"></div></div><div class="composer"><span>继续输入任务…</span><i>⏎</i></div></div>
+            <aside class="wb-changes"><div class="ch-cap">CHANGES</div><div class="ch-item" id="ch1"><span class="plus">+</span>client.ts</div><div class="ch-item" id="ch2"><span class="plus">+</span>retry.ts</div><div class="ch-tests" id="tests"></div></aside>
+          </div>
+          <div class="wb-foot">
+            <button class="pp" id="pp" aria-label="播放 / 暂停"><svg id="ppIcon" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/></svg></button>
+            <div class="track" id="track" role="slider" aria-label="会话时间轴，可拖动回卷"><div class="track-fill" id="fill"></div><i class="tick" style="left:16%"></i><i class="tick" style="left:40%"></i><i class="tick" style="left:66%"></i><div class="head" id="head"></div></div>
+            <span class="tclock" id="tclock">00:00 / 00:09</span>
           </div>
         </div>
         <div class="scene-orbit" aria-hidden="true"></div>
@@ -57,7 +62,7 @@
     <div class="hero-runline" aria-hidden="true"><span><i></i><b>LOCAL EXECUTION</b></span><span>READ</span><span>EDIT</span><span>AUTHORIZE</span><span>DIFF</span><span>COMMIT</span></div>
   </div>
 </header>
-<section id="features">
+<section id="features" class="band-dark">
   <div class="wrap">
     <div class="sec-eyebrow reveal">What it does</div>
     <h2 class="reveal" data-delay="1">为长会话而建的工作台。</h2>
@@ -130,7 +135,7 @@
     </div>
   </div>
 </section>
-<section id="download">
+<section id="download" class="band-dark">
   <div class="wrap">
     <div class="sec-eyebrow reveal">Download</div>
     <h2 class="reveal" data-delay="1">v0.4.3 · 打开就是你的那台机器。</h2>
@@ -207,7 +212,7 @@
     </div>
   </div>
 </section>
-<section class="cta">
+<section class="cta band-dark">
   <div class="wrap cta-block reveal">
     <h2>下载即用，数据归你。</h2>
     <p class="sec-desc">macOS 与 Windows 双平台，本地运行，数据归你。下载即用，五分钟进入第一个会话。</p>
@@ -231,6 +236,112 @@
   </div>
 </footer>
 
+<script>
+/* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
+(function () {
+  var T = 0, playing = true, dragging = false, last = null, holdUntil = 0;
+  var DUR = 9000;
+  var msgUser = document.getElementById('msgUser');
+  var msgAgent = document.getElementById('msgAgent');
+  var editBlock = document.getElementById('editBlock');
+  var editDiff = document.getElementById('editDiff');
+  var ch1 = document.getElementById('ch1');
+  var ch2 = document.getElementById('ch2');
+  var tests = document.getElementById('tests');
+  var statusEl = document.getElementById('status');
+  var statusText = document.getElementById('statusText');
+  var clock = document.getElementById('clock');
+  var fill = document.getElementById('fill');
+  var head = document.getElementById('head');
+  var track = document.getElementById('track');
+  var pp = document.getElementById('pp');
+  var ppIcon = document.getElementById('ppIcon');
+  var tclock = document.getElementById('tclock');
+  var USER = '重构客户端的重连逻辑，跑通测试后提交。';
+  var AGENT_PREFIX = '<b>Agent</b> ';
+  var AGENT_BODY = '我会先阅读事件订阅与退避逻辑，再提出最小修改。';
+  var DIFF = 'backoff 1s → 15s · 3 failures → offline';
+  function clamp01(x) { return x < 0 ? 0 : (x > 1 ? 1 : x); }
+  function seg(t, a, b) { return clamp01((t - a) / (b - a)); }
+  function typed(el, text, t, a, b) {
+    var n = Math.round(seg(t, a, b) * text.length);
+    if (n <= 0) { el.textContent = ''; return false; }
+    var done = n >= text.length;
+    el.textContent = text.slice(0, n) + (done ? '' : '▌');
+    return true;
+  }
+  function appear(el, t, a, b) {
+    var p = seg(t, a, b);
+    el.style.opacity = p;
+    el.style.transform = 'translateY(' + ((1 - p) * 8).toFixed(1) + 'px)';
+    return p > 0.01;
+  }
+  function render(t) {
+    var showUser = typed(msgUser, USER, t, 2, 14);
+    msgUser.style.opacity = showUser ? 1 : 0;
+    var showAgent = false;
+    if (t >= 18) {
+      var n = Math.round(seg(t, 18, 36) * AGENT_BODY.length);
+      msgAgent.innerHTML = AGENT_PREFIX + AGENT_BODY.slice(0, n) + (n < AGENT_BODY.length ? '▌' : '');
+      showAgent = true;
+    }
+    msgAgent.style.opacity = showAgent ? 1 : 0;
+    var showEdit = appear(editBlock, t, 40, 44);
+    if (showEdit) {
+      var dn = Math.round(seg(t, 44, 52) * DIFF.length);
+      editDiff.textContent = DIFF.slice(0, dn) + (dn < DIFF.length && dn > 0 ? '▌' : '');
+    }
+    appear(ch1, t, 56, 59);
+    appear(ch2, t, 61, 64);
+    var tn = Math.floor(seg(t, 66, 84) * 14 + 0.0001);
+    tests.textContent = tn > 0 ? '✓ ' + tn + ' tests passed' : '';
+    var total = 13 * 60 + 24 + Math.round(t / 100 * 9);
+    var mm = Math.floor(total / 60), ss = total % 60;
+    clock.textContent = '00:' + (mm < 10 ? '0' + mm : mm) + ':' + (ss < 10 ? '0' + ss : ss);
+    fill.style.width = t + '%';
+    head.style.left = t + '%';
+    var sec = Math.round(t / 100 * 9);
+    tclock.textContent = '00:0' + sec + ' / 00:09';
+  }
+  function setStatus(mode) {
+    if (mode === 'rewound') { statusEl.classList.add('rewound'); statusText.textContent = 'rewound'; }
+    else { statusEl.classList.remove('rewound'); statusText.textContent = 'running'; }
+  }
+  function frame(ts) {
+    if (last === null) last = ts;
+    var dt = ts - last; last = ts;
+    if (playing && !dragging) {
+      if (holdUntil > 0) { if (ts >= holdUntil) { holdUntil = 0; T = 0; } }
+      else { T += dt / DUR * 100; if (T >= 100) { T = 100; holdUntil = ts + 2600; } }
+      if (T < 100) setStatus('running');
+    }
+    render(T);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  pp.addEventListener('click', function () {
+    playing = !playing;
+    ppIcon.innerHTML = playing
+      ? '<rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/>'
+      : '<path d="M2 1 L9 5 L2 9 Z"/>';
+    if (playing && T >= 100) { T = 0; holdUntil = 0; }
+  });
+  function trackT(e) {
+    var r = track.getBoundingClientRect();
+    var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    return clamp01(x / r.width) * 100;
+  }
+  function down(e) { dragging = true; setStatus('rewound'); T = trackT(e); render(T); e.preventDefault(); }
+  function move(e) { if (dragging) { T = trackT(e); render(T); } }
+  function up() { if (dragging) { dragging = false; setStatus('running'); } }
+  track.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+  track.addEventListener('touchstart', down, { passive: false });
+  window.addEventListener('touchmove', move);
+  window.addEventListener('touchend', up);
+})();
+</script>
 <script src="/theme.js"></script>
 </body>
 </html>
