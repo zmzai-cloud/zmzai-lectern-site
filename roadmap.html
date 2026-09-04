@@ -34,6 +34,23 @@
     <div class="sec-eyebrow reveal in">Roadmap</div>
     <h1 class="reveal in" data-delay="1">接下来往哪走。</h1>
     <p class="sec-desc reveal in" data-delay="2">方向收敛、节奏保守——每一项都先解决真实使用里绊脚的事，再谈宏大叙事。</p>
+    <div class="page-timeline reveal" data-delay="3" aria-label="路线进度缩略">
+      <div class="ptl-track">
+        <span class="ptl-num ptl-now" style="--i:1">01</span>
+        <span class="ptl-num ptl-now" style="--i:2">02</span>
+        <span class="ptl-num ptl-now" style="--i:3">03</span>
+        <span class="ptl-num" style="--i:4">04</span>
+        <span class="ptl-num" style="--i:5">05</span>
+        <span class="ptl-num" style="--i:6">06</span>
+        <span class="ptl-num" style="--i:7">07</span>
+        <span class="ptl-num" style="--i:8">08</span>
+        <span class="ptl-num" style="--i:9">09</span>
+      </div>
+      <div class="ptl-meta">
+        <span class="ptl-bar"><i style="width:33%"></i></span>
+        <span class="ptl-text"><b>3 / 9</b> 正在做 · v0.4.3 → v0.5.0</span>
+      </div>
+    </div>
   </div>
 </header>
 <section id="roadmap">
@@ -41,34 +58,38 @@
     
     <div class="rm-grid reveal" data-delay="2">
       <div class="rm-col">
-        <div class="rm-flag">NOW · 正在做</div>
+        <div class="rm-flag"><span class="rm-flag-tag">NOW · 正在做</span><span class="rm-flag-num">03 / 03</span></div>
         <h3>把能力接回地面</h3>
         <p>内核已铺好的路，逐段铺到界面与真实链路。</p>
         <ul class="rm-items">
-          <li><b>推理档位贯通</b><small>模型目录已返回 allowedReasoningEfforts，provider 层接入并下发，不再对所有模型一视同仁</small></li>
-          <li><b>故障转移可视化</b><small>备用模型端点从环境变量搬进设置页，断流切换人可感知、可配置</small></li>
-          <li><b>Windows 真机冒烟</b><small>node-pty 终端、SmartScreen 流程在真实 Windows 上过一遍，而不只是交叉构建</small></li>
+          <li><b>推理档位贯通</b><small>模型目录已返回 allowedReasoningEfforts，provider 层接入并下发，不再对所有模型一视同仁</small><i class="rm-li-bar"><i style="width:65%"></i></i></li>
+          <li><b>故障转移可视化</b><small>备用模型端点从环境变量搬进设置页，断流切换人可感知、可配置</small><i class="rm-li-bar"><i style="width:40%"></i></i></li>
+          <li><b>Windows 真机冒烟</b><small>node-pty 终端、SmartScreen 流程在真实 Windows 上过一遍，而不只是交叉构建</small><i class="rm-li-bar"><i style="width:25%"></i></i></li>
         </ul>
       </div>
       <div class="rm-col">
-        <div class="rm-flag">NEXT · 接下来</div>
+        <div class="rm-flag"><span class="rm-flag-tag">NEXT · 接下来</span><span class="rm-flag-num">03 / 03</span></div>
         <h3>把它养成长期伙伴</h3>
         <p>会话不是用完即弃的草稿，是可以回去翻的资产。</p>
         <ul class="rm-items">
-          <li><b>跨会话记忆</b><small>与 Tome 打通：长期偏好、项目约定沉淀进工作区记忆，新会话开局即知情</small></li>
-          <li><b>自动更新</b><small>latest.yml 已在发布产物里，桌面端接入自动检查与静默升级，不再手动换包</small></li>
-          <li><b>离线可用收窄</b><small>会话编辑、审阅、命令面板完全离线可用；本地模型（Ollama）作后备推理源</small></li>
+          <li><b>跨会话记忆</b><small>与 Tome 打通：长期偏好、项目约定沉淀进工作区记忆，新会话开局即知情</small><i class="rm-li-bar"><i style="width:0%"></i></i></li>
+          <li><b>自动更新</b><small>latest.yml 已在发布产物里，桌面端接入自动检查与静默升级，不再手动换包</small><i class="rm-li-bar"><i style="width:0%"></i></i></li>
+          <li><b>离线可用收窄</b><small>会话编辑、审阅、命令面板完全离线可用；本地模型（Ollama）作后备推理源</small><i class="rm-li-bar"><i style="width:0%"></i></i></li>
         </ul>
       </div>
       <div class="rm-col">
-        <div class="rm-flag">LATER · 更远</div>
+        <div class="rm-flag"><span class="rm-flag-tag">LATER · 更远</span><span class="rm-flag-num">03 / 03</span></div>
         <h3>让 loop 更省心</h3>
         <p>更长的自主、更少的人工照看，仍守住「你说了算」的底线。</p>
         <ul class="rm-items">
-          <li><b>长期运行会话</b><small>watchdog + 恢复机制成熟后，任务可跨天执行、随时回来接管，全程可审计</small></li>
-          <li><b>生态协作桌面化</b><small>与 Plate 沙箱、Quill 团队工作台同链：本地执行 + 团队共享同一套会话格式</small></li>
-          <li><b>对外发布收尾</b><small>Developer ID + 公证，去 Gatekeeper 拦路——这是公开分发给世界的最后一道工事</small></li>
+          <li><b>长期运行会话</b><small>watchdog + 恢复机制成熟后，任务可跨天执行、随时回来接管，全程可审计</small><i class="rm-li-bar"><i style="width:0%"></i></i></li>
+          <li><b>生态协作桌面化</b><small>与 Plate 沙箱、Quill 团队工作台同链：本地执行 + 团队共享同一套会话格式</small><i class="rm-li-bar"><i style="width:0%"></i></i></li>
+          <li><b>对外发布收尾</b><small>Developer ID + 公证，去 Gatekeeper 拦路——这是公开分发给世界的最后一道工事</small><i class="rm-li-bar"><i style="width:0%"></i></i></li>
         </ul>
+      </div>
+      <div class="rm-grid-foot">
+        <span><b>9</b> 项 · 其中 <b>3</b> 进行中 · <b>0</b> 已发布</span>
+        <span class="rm-foot-meta">v0.4.3 · 2026-09</span>
       </div>
     </div>
   </div>
@@ -79,31 +100,37 @@
     <h2 class="reveal" data-delay="1">常见问题。</h2>
     <div class="faq-list reveal" data-delay="2">
       <details class="faq">
-        <summary class="faq-q">macOS 提示「无法打开 Lectern」？</summary>
+        <span class="faq-cat">安装</span><summary class="faq-q">macOS 提示「无法打开 Lectern」？</summary>
         <div class="faq-a">
           安装包是 ad-hoc 签名（未做开发者签名与公证），Gatekeeper 首次会拦截。<b>右键点「Lectern.app」→「打开」→ 确认</b>即可，仅此一次；仍被拦截时再在终端执行
           <code>xattr -cr "/Applications/Lectern.app"</code>。
         </div>
       </details>
       <details class="faq">
-        <summary class="faq-q">Windows 弹出「Windows 已保护你的电脑」？</summary>
+        <span class="faq-cat">安装</span><summary class="faq-q">Windows 弹出「Windows 已保护你的电脑」？</summary>
         <div class="faq-a">
           同样因为未做代码签名，SmartScreen 首次会提示。点「更多信息」→「仍要运行」即可。安装器支持自定义安装目录与桌面快捷方式，zip 版解压即用、免安装。
         </div>
       </details>
       <details class="faq">
-        <summary class="faq-q">数据存在哪里？</summary>
+        <span class="faq-cat">数据</span><summary class="faq-q">数据存在哪里？</summary>
         <div class="faq-a">
           全部在你的磁盘上：会话库 <code>~/Library/Application Support/Lectern</code>（Windows 为 <code>%APPDATA%\Lectern</code>），审计库独立落盘为 <code>audit.db</code>。卸载应用不自动删除数据，需要手动清理。
         </div>
       </details>
       <details class="faq">
-        <summary class="faq-q">以后怎么升级？</summary>
+        <span class="faq-cat">更新</span><summary class="faq-q">以后怎么升级？</summary>
         <div class="faq-a">
           下载新版安装包覆盖安装即可升级，会话与配置都会保留；GitHub Release 与本站会第一时间同步最新版本。
         </div>
       </details>
     </div>
+  </div>
+    <aside class="faq-side reveal">
+      <p class="faq-side-q">还在犹豫？</p>
+      <p class="faq-side-text">安装与运行环境是 FAQ 高频区。先在这里看完，下载后基本不再有坑。</p>
+      <a class="faq-side-link" href="index.html#download">跳过 FAQ，直接下载 <span class="arrow">→</span></a>
+    </aside>
   </div>
 </section>
 <section class="sub-cta">
