@@ -122,11 +122,12 @@
 
         <article class="docs-item" id="f-worktree">
           <div class="docs-no">04</div>
-          <h2>worktree 隔离</h2>
-          <div class="docs-tag">git worktree · sandbox</div>
-          <p class="docs-what">新会话可以跑在当前仓库的 git worktree 副本里：agent 的所有改动落在隔离分支，合并回主工作区之前，先审、再合；不要就整枝丢弃。</p>
-          <p class="docs-what">试错和正式改动从此是两棵树——放心让它大改，主分支始终干净。</p>
-          <p class="docs-where"><b>在哪：</b>新建会话时勾选「worktree 隔离」，合并入口在会话的变更看板。</p>
+          <h2>任务隔离工作区</h2>
+          <div class="docs-tag">git worktree · full lifecycle · v0.10</div>
+          <p class="docs-what">新会话可以跑在当前仓库的 git worktree 副本里：agent 的所有改动落在隔离分支，主工作区一行不脏。0.10 把它补成完整生命周期——创建先登记再动 Git（失败不静默降级）、目标分支创建时就固定（整合不再跟随主目录当前分支）、每一步查返回码。</p>
+          <p class="docs-what">整合是一道关卡：先核对目标分支没被别人推进（CAS 比对，不符就拒绝），再在受管临时区做合并——冲突会保留现场与冲突清单，修完重试；合并提交、推进目标、验证结果每步落 integration journal，中途断了能接着走、不重复合并。整合完工作区保留，会话继续指向它，不悄悄切回主目录。</p>
+          <p class="docs-what">审查有锚点：进入审查时生成内容指纹（已提交、未提交、untracked 全覆盖），验证证据绑定这份快照——审查之后谁再动过源码，旧证据一眼判定失效。</p>
+          <p class="docs-where"><b>在哪：</b>新建会话时勾选「worktree 隔离」；整合与丢弃入口在会话的变更看板。</p>
         </article>
 
         <article class="docs-item" id="f-permission">
@@ -195,6 +196,26 @@
           <p class="docs-what">全部数据在你的磁盘上：会话落在单文件 SQLite（<span class="local-code">zmzai.db</span>），每一次文件写入与命令执行单独记入 <span class="local-code">audit.db</span>，manual / auto / fine-grained 三种来源分开记账，失败不阻塞主流程。</p>
           <p class="docs-what">卸载应用不会自动删数据；备份就是把目录拷走。模型推理经过 relay，其余什么都不上云。</p>
           <p class="docs-where"><b>在哪：</b><span class="local-code">~/Library/Application Support/Lectern</span>（Windows 为 <span class="local-code">%APPDATA%\Lectern</span>）。</p>
+        </article>
+
+        <article class="docs-item" id="f-browser-qa">
+          <div class="docs-no">11</div>
+          <h2>真浏览器验证</h2>
+          <div class="docs-tag">built-in chromium · evidence · v0.10</div>
+          <p class="docs-what">改了 Web 项目的交付，验收由应用内置的 Chromium 真跑一遍：加载路由、点按钮、填输入、断言 DOM——HTTP 200、有一张截图、没报 console 错，任何单项都不能单独算「通过」，功能断言说了算。</p>
+          <p class="docs-what">证据分项可追溯：每个视口（桌面/移动等多档）每一步独立记录通过/失败，console 报错、资源加载失败、失败现场截图全部留痕。required 断言不过不放行；首次失败在同根预算内自动修复一次，第二次失败停手交还给你。</p>
+          <p class="docs-what">验证前后核对代码指纹——验证后你改了一行代码，旧证据即作废，重新验证才可接受。</p>
+          <p class="docs-where"><b>在哪：</b>交付面板的「浏览器验证」区（项目需在 <span class="local-code">.lectern/workspace.json</span> 声明 devServer）。</p>
+        </article>
+
+        <article class="docs-item" id="f-computer-use">
+          <div class="docs-no">12</div>
+          <h2>桌面控制</h2>
+          <div class="docs-tag">macos · accessibility · v0.10</div>
+          <p class="docs-what">原生应用、系统对话框这类没有 API 的界面，agent 通过 macOS 辅助功能做结构化操作——按名称点按钮、读静态文本、走菜单项，不是截图猜坐标。当前仅 macOS（Windows 显示为不可用，不假报）。</p>
+          <p class="docs-what">安全机制是硬的：动作前必须观察、动作后核对效果；观察 5 秒过期，陈旧点击直接拒绝；全桌面同一时刻只有一个控制者；⌘⇧⌫ 一键紧急停止，排队动作全部作废。密码、验证码永远由你输入，凭据不进模型上下文。</p>
+          <p class="docs-what">每次动作脱敏记入交付证据——它动了哪个控件、结果如何，事后可查。</p>
+          <p class="docs-where"><b>在哪：</b>需要时 agent 请求桌面控制；顶部出现常驻控制条（显示正在控制的应用与停止入口）。首次使用需在系统设置授予「辅助功能」与「屏幕录制」权限。</p>
         </article>
 
         <p class="docs-foot-note">功能在持续补齐，推理档位贯通、跨会话记忆、自动更新都在路上——完整清单见 <a href="roadmap.html">路线图</a>；与同类形态的横向对比见 <a href="why.html">为什么是 Lectern</a>。</p>

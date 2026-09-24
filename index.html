@@ -35,8 +35,8 @@
     <div class="wrap hero-grid">
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.10.1 · 隔离工作区 · 浏览器验证 · 桌面控制</div>
-        <h1 class="reveal in" data-delay="1">桌面级<br>Agent 工作台。</h1>
-        <p class="hero-desc reveal in" data-delay="2">云端推理，本机执行。读你的仓库、执行命令、请求授权、提交变更；<b>会话与审计留在你自己的磁盘上</b>。</p>
+        <h1 class="reveal in" data-delay="1">桌面级 Agent 工作台。</h1>
+        <p class="hero-desc reveal in" data-delay="2">云端推理，本机执行。读你的仓库、执行命令、请求授权、提交变更；会话与审计留在你自己的磁盘上。v0.10 起，每个任务有<b>隔离工作区</b>，交付过<b>真浏览器验证</b>，macOS 上还能<b>接管桌面</b>。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.10.1/Lectern-0.10.1-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
           <a class="btn btn-outline" href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub 仓库</a>
@@ -63,11 +63,70 @@
     <div class="hero-runline" aria-hidden="true"><span><i></i><b>LOCAL EXECUTION</b></span><span>READ</span><span>EDIT</span><span>AUTHORIZE</span><span>DIFF</span><span>COMMIT</span></div>
   </div>
 </header>
-<section id="features" class="band-dark">
+<section id="v10" class="band-dark">
   <div class="wrap">
-    <div class="sec-eyebrow reveal">What it does</div>
-    <h2 class="reveal" data-delay="1">为长会话而建的工作台。</h2>
-    <p class="sec-desc reveal" data-delay="2">v0.4.0 把执行过程摊开给你看，v0.4.1 补上被忽略的信号，v0.4.2 补上被忽略的现场。v0.4.3 收掉一处会让历史会话凭空消失的隐患：桌面版与源码运行从此读写同一份数据，老用户原有的会话与密钥原地沿用，不做任何搬迁。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
+    <div class="arsenal-head">
+      <div class="sec-eyebrow reveal">0.10 · 本版三件新武器</div>
+      <h2 class="reveal" data-delay="1">Agent 说「做完了」，<em>凭什么信？</em></h2>
+      <p class="sec-desc reveal" data-delay="2">这一版把「交付」拆成三道关卡：任务在<b>隔离工作区</b>里干，成果过<b>真浏览器验证</b>，干不了的桌面操作由它请求、你放行——每一道都有证据落盘，不是一句口头「完成」。</p>
+    </div>
+    <div class="arsenal-list">
+      <div class="arsenal-row reveal">
+        <div class="arsenal-id"><span class="no">壹</span><span class="cap">Isolation</span></div>
+        <div class="arsenal-main">
+          <h3>任务隔离工作区</h3>
+          <div class="sub">git worktree · per task</div>
+          <p>每个任务一台独立 git worktree：agent 随便大改，<b>主工作区一行不脏</b>。审过才整合，不要就整枝丢弃。</p>
+        </div>
+        <ul class="arsenal-mech">
+          <li><b>整合走 CAS 比对</b>——目标分支被别人推进过就拒绝合，绝不覆盖</li>
+          <li>受管临时区合并，冲突保留现场与清单，修完重试</li>
+          <li>每一步落 integration journal，中途断了接着走、不重复合并</li>
+          <li>审查快照=内容指纹，看完再改一眼就能发现「证据过期」</li>
+        </ul>
+      </div>
+      <div class="arsenal-row reveal">
+        <div class="arsenal-id"><span class="no">贰</span><span class="cap">Verification</span></div>
+        <div class="arsenal-main">
+          <h3>真浏览器验证</h3>
+          <div class="sub">built-in chromium · evidence</div>
+          <p>验收不是「模型说测试过了」——应用内置的 Chromium <b>真的把页面跑一遍</b>，断言过了才算交付。</p>
+        </div>
+        <ul class="arsenal-mech">
+          <li>required 断言失败不放行：HTTP 200、有截图都不算数，功能断言说了算</li>
+          <li>多视口分项证据——桌面过了移动端挂了，一眼定位到哪一格</li>
+          <li>console 报错、资源失败、失败现场截图全部留痕可回看</li>
+          <li>验证后你改了一行代码，旧证据即作废；首败自动修复一次，二次停手</li>
+        </ul>
+      </div>
+      <div class="arsenal-row reveal">
+        <div class="arsenal-id"><span class="no">叁</span><span class="cap">Computer Use</span></div>
+        <div class="arsenal-main">
+          <h3>桌面控制</h3>
+          <div class="sub">macos · accessibility</div>
+          <p>原生应用、系统对话框这种没有 API 的界面，agent 走 macOS 辅助功能<b>结构化操作</b>——点的是按钮本身，不是截图猜坐标。</p>
+        </div>
+        <ul class="arsenal-mech">
+          <li>动作前观察、动作后核对效果；观察 5 秒过期，陈旧点击直接拒绝</li>
+          <li>全桌面同一时刻只有一个控制者，排队不抢你的键盘鼠标</li>
+          <li>⌘⇧⌫ 一键紧急停止，排队中的动作全部作废</li>
+          <li>密码、验证码永远由你输入；每次动作脱敏记入交付证据</li>
+        </ul>
+      </div>
+    </div>
+    <div class="arsenal-foot reveal">
+      <span>W1 · 任务 worktree 全生命周期</span>
+      <span>V1 · 浏览器验证与交付证据</span>
+      <span>C1 · macOS computer use</span>
+    </div>
+  </div>
+</section>
+<section id="features" class="band-dark">
+
+  <div class="wrap">
+    <div class="sec-eyebrow reveal">Foundation</div>
+    <h2 class="reveal" data-delay="1">新武器脚下的底座。</h2>
+    <p class="sec-desc reveal" data-delay="2">三道关卡之下，是长期打磨的工作台基本面：执行过程全程可见、断线可续、会话可回卷、每次写盘与命令都有审计。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
     <div class="features reveal" data-delay="2">
       <div class="feature-row">
         <div class="feature-no">01</div>
@@ -171,7 +230,7 @@
       </div>
     </div>
     <p class="dl-note reveal" data-delay="2">
-      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。v0.10.1 修掉一处会让交付物「打不开」的问题：Agent 交付的 PDF 过去被判成文本，点开是一屏源码；现在按内容识别二进制，PDF 与图片直接进成果预览渲染，文件页给的是占位而不是字节。0.6.0 落下的三条主线不变：界面改为以对话为中心；会话可附 PDF / DOCX / XLSX / PPTX，回答里带得出处；任务改为可交付的持续执行——结束不再由「模型说完了」判定，而要模型显式提交一份交付声明（摘要、改动、验证、剩余项），界面上的验收与证据计数读的就是它。更新后会话与设置保留。
+      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。v0.10 的三件新武器——任务隔离工作区、真浏览器验证、macOS 桌面控制——完整设计文档与验收记录见仓库 docs/；567 项自动化测试与真实浏览器 e2e 全绿。更新后会话与设置保留。
     </p>
   </div>
 </section>
