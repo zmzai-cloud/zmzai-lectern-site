@@ -401,8 +401,21 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 .band-dark.hero-stage .scene-orbit { border-color: oklch(.7 .26 350 / .2); }
 .band-dark.hero-stage .scene-orbit::before { border-color: oklch(.7 .26 350 / .12); }
 .band-dark.hero-stage .scene-orbit::after { border-color: oklch(.7 .26 350 / .08); }
-/* hero 与 v10 同为墨底，加一道发丝线维持段落节奏 */
-#v10.band-dark { border-top: 1px solid var(--color-dark-line); }
+
+/* ═══ v10 武器区翻白：墨底开场之后立刻撞上白底，恢复全站白/墨交替 ═══
+   arsenal 系列样式统一引用 --color-dark-ink/line，这里局部重映射即可整块翻转 */
+#v10 {
+  --color-dark-ink: var(--color-ink);
+  --color-dark-line: var(--color-line);
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+/* 品红 em 在白底改为「黑字 + 品红马克笔高亮」：撞色更强且对比无虞 */
+#v10 .arsenal-head h2 em {
+  color: var(--color-ink);
+  background: linear-gradient(to top, oklch(0.7 0.26 350 / .32) 0 24%, transparent 24%);
+  padding: 0 .06em;
+}
 /* ── 执行脉冲电路：READ→EDIT→AUTHORIZE→DIFF→COMMIT，一颗品红脉冲沿线跑，
       逐站点亮（loop 即产品，Brand Expression；只动 transform/opacity）── */
 .run-circuit {
