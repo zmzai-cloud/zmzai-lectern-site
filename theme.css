@@ -322,14 +322,14 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 .ch-item .plus { color: var(--color-live); }
 .ch-tests { margin-top: 12px; padding-top: 12px; border-top: 1px solid oklch(1 0 0 / .09); color: var(--color-live); font-size: 10.5px; }
 .wb-foot { display: flex; align-items: center; gap: 12px; padding: 10px 15px; border-top: 1px solid oklch(1 0 0 / .09); background: oklch(.165 .008 265); }
-.pp { flex: none; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; border: 1px solid oklch(1 0 0 / .15); border-radius: 6px; background: transparent; cursor: pointer; padding: 0; }
+.pp { flex: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid oklch(1 0 0 / .15); border-radius: 6px; background: transparent; cursor: pointer; padding: 0; }
 .pp svg { width: 10px; height: 10px; fill: oklch(.70 .01 265); }
 .pp:hover svg { fill: oklch(.92 .004 265); }
-.track { position: relative; flex: 1; height: 22px; cursor: ew-resize; touch-action: none; }
-.track::before { content: ""; position: absolute; left: 0; right: 0; top: 9px; height: 3px; border-radius: 2px; background: oklch(1 0 0 / .10); }
-.track-fill { position: absolute; left: 0; top: 9px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, oklch(.700 .260 350 / .55), var(--color-spot)); width: 0%; }
-.head { position: absolute; top: 4px; left: 0%; width: 13px; height: 13px; border-radius: 50%; background: oklch(1 0 0); border: 2px solid var(--color-spot); transform: translateX(-50%); box-shadow: 0 1px 4px oklch(0 0 0 / .5); }
-.tick { position: absolute; top: 7px; width: 1px; height: 7px; background: oklch(1 0 0 / .16); }
+.track { position: relative; flex: 1; min-width: 0; height: 44px; cursor: ew-resize; touch-action: none; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 20px; height: 3px; border-radius: 2px; background: oklch(1 0 0 / .10); }
+.track-fill { position: absolute; left: 0; top: 20px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, oklch(.700 .260 350 / .55), var(--color-spot)); width: 0%; }
+.head { position: absolute; top: 15px; left: 0%; width: 13px; height: 13px; border-radius: 50%; background: oklch(1 0 0); border: 2px solid var(--color-spot); transform: translateX(-50%); box-shadow: 0 1px 4px oklch(0 0 0 / .5); }
+.tick { position: absolute; top: 18px; width: 1px; height: 7px; background: oklch(1 0 0 / .16); }
 .tclock { flex: none; color: oklch(.56 .01 265); font: 9.5px/1 var(--font-mono); letter-spacing: .04em; }
 .scene-orbit { position: absolute; width: 340px; height: 340px; right: -90px; bottom: -100px; border: 1px solid oklch(.7 .26 350 / .28); border-radius: 50%; z-index: -1; }.scene-orbit::before,.scene-orbit::after { content: ""; position: absolute; border: 1px solid oklch(.7 .26 350 / .17); border-radius: 50%; inset: 29px; }.scene-orbit::after { inset: 72px; }
 .hero-runline { position: absolute; z-index: 2; right: max(28px, calc((100vw - 1040px) / 2 + 28px)); bottom: 22px; display: flex; gap: 20px; color: oklch(.62 .012 265); font: 10px var(--font-mono); letter-spacing: .08em; }.hero-runline b { color: oklch(.85 .005 265); font-weight: 500; }.hero-runline i { display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: var(--color-live); }
@@ -518,8 +518,9 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 }
 summary.faq-q { align-items: flex-start; }
 #faq .wrap { position: relative; }
+#faq .faq-list { width: calc(100% - 252px); }
 .faq-side {
-  position: absolute; right: 0; top: 0; width: 220px;
+  position: absolute; right: 28px; top: 0; width: 220px;
   padding: 16px 18px; border: 1px solid var(--color-line);
   border-radius: var(--radius-lg); background: var(--color-surface-2);
 }
@@ -531,7 +532,10 @@ summary.faq-q { align-items: flex-start; }
   border-bottom: 1px solid var(--color-line-strong); padding-bottom: 1px;
 }
 .faq-side-link:hover { color: var(--color-accent); border-color: var(--color-accent); }
-@media (max-width: 900px) { .faq-side { display: none; } }
+@media (max-width: 900px) {
+  .faq-side { display: none; }
+  #faq .faq-list { width: auto; }
+}
 
 @media (max-width: 760px) { .page-head { padding-top: 56px; } }
 
@@ -708,3 +712,6 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   .arsenal-list .reveal { transition: none; }
 }
+
+.pp:focus-visible, .track:focus-visible { outline: 2px solid var(--color-spot); outline-offset: 3px; }
+.hero-actions .hero-meta { flex-basis: 100%; }

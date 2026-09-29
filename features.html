@@ -24,7 +24,7 @@
       <a href="index.html#ecosystem">生态</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
-      <a class="nav-cta" href="index.html#download">下载 v0.6.1</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.10.1</a>
     </div>
       <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
   </div>
@@ -34,7 +34,7 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal in">Features</div>
     <h1 class="reveal in" data-delay="1">每一个功能，摊开讲。</h1>
-    <p class="sec-desc reveal in" data-delay="2">首页的特性列表只给结论，hero 里的活工作台只给一眼。这一页把 v0.4.3 的十个功能逐项讲清楚——它是什么、在哪里找到、怎么用。拖动下面回卷那条的时间轴，可以先亲手试一下最新的一项。</p>
+    <p class="sec-desc reveal in" data-delay="2">本页介绍 v0.10.1 的十二项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
     <aside class="page-pullquote reveal in" data-delay="3" aria-label="本页覆盖的四组功能">
       <span class="pq-cell pq-le">会话</span>
       <span class="pq-sep" aria-hidden="true"></span>
@@ -66,6 +66,9 @@
         <div class="docs-side-group">数据与安全</div>
         <a href="#f-tray"><span class="docs-item-no">09</span>托盘常驻与通知</a>
         <a href="#f-audit"><span class="docs-item-no">10</span>本地数据与审计</a>
+        <div class="docs-side-group">交付与执行</div>
+        <a href="#f-browser-qa"><span class="docs-item-no">11</span>真浏览器验证</a>
+        <a href="#f-computer-use"><span class="docs-item-no">12</span>桌面控制</a>
       </aside>
 
       <div class="docs-main">
@@ -240,7 +243,7 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.6.1" target="_blank" rel="noopener">v0.6.1</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.10.1" target="_blank" rel="noopener">v0.10.1</a>
     </div>
   </div>
 </footer>
@@ -260,10 +263,10 @@
   var clock = document.getElementById('demoClock');
   var state = document.getElementById('demoState');
   var stateText = document.getElementById('demoStateText');
-  var T = 0, peak = 0, playing = true, dragging = false, last = null;
+  var peak = 0;
   var DUR = 6000;
   function clamp01(x) { return x < 0 ? 0 : (x > 1 ? 1 : x); }
-  function render(t) {
+  function render(t, playing) {
     if (t > peak) peak = t;
     for (var i = 0; i < steps.length; i++) {
       var reached = peak >= AT[i];
@@ -276,43 +279,14 @@
     head.style.left = t + '%';
     var sec = Math.round(t / 100 * 6);
     clock.textContent = '00:0' + sec + ' / 00:06';
-    var rewound = dragging || (!playing && t < 100);
+    var rewound = !playing && t < peak;
     state.classList.toggle('rewound', rewound);
-    stateText.textContent = rewound ? 'rewound' : 'running';
+    stateText.textContent = rewound ? 'rewound' : playing ? 'running' : t >= 100 ? 'completed' : 'paused';
   }
-  function frame(ts) {
-    if (last === null) last = ts;
-    var dt = ts - last; last = ts;
-    if (playing && !dragging) {
-      T += dt / DUR * 100;
-      if (T >= 100) { T = 100; playing = false; }
-    }
-    render(T);
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-  pp.addEventListener('click', function () {
-    playing = !playing;
-    if (playing && T >= 100) { T = 0; peak = 0; }
-    ppIcon.innerHTML = playing
-      ? '<rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/>'
-      : '<path d="M2 1 L9 5 L2 9 Z"/>';
-    render(T);
+  window.LecternTimeline({
+    track: track, button: pp, icon: ppIcon, duration: DUR,
+    render: render, reset: function () { peak = 0; }
   });
-  function trackT(e) {
-    var r = track.getBoundingClientRect();
-    var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    return clamp01(x / r.width) * 100;
-  }
-  function down(e) { dragging = true; playing = false; T = trackT(e); render(T); e.preventDefault(); }
-  function move(e) { if (dragging) { T = trackT(e); render(T); } }
-  function up() { if (dragging) { dragging = false; render(T); } }
-  track.addEventListener('mousedown', down);
-  window.addEventListener('mousemove', move);
-  window.addEventListener('mouseup', up);
-  track.addEventListener('touchstart', down, { passive: false });
-  window.addEventListener('touchmove', move);
-  window.addEventListener('touchend', up);
 })();
 </script>
 </body>

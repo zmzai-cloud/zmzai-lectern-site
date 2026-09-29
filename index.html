@@ -36,11 +36,11 @@
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.10.1 · 隔离工作区 · 浏览器验证 · 桌面控制</div>
         <h1 class="reveal in" data-delay="1">桌面级 Agent 工作台。</h1>
-        <p class="hero-desc reveal in" data-delay="2">云端推理，本机执行。读你的仓库、执行命令、请求授权、提交变更；会话与审计留在你自己的磁盘上。v0.10 起，每个任务有<b>隔离工作区</b>，交付过<b>真浏览器验证</b>，macOS 上还能<b>接管桌面</b>。</p>
+        <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试。每个任务在<b>独立工作区</b>中完成，你审阅后再合并；网页改动可在<b>真实浏览器</b>中验证。会话和操作记录保存在本机。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.10.1/Lectern-0.10.1-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
-          <a class="btn btn-outline" href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub 仓库</a>
-          <span class="hero-meta">Apple Silicon · macOS 14+</span>
+          <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.10.1/Lectern-Setup-0.10.1.exe">下载 Windows</a>
+          <span class="hero-meta">macOS 14+ · Apple Silicon / Windows 10 1809+ · x64</span>
         </div>
       </div>
       <div class="workbench-scene reveal in" data-delay="1" aria-label="Lectern 工作台：会话、任务执行、文件变更和测试结果">
@@ -76,13 +76,13 @@
         <div class="arsenal-main">
           <h3>任务隔离工作区</h3>
           <div class="sub">git worktree · per task</div>
-          <p>每个任务一台独立 git worktree：agent 随便大改，<b>主工作区一行不脏</b>。审过才整合，不要就整枝丢弃。</p>
+          <p>每个任务使用独立工作区，修改时<b>不影响你的主工作区</b>。你审阅后再合并，也可以放弃这次修改。</p>
         </div>
         <ul class="arsenal-mech">
-          <li><b>整合走 CAS 比对</b>——目标分支被别人推进过就拒绝合，绝不覆盖</li>
-          <li>受管临时区合并，冲突保留现场与清单，修完重试</li>
-          <li>每一步落 integration journal，中途断了接着走、不重复合并</li>
-          <li>审查快照=内容指纹，看完再改一眼就能发现「证据过期」</li>
+          <li><b>合并前检查分支是否有新改动</b>，有变化就暂停，避免覆盖他人的工作</li>
+          <li>合并冲突会保留现场与问题清单，解决后可以重试</li>
+          <li>记录每一步合并进度，中断后可继续，避免重复操作</li>
+          <li>审阅后代码再次变化，会提示你重新检查</li>
         </ul>
       </div>
       <div class="arsenal-row reveal">
@@ -93,9 +93,9 @@
           <p>验收不是「模型说测试过了」——应用内置的 Chromium <b>真的把页面跑一遍</b>，断言过了才算交付。</p>
         </div>
         <ul class="arsenal-mech">
-          <li>required 断言失败不放行：HTTP 200、有截图都不算数，功能断言说了算</li>
-          <li>多视口分项证据——桌面过了移动端挂了，一眼定位到哪一格</li>
-          <li>console 报错、资源失败、失败现场截图全部留痕可回看</li>
+          <li>必须通过设定的功能检查，仅页面能打开或有截图还不够</li>
+          <li>分别记录桌面和手机的检查结果，方便定位问题</li>
+          <li>保留浏览器报错、资源加载失败记录和现场截图</li>
           <li>验证后你改了一行代码，旧证据即作废；首败自动修复一次，二次停手</li>
         </ul>
       </div>
@@ -302,10 +302,10 @@
   </div>
 </footer>
 
+<script src="/theme.js"></script>
 <script>
 /* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
 (function () {
-  var T = 0, playing = true, dragging = false, last = null, holdUntil = 0;
   var DUR = 9000;
   var msgUser = document.getElementById('msgUser');
   var msgAgent = document.getElementById('msgAgent');
@@ -369,45 +369,15 @@
     var sec = Math.round(t / 100 * 9);
     tclock.textContent = '00:0' + sec + ' / 00:09';
   }
-  function setStatus(mode) {
-    if (mode === 'rewound') { statusEl.classList.add('rewound'); statusText.textContent = 'rewound'; }
-    else { statusEl.classList.remove('rewound'); statusText.textContent = 'running'; }
-  }
-  function frame(ts) {
-    if (last === null) last = ts;
-    var dt = ts - last; last = ts;
-    if (playing && !dragging) {
-      if (holdUntil > 0) { if (ts >= holdUntil) { holdUntil = 0; T = 0; } }
-      else { T += dt / DUR * 100; if (T >= 100) { T = 100; holdUntil = ts + 2600; } }
-      if (T < 100) setStatus('running');
+  window.LecternTimeline({
+    track: track, button: pp, icon: ppIcon, duration: DUR,
+    render: function (value, playing) {
+      render(value);
+      statusEl.classList.toggle('rewound', !playing && value < 100);
+      statusText.textContent = playing ? 'running' : value >= 100 ? 'completed' : 'paused';
     }
-    render(T);
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-  pp.addEventListener('click', function () {
-    playing = !playing;
-    ppIcon.innerHTML = playing
-      ? '<rect x="1" y="1" width="3" height="8"/><rect x="6" y="1" width="3" height="8"/>'
-      : '<path d="M2 1 L9 5 L2 9 Z"/>';
-    if (playing && T >= 100) { T = 0; holdUntil = 0; }
   });
-  function trackT(e) {
-    var r = track.getBoundingClientRect();
-    var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    return clamp01(x / r.width) * 100;
-  }
-  function down(e) { dragging = true; setStatus('rewound'); T = trackT(e); render(T); e.preventDefault(); }
-  function move(e) { if (dragging) { T = trackT(e); render(T); } }
-  function up() { if (dragging) { dragging = false; setStatus('running'); } }
-  track.addEventListener('mousedown', down);
-  window.addEventListener('mousemove', move);
-  window.addEventListener('mouseup', up);
-  track.addEventListener('touchstart', down, { passive: false });
-  window.addEventListener('touchmove', move);
-  window.addEventListener('touchend', up);
 })();
 </script>
-<script src="/theme.js"></script>
 </body>
 </html>
