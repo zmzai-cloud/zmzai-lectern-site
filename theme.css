@@ -416,6 +416,9 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
   background: linear-gradient(to top, oklch(0.7 0.26 350 / .32) 0 24%, transparent 24%);
   padding: 0 .06em;
 }
+/* 白底武器区的品红点睛：大编号（大字号 ≥3:1）与清单 ▸ 项目符 */
+#v10 .arsenal-id .no { color: var(--color-spot-strong); }
+#v10 .arsenal-mech li::before { color: var(--color-spot-strong); opacity: 1; }
 /* ── 执行脉冲电路：READ→EDIT→AUTHORIZE→DIFF→COMMIT，一颗品红脉冲沿线跑，
       逐站点亮（loop 即产品，Brand Expression；只动 transform/opacity）── */
 .run-circuit {
