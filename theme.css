@@ -1,9 +1,10 @@
 
 /* ══════════════════════════════════════════════════════
-   @zmzai/theme 「墨骨 Ink Frame」token（v0.9.9，静态内联版）
-   与 theme/src/tokens/theme.css 同源；勿在页面里自造颜色
+   @zmzai/theme 「墨骨 Ink Frame」token（静态内联版，色相已本地调红）
+   与 theme/src/tokens/theme.css 同源（spot 系 2026-09-29 本站 hue 350→27）；
+   勿在页面里自造颜色
    纪律：左对齐 Editorial 结构 · 编号清单不做成排图标卡 ·
-   品红只活在墨底叙事区且每屏一次 · 层次靠灰阶与阴影
+   朱红点睛墨底白底皆可用但每屏克制（白底须大字号 ≥3:1）· 层次靠灰阶与阴影
    ── v2 精装（OJO app-ui-ux-best-practices 质量门）──
    register：quiet / polished / sparse-editorial / solemn
    字阶：display 68 → page 50 → h2 32 → body 15 → caption 12
@@ -27,8 +28,8 @@
   --color-dark-bg:      oklch(0.17 0.006 265);
   --color-dark-ink:     oklch(0.97 0.002 265);
   --color-dark-line:    oklch(0.32 0.008 265);
-  --color-spot-strong:  oklch(0.659 0.275 350);
-  --color-spot:         oklch(0.700 0.260 350);
+  --color-spot-strong:  oklch(0.58 0.215 27);
+  --color-spot:         oklch(0.66 0.240 27);
 
   --shadow-lg: 0 12px 32px -8px oklch(0.21 0.008 265 / 0.12), 0 4px 8px -4px oklch(0.21 0.008 265 / 0.06);
 
@@ -385,11 +386,11 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 .pp:hover svg { fill: oklch(.92 .004 265); }
 .track { position: relative; flex: 1; min-width: 0; height: 44px; cursor: ew-resize; touch-action: none; }
 .track::before { content: ""; position: absolute; left: 0; right: 0; top: 20px; height: 3px; border-radius: 2px; background: oklch(1 0 0 / .10); }
-.track-fill { position: absolute; left: 0; top: 20px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, oklch(.700 .260 350 / .55), var(--color-spot)); width: 0%; }
+.track-fill { position: absolute; left: 0; top: 20px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, oklch(.66 .24 27 / .55), var(--color-spot)); width: 0%; }
 .head { position: absolute; top: 15px; left: 0%; width: 13px; height: 13px; border-radius: 50%; background: oklch(1 0 0); border: 2px solid var(--color-spot); transform: translateX(-50%); box-shadow: 0 1px 4px oklch(0 0 0 / .5); }
 .tick { position: absolute; top: 18px; width: 1px; height: 7px; background: oklch(1 0 0 / .16); }
 .tclock { flex: none; color: oklch(.56 .01 265); font: 9.5px/1 var(--font-mono); letter-spacing: .04em; }
-.scene-orbit { position: absolute; width: 340px; height: 340px; right: -90px; bottom: -100px; border: 1px solid oklch(.7 .26 350 / .28); border-radius: 50%; z-index: -1; }.scene-orbit::before,.scene-orbit::after { content: ""; position: absolute; border: 1px solid oklch(.7 .26 350 / .17); border-radius: 50%; inset: 29px; }.scene-orbit::after { inset: 72px; }
+.scene-orbit { position: absolute; width: 340px; height: 340px; right: -90px; bottom: -100px; border: 1px solid oklch(.66 .24 27 / .26); border-radius: 50%; z-index: -1; }.scene-orbit::before,.scene-orbit::after { content: ""; position: absolute; border: 1px solid oklch(.66 .24 27 / .15); border-radius: 50%; inset: 29px; }.scene-orbit::after { inset: 72px; }
 
 /* ═══ 墨底开场（hero-stage.band-dark）：面板从「白底上的深窗」变为「墨舞台上的悬浮屏」═══ */
 .band-dark.hero-stage .wb {
@@ -398,9 +399,9 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
   box-shadow: 0 0 0 1px oklch(1 0 0 / .055), 0 30px 70px -22px oklch(0 0 0 / .6), 0 70px 140px -50px oklch(.2 .03 265 / .5);
   will-change: transform;
 }
-.band-dark.hero-stage .scene-orbit { border-color: oklch(.7 .26 350 / .2); }
-.band-dark.hero-stage .scene-orbit::before { border-color: oklch(.7 .26 350 / .12); }
-.band-dark.hero-stage .scene-orbit::after { border-color: oklch(.7 .26 350 / .08); }
+.band-dark.hero-stage .scene-orbit { border-color: oklch(.66 .24 27 / .18); }
+.band-dark.hero-stage .scene-orbit::before { border-color: oklch(.66 .24 27 / .11); }
+.band-dark.hero-stage .scene-orbit::after { border-color: oklch(.66 .24 27 / .07); }
 
 /* ═══ v10 武器区翻白：墨底开场之后立刻撞上白底，恢复全站白/墨交替 ═══
    arsenal 系列样式统一引用 --color-dark-ink/line，这里局部重映射即可整块翻转 */
@@ -413,7 +414,7 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 /* 品红 em 在白底改为「黑字 + 品红马克笔高亮」：撞色更强且对比无虞 */
 #v10 .arsenal-head h2 em {
   color: var(--color-ink);
-  background: linear-gradient(to top, oklch(0.7 0.26 350 / .32) 0 24%, transparent 24%);
+  background: linear-gradient(to top, oklch(0.66 0.24 27 / .35) 0 24%, transparent 24%);
   padding: 0 .06em;
 }
 /* 白底武器区的品红点睛：大编号（大字号 ≥3:1）与清单 ▸ 项目符 */
@@ -476,7 +477,7 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 .flow-grid { gap: 20px; }.flow-step { padding-top: 0; border-top: 0; }.flow-vignette { position: relative; height: 170px; margin-bottom: 20px; padding: 15px; overflow: hidden; border: 1px solid var(--color-line-strong); border-radius: 8px; background: var(--color-surface-2); color: var(--color-ink-2); font: 10px var(--font-mono); }.flow-vignette::before { content: "LECTERN"; display: block; margin-bottom: 13px; color: var(--color-ink-3); font-size: 9px; letter-spacing: .11em; }.prompt-box { padding: 10px; border: 1px solid var(--color-line-strong); border-radius: 4px; background: var(--color-bg); color: var(--color-ink-2); line-height: 1.65; }.prompt-box span { color: var(--color-ink-3); }.prompt-send { position: absolute; right: 16px; bottom: 16px; padding: 5px 8px; border-radius: 3px; background: var(--color-accent); color: var(--color-accent-ink); font-size: 9px; }.permission-dialog { position: absolute; right: 12px; left: 35px; bottom: 14px; padding: 13px; border: 1px solid var(--color-line-strong); border-radius: 6px; background: var(--color-bg); box-shadow: var(--shadow-lg); }.permission-dialog b { color: var(--color-ink); }.permission-dialog p { margin: 5px 0 9px; color: var(--color-ink-3); font-size: 9px; }.permission-actions { display: flex; gap: 6px; }.permission-actions span { padding: 4px 7px; border: 1px solid var(--color-line-strong); border-radius: 3px; }.permission-actions span:last-child { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }.diff-vignette { margin: 0 -15px -15px; padding: 14px 15px; background: var(--color-dark-bg); color: oklch(.74 .01 265); line-height: 1.7; }.diff-vignette .plus { color: oklch(.72 .13 145); }.diff-vignette .minus { color: var(--color-spot); }.diff-vignette em { color: oklch(.95 .004 265); font-style: normal; }.flow-name { margin-top: 0; }.flow-step p { max-width: 280px; }
 
 /* ── 特性与本地优先：视觉证据而非重复卡片 ── */
-.feature-proof { margin-top: 42px; overflow: hidden; border: 1px solid var(--color-dark-line); border-radius: 9px; background: var(--color-dark-bg); box-shadow: var(--shadow-lg); }.proof-head { display: flex; align-items: center; gap: 9px; padding: 12px 16px; border-bottom: 1px solid var(--color-dark-line); color: oklch(.70 .01 265); font: 10px var(--font-mono); }.proof-head b { color: oklch(.93 .004 265); font-weight: 500; }.proof-head span:last-child { margin-left: auto; color: oklch(.72 .13 145); }.proof-grid { display: grid; grid-template-columns: 1fr 1fr; }.proof-code { padding: 18px 20px; color: oklch(.72 .01 265); font: 11px/1.85 var(--font-mono); }.proof-code .added { display: block; margin: 1px -8px; padding: 0 8px; color: oklch(.82 .15 145); background: oklch(.45 .10 145 / .18); }.proof-code .removed { display: block; margin: 1px -8px; padding: 0 8px; color: oklch(.81 .14 350); background: oklch(.48 .14 350 / .14); }.proof-aside { padding: 18px; border-left: 1px solid var(--color-dark-line); color: oklch(.69 .01 265); font: 10px/1.9 var(--font-mono); }.proof-aside b { display: block; margin-bottom: 8px; color: oklch(.90 .004 265); font-size: 11px; }.proof-aside .file { display: flex; justify-content: space-between; padding: 5px 0; border-top: 1px solid oklch(1 0 0 / .09); }.proof-aside .file span:last-child { color: oklch(.72 .13 145); }
+.feature-proof { margin-top: 42px; overflow: hidden; border: 1px solid var(--color-dark-line); border-radius: 9px; background: var(--color-dark-bg); box-shadow: var(--shadow-lg); }.proof-head { display: flex; align-items: center; gap: 9px; padding: 12px 16px; border-bottom: 1px solid var(--color-dark-line); color: oklch(.70 .01 265); font: 10px var(--font-mono); }.proof-head b { color: oklch(.93 .004 265); font-weight: 500; }.proof-head span:last-child { margin-left: auto; color: oklch(.72 .13 145); }.proof-grid { display: grid; grid-template-columns: 1fr 1fr; }.proof-code { padding: 18px 20px; color: oklch(.72 .01 265); font: 11px/1.85 var(--font-mono); }.proof-code .added { display: block; margin: 1px -8px; padding: 0 8px; color: oklch(.82 .15 145); background: oklch(.45 .10 145 / .18); }.proof-code .removed { display: block; margin: 1px -8px; padding: 0 8px; color: oklch(.78 .17 27); background: oklch(.48 .17 27 / .15); }.proof-aside { padding: 18px; border-left: 1px solid var(--color-dark-line); color: oklch(.69 .01 265); font: 10px/1.9 var(--font-mono); }.proof-aside b { display: block; margin-bottom: 8px; color: oklch(.90 .004 265); font-size: 11px; }.proof-aside .file { display: flex; justify-content: space-between; padding: 5px 0; border-top: 1px solid oklch(1 0 0 / .09); }.proof-aside .file span:last-child { color: oklch(.72 .13 145); }
 .local-grid { gap: 0; border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }.local-card { position: relative; padding: 27px 24px 26px; border: 0; border-right: 1px solid var(--color-line); border-radius: 0; background: transparent; }.local-card:last-child { border-right: 0; }.local-card:hover { transform: none; box-shadow: none; border-color: var(--color-line); background: var(--color-surface-2); }.local-card::after { content: ""; position: absolute; top: 28px; right: 23px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-live); box-shadow: 0 0 0 4px oklch(.499 .17 145 / .12); }.local-card:nth-child(2)::after { background: var(--color-ink-3); box-shadow: none; }.local-card:nth-child(3)::after { animation: status-pulse 2.4s ease-out infinite; }@keyframes status-pulse { 50% { box-shadow: 0 0 0 8px oklch(.499 .17 145 / 0); } }
 
 @media (max-width: 900px) { .hero-stage { min-height: auto; padding: 76px 0 68px; }.hero-grid { grid-template-columns: 1fr; gap: 40px; }.workbench-scene { min-height: 365px; }.wb { margin: 0 auto; }.run-circuit { display: none; } }
