@@ -33,11 +33,11 @@
 </nav>
 
 <header class="hero" id="main">
-  <div class="hero-stage">
+  <div class="hero-stage band-dark">
     <div class="wrap hero-grid">
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.10.1 · 隔离工作区 · 浏览器验证 · 桌面控制</div>
-        <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台。</h1>
+        <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台<em>。</em></h1>
         <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试。每个任务在<b>独立工作区</b>中完成，你审阅后再合并；网页改动可在<b>真实浏览器</b>中验证。会话和操作记录保存在本机。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.10.1/Lectern-0.10.1-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
@@ -62,7 +62,15 @@
         <div class="scene-orbit" aria-hidden="true"></div>
       </div>
     </div>
-    <div class="hero-runline" aria-hidden="true"><span><i></i><b>LOCAL EXECUTION</b></span><span>READ</span><span>EDIT</span><span>AUTHORIZE</span><span>DIFF</span><span>COMMIT</span></div>
+    <div class="run-circuit" aria-hidden="true">
+      <span class="rc-tag"><i></i><b>LOCAL EXECUTION</b></span>
+      <span class="rc-node" style="--i:0">READ</span>
+      <span class="rc-node" style="--i:1">EDIT</span>
+      <span class="rc-node" style="--i:2">AUTHORIZE</span>
+      <span class="rc-node" style="--i:3">DIFF</span>
+      <span class="rc-node" style="--i:4">COMMIT</span>
+      <span class="rc-pulse"></span>
+    </div>
   </div>
 </header>
 <section id="v10" class="band-dark">
@@ -378,6 +386,33 @@
       statusEl.classList.toggle('rewound', !playing && value < 100);
       statusText.textContent = playing ? 'running' : value >= 100 ? 'completed' : 'paused';
     }
+  });
+})();
+</script>
+<script>
+/* 面板 3D 倾斜跟随：仅精指针设备且非 reduce 时启用；幅度 ≤2°，离开回正 */
+(function () {
+  var scene = document.querySelector('.workbench-scene');
+  var panel = scene && scene.querySelector('.wb');
+  if (!scene || !panel) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var raf = null, rx = 0, ry = 0;
+  function apply() {
+    panel.style.transform = 'perspective(1200px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    raf = null;
+  }
+  scene.addEventListener('pointermove', function (e) {
+    var r = scene.getBoundingClientRect();
+    ry = ((e.clientX - r.left) / r.width - 0.5) * 4;
+    rx = -((e.clientY - r.top) / r.height - 0.5) * 3;
+    if (raf === null) raf = requestAnimationFrame(apply);
+  });
+  scene.addEventListener('pointerleave', function () {
+    rx = 0; ry = 0;
+    panel.style.transition = 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1)';
+    apply();
+    setTimeout(function () { panel.style.transition = ''; }, 600);
   });
 })();
 </script>
