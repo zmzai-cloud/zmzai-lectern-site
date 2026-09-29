@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lectern · 桌面 Agent 工作台 · 知末智云</title>
 <meta name="description" content="本地运行 agent loop 的 Electron 桌面工作台。断点续传、增量投影、Shiki diff、权限审计——与 Quill、Folio 同一设计系统。">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/theme.css">
 </head>
 <body>
+<a class="skip" href="#main">跳到内容</a>
 <nav>
   <div class="wrap nav-inner">
     <a class="lockup" href="index.html">
@@ -30,12 +32,12 @@
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="main">
   <div class="hero-stage">
     <div class="wrap hero-grid">
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.10.1 · 隔离工作区 · 浏览器验证 · 桌面控制</div>
-        <h1 class="reveal in" data-delay="1">桌面级 Agent 工作台。</h1>
+        <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台。</h1>
         <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试。每个任务在<b>独立工作区</b>中完成，你审阅后再合并；网页改动可在<b>真实浏览器</b>中验证。会话和操作记录保存在本机。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.10.1/Lectern-0.10.1-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
