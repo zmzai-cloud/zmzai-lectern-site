@@ -26,7 +26,7 @@
       <a href="index.html#ecosystem">生态</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
-      <a class="nav-cta" href="index.html#download">下载 v0.10.1</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.11.0</a>
     </div>
       <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
   </div>
@@ -36,7 +36,7 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal in">Features</div>
     <h1 class="reveal in" data-delay="1">每一个功能，摊开讲。</h1>
-    <p class="sec-desc reveal in" data-delay="2">本页介绍 v0.10.1 的十二项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
+    <p class="sec-desc reveal in" data-delay="2">本页介绍 v0.11.0 的十三项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
     <aside class="page-pullquote reveal in" data-delay="3" aria-label="本页覆盖的四组功能">
       <span class="pq-cell pq-le">会话</span>
       <span class="pq-sep" aria-hidden="true"></span>
@@ -71,6 +71,7 @@
         <div class="docs-side-group">交付与执行</div>
         <a href="#f-browser-qa"><span class="docs-item-no">11</span>真浏览器验证</a>
         <a href="#f-computer-use"><span class="docs-item-no">12</span>桌面控制</a>
+        <a href="#f-subagents"><span class="docs-item-no">13</span>子代理生产链路</a>
       </aside>
 
       <div class="docs-main">
@@ -132,6 +133,7 @@
           <p class="docs-what">新会话可以跑在当前仓库的 git worktree 副本里：agent 的所有改动落在隔离分支，主工作区一行不脏。0.10 把它补成完整生命周期——创建先登记再动 Git（失败不静默降级）、目标分支创建时就固定（整合不再跟随主目录当前分支）、每一步查返回码。</p>
           <p class="docs-what">整合是一道关卡：先核对目标分支没被别人推进（CAS 比对，不符就拒绝），再在受管临时区做合并——冲突会保留现场与冲突清单，修完重试；合并提交、推进目标、验证结果每步落 integration journal，中途断了能接着走、不重复合并。整合完工作区保留，会话继续指向它，不悄悄切回主目录。</p>
           <p class="docs-what">审查有锚点：进入审查时生成内容指纹（已提交、未提交、untracked 全覆盖），验证证据绑定这份快照——审查之后谁再动过源码，旧证据一眼判定失效。</p>
+          <p class="docs-what">0.11 起整合加了一道实检：合并真正推进你的分支之前，先对<b>合并出来的结果</b>执行仓库声明的验证计划（.lectern/verification.json，比如真跑一遍测试）——两边测试各自通过、组合到一起失败时，目标分支一动不动；验证证据绑定 merge commit 与内容指纹，中断恢复重新验证，不凭旧证据免检。</p>
           <p class="docs-where"><b>在哪：</b>新建会话时勾选「worktree 隔离」；整合与丢弃入口在会话的变更看板。</p>
         </article>
 
@@ -223,6 +225,16 @@
           <p class="docs-where"><b>在哪：</b>需要时 agent 请求桌面控制；顶部出现常驻控制条（显示正在控制的应用与停止入口）。首次使用需在系统设置授予「辅助功能」与「屏幕录制」权限。</p>
         </article>
 
+        <article class="docs-item" id="f-subagents">
+          <div class="docs-no">13</div>
+          <h2>子代理生产链路</h2>
+          <div class="docs-tag">agent_spawn · park · verify · v0.11</div>
+          <p class="docs-what">Agent 干大活时可以派出多个<b>只读子代理并行探索</b>（比如「这两个模块分别梳理依赖」），自己继续推进主线。子代理各自带上下文与工具白名单，全局共享运行额度（全局 6 个 / 每任务 3 个），任务树之外的操作一律拒绝。</p>
+          <p class="docs-what">收尾是自动的：父任务这轮做完但子代理还没收尾，就进入「等候子代理」调度态（不烧模型轮次、不需要你发「继续」）；子代理完成后父任务自动续跑，结果并入上下文再汇总交付。交付有门禁——子代理还在跑、结果没被纳入或复核没通过，任务不能宣称完成；<b>子失败绝不伪装成成功</b>，失败原因进记录由父任务决定补救。</p>
+          <p class="docs-what">经得起崩溃：派生带幂等键（同一次派生重试拿到同一个子代理）；应用重启后，排队中的子任务自动恢复执行，中断的进入恢复审查——不重放结果未知的副作用。</p>
+          <p class="docs-where"><b>在哪：</b>模型在需要并行探索时自动使用（agent_spawn 工具族）；子代理列表与进度显示在会话中。</p>
+        </article>
+
         <p class="docs-foot-note">功能在持续补齐，推理档位贯通、跨会话记忆、自动更新都在路上——完整清单见 <a href="roadmap.html">路线图</a>；与同类形态的横向对比见 <a href="why.html">为什么是 Lectern</a>。</p>
 
       </div>
@@ -245,7 +257,7 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.10.1" target="_blank" rel="noopener">v0.10.1</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.11.0" target="_blank" rel="noopener">v0.11.0</a>
     </div>
   </div>
 </footer>

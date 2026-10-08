@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lectern · 桌面 Agent 工作台 · 知末智云</title>
-<meta name="description" content="本地运行 agent loop 的 Electron 桌面工作台。断点续传、增量投影、Shiki diff、权限审计——与 Quill、Folio 同一设计系统。">
+<meta name="description" content="本地运行 agent loop 的 Electron 桌面工作台。子代理并行、独立 Host 执行、合并结果实检、断点续传与权限审计——与 Quill、Folio 同一设计系统。">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/theme.css?v=20260929b">
@@ -38,7 +38,7 @@
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.11.0 · R0 生产链路收口 · 合并结果实检</div>
         <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台<em>。</em></h1>
-        <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试。每个任务在<b>独立工作区</b>中完成，你审阅后再合并；网页改动可在<b>真实浏览器</b>中验证。会话和操作记录保存在本机。</p>
+        <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试，还能派出<b>子代理</b>并行探索。每个任务在<b>独立工作区</b>中完成，合并前对结果<b>真跑验证</b>；网页改动可在<b>真实浏览器</b>中验收。会话和操作记录保存在本机。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.11.0/Lectern-0.11.0-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
           <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.11.0/Lectern-Setup-0.11.0.exe">下载 Windows</a>
@@ -73,61 +73,61 @@
     </div>
   </div>
 </header>
-<section id="v10">
+<section id="v11">
   <div class="wrap">
     <div class="arsenal-head">
-      <div class="sec-eyebrow reveal">0.10 · 本版三件新武器</div>
-      <h2 class="reveal" data-delay="1">Agent 说「做完了」，<em>凭什么信？</em></h2>
-      <p class="sec-desc reveal" data-delay="2">这一版把「交付」拆成三道关卡：任务在<b>隔离工作区</b>里干，成果过<b>真浏览器验证</b>，干不了的桌面操作由它请求、你放行——每一道都有证据落盘，不是一句口头「完成」。</p>
+      <div class="sec-eyebrow reveal">0.11 · R0 生产链路收口</div>
+      <h2 class="reveal" data-delay="1">单兵能干，<em>生产链扛事。</em></h2>
+      <p class="sec-desc reveal" data-delay="2">这一版把三件地基打进产品：agent 能<b>派子代理并行干活</b>、所有命令经<b>独立 Host 执行</b>且崩了可查可续、合并前对<b>合并结果真跑验证</b>——每一环失败都显式、可恢复、有证据。</p>
     </div>
     <div class="arsenal-list">
       <div class="arsenal-row reveal">
-        <div class="arsenal-id"><span class="no">1</span><span class="cap">Isolation</span></div>
+        <div class="arsenal-id"><span class="no">1</span><span class="cap">Subagents</span></div>
         <div class="arsenal-main">
-          <h3>任务隔离工作区</h3>
-          <div class="sub">git worktree · per task</div>
-          <p>每个任务使用独立工作区，修改时<b>不影响你的主工作区</b>。你审阅后再合并，也可以放弃这次修改。</p>
+          <h3>子代理生产链路</h3>
+          <div class="sub">agent_spawn · park · verify</div>
+          <p>Agent 可以派出多个<b>只读子代理并行探索</b>，自己继续推进主线；子代理收尾后父任务自动等候、验收、汇总——不需要你催「继续」。</p>
         </div>
         <ul class="arsenal-mech">
-          <li><b>合并前检查分支是否有新改动</b>，有变化就暂停，避免覆盖他人的工作</li>
-          <li>合并冲突会保留现场与问题清单，解决后可以重试</li>
-          <li>记录每一步合并进度，中断后可继续，避免重复操作</li>
-          <li>审阅后代码再次变化，会提示你重新检查</li>
+          <li><b>子代理失败绝不伪装成完成</b>——失败原因进记录，父任务看得见才决定补救</li>
+          <li>多项目共享全局额度（全局 6 / 每任务 3）；任务树之外的操作一律拒绝</li>
+          <li>应用重启后：排队中的子任务自动恢复执行，中断的进入恢复审查，<b>不重放未知副作用</b></li>
+          <li>派生幂等：同一次派生重试只会拿到同一个子代理，不会重复执行</li>
         </ul>
       </div>
       <div class="arsenal-row reveal">
-        <div class="arsenal-id"><span class="no">2</span><span class="cap">Verification</span></div>
+        <div class="arsenal-id"><span class="no">2</span><span class="cap">Host Reliability</span></div>
         <div class="arsenal-main">
-          <h3>真浏览器验证</h3>
-          <div class="sub">built-in chromium · evidence</div>
-          <p>验收不是「模型说测试过了」——应用内置的 Chromium <b>真的把页面跑一遍</b>，断言过了才算交付。</p>
+          <h3>Host 命令可靠性</h3>
+          <div class="sub">single executor · receipt</div>
+          <p>所有命令经<b>独立 Host 进程</b>执行，与界面服务隔离。Host 出问题时明确报「结果未知」——<b>绝不静默换一条路重跑</b>，杜绝同一命令被执行两次。</p>
         </div>
         <ul class="arsenal-mech">
-          <li>必须通过设定的功能检查，仅页面能打开或有截图还不够</li>
-          <li>分别记录桌面和手机的检查结果，方便定位问题</li>
-          <li>保留浏览器报错、资源加载失败记录和现场截图</li>
-          <li>验证后你改了一行代码，旧证据即作废；首败自动修复一次，二次停手</li>
+          <li>每条命令可查<b>回执</b>：同一 requestId 重试只会拿回原结果，不会二次执行</li>
+          <li>多项目会话按持久归属路由；重复会话、缺失挂载按错误处理，<b>不静默串库</b></li>
+          <li>启动即对账：重启后遗留任务立即结算，<b>首屏看到的就是恢复后的真实状态</b></li>
+          <li>模式在启动时锁定：Host 故障不会悄悄退回进程内执行掩盖问题</li>
         </ul>
       </div>
       <div class="arsenal-row reveal">
-        <div class="arsenal-id"><span class="no">3</span><span class="cap">Computer Use</span></div>
+        <div class="arsenal-id"><span class="no">3</span><span class="cap">Merge Verification</span></div>
         <div class="arsenal-main">
-          <h3>桌面控制</h3>
-          <div class="sub">macos · accessibility</div>
-          <p>原生应用、系统对话框这种没有 API 的界面，agent 走 macOS 辅助功能<b>结构化操作</b>——点的是按钮本身，不是截图猜坐标。</p>
+          <h3>合并结果实检</h3>
+          <div class="sub">verify the merge · not the parts</div>
+          <p>合并前对<b>实际合并出的代码</b>执行验证计划（比如真跑一遍测试）——两边测试各自通过、组合到一起挂掉时，<b>你的分支一动不动</b>。</p>
         </div>
         <ul class="arsenal-mech">
-          <li>动作前观察、动作后核对效果；观察 5 秒过期，陈旧点击直接拒绝</li>
-          <li>全桌面同一时刻只有一个控制者，排队不抢你的键盘鼠标</li>
-          <li>⌘⇧⌫ 一键紧急停止，排队中的动作全部作废</li>
-          <li>密码、验证码永远由你输入；每次动作脱敏记入交付证据</li>
+          <li>验证证据绑定 merge commit + 内容指纹 + 计划版本；源码再变，旧证据一眼判失效</li>
+          <li>整合中断后恢复：重新验证放行，<b>不凭旧证据免检</b>，也不重复合并</li>
+          <li>验证集由仓库声明（.lectern/verification.json）；没有计划时按显式「接受未验证」放行并如实标注</li>
+          <li>整合期间别人推进了目标分支 → CAS 拒绝并保留现场，不覆盖任何人的工作</li>
         </ul>
       </div>
     </div>
     <div class="arsenal-foot reveal">
-      <span>W1 · 任务 worktree 全生命周期</span>
-      <span>V1 · 浏览器验证与交付证据</span>
-      <span>C1 · macOS computer use</span>
+      <span>T01–T06 · 子代理持久协调</span>
+      <span>T07–T09 · Host 单执行者</span>
+      <span>T10–T11 · 合并结果实检</span>
     </div>
   </div>
 </section>
@@ -136,7 +136,7 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal">Foundation</div>
     <h2 class="reveal" data-delay="1">新武器脚下的底座。</h2>
-    <p class="sec-desc reveal" data-delay="2">三道关卡之下，是长期打磨的工作台基本面：执行过程全程可见、断线可续、会话可回卷、每次写盘与命令都有审计。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
+    <p class="sec-desc reveal" data-delay="2">生产链之下，是长期打磨的工作台基本面：执行过程全程可见、断线可续、会话可回卷、每次写盘与命令都有审计。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
     <div class="features reveal" data-delay="2">
       <div class="feature-row">
         <div class="feature-no">01</div>
@@ -240,7 +240,7 @@
       </div>
     </div>
     <p class="dl-note reveal" data-delay="2">
-      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。v0.10 的三件新武器——任务隔离工作区、真浏览器验证、macOS 桌面控制——完整设计文档与验收记录见仓库 docs/；567 项自动化测试与真实浏览器 e2e 全绿。更新后会话与设置保留。
+      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。0.10 的三道关卡（隔离工作区 / 真浏览器验证 / 桌面控制）与 0.11 的生产链三线（子代理 / Host 可靠性 / 合并实检）完整设计文档与验收记录见仓库 docs/；586 项自动化测试、75 项发版门禁与安装包 13 项全链 smoke 全绿。更新后会话与设置保留。
     </p>
   </div>
 </section>
