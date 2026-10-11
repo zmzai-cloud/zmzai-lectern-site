@@ -5,16 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>功能说明 · Lectern 桌面工作台</title>
 <meta name="description" content="Lectern 每一个功能到底是什么、在哪里找到、怎么用——逐项讲清楚。会话回卷、断点续传、worktree 隔离、权限授权、Diff 审阅、命令面板、本地审计。">
+<link rel="canonical" href="https://lectern.zmzai.cloud/features.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lectern · 知末智云">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="功能说明 · Lectern 桌面工作台">
+<meta property="og:description" content="每一项功能是什么、在哪里找到、怎么用——逐项讲清楚。">
+<meta property="og:url" content="https://lectern.zmzai.cloud/features.html">
+<meta property="og:image" content="https://lectern.zmzai.cloud/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="功能说明 · Lectern 桌面工作台">
+<meta name="twitter:description" content="每一项功能是什么、在哪里找到、怎么用——逐项讲清楚。">
+<meta name="twitter:image" content="https://lectern.zmzai.cloud/og-image.png">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" href="/theme.css?v=20260929b">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
+<link rel="stylesheet" href="/theme.css?v=20261011a">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <a class="skip" href="#main">跳到内容</a>
 <nav>
   <div class="wrap nav-inner">
     <a class="lockup" href="index.html">
-      <img src="/logo.png" alt="zmzai">
+      <img src="/logo.png" alt="zmzai" width="22" height="22" loading="eager" decoding="async">
       <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
     </a>
     <div class="nav-links" id="navLinks">
@@ -26,7 +42,7 @@
       <a href="index.html#ecosystem">生态</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
-      <a class="nav-cta" href="index.html#download">下载 v0.11.2</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.12.1</a>
     </div>
       <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
   </div>
@@ -36,8 +52,8 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal in">Features</div>
     <h1 class="reveal in" data-delay="1">每一个功能，摊开讲。</h1>
-    <p class="sec-desc reveal in" data-delay="2">本页介绍 v0.11.2 的十三项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
-    <aside class="page-pullquote reveal in" data-delay="3" aria-label="本页覆盖的四组功能">
+    <p class="sec-desc reveal in" data-delay="2">本页介绍 v0.12.1 的十四项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
+    <aside class="page-pullquote reveal in" data-delay="3" aria-label="本页的功能分组">
       <span class="pq-cell pq-le">会话</span>
       <span class="pq-sep" aria-hidden="true"></span>
       <span class="pq-cell pq-le">执行与审阅</span>
@@ -72,6 +88,8 @@
         <a href="#f-browser-qa"><span class="docs-item-no">11</span>真浏览器验证</a>
         <a href="#f-computer-use"><span class="docs-item-no">12</span>桌面控制</a>
         <a href="#f-subagents"><span class="docs-item-no">13</span>子代理生产链路</a>
+        <div class="docs-side-group">对话体验</div>
+        <a href="#f-stream"><span class="docs-item-no">14</span>会话流与工作流程</a>
       </aside>
 
       <div class="docs-main">
@@ -232,7 +250,26 @@
           <p class="docs-what">Agent 干大活时可以派出多个<b>只读子代理并行探索</b>（比如「这两个模块分别梳理依赖」），自己继续推进主线。子代理各自带上下文与工具白名单，全局共享运行额度（全局 6 个 / 每任务 3 个），任务树之外的操作一律拒绝。</p>
           <p class="docs-what">收尾是自动的：父任务这轮做完但子代理还没收尾，就进入「等候子代理」调度态（不烧模型轮次、不需要你发「继续」）；子代理完成后父任务自动续跑，结果并入上下文再汇总交付。交付有门禁——子代理还在跑、结果没被纳入或复核没通过，任务不能宣称完成；<b>子失败绝不伪装成成功</b>，失败原因进记录由父任务决定补救。</p>
           <p class="docs-what">经得起崩溃：派生带幂等键（同一次派生重试拿到同一个子代理）；应用重启后，排队中的子任务自动恢复执行，中断的进入恢复审查——不重放结果未知的副作用。</p>
-          <p class="docs-where"><b>在哪：</b>模型在需要并行探索时自动使用（agent_spawn 工具族）；子代理列表与进度显示在会话中。</p>
+          <p class="docs-what">0.12 起，子代理的进展在<b>工作台「子代理」标签页</b>里实时可读：只读渲染子会话的完整转录，运行中的子代理即使不点开也会自动跟随，并行派生多个时用顶部标签切换——不再需要猜它卡在哪一步。</p>
+          <p class="docs-where"><b>在哪：</b>模型在需要并行探索时自动使用（agent_spawn 工具族）；子任务行在会话流里，完整转录在工作台右侧的「子代理」标签页。</p>
+        </article>
+
+        <article class="docs-item" id="f-stream">
+          <div class="docs-no">14</div>
+          <h2>会话流与工作流程</h2>
+          <div class="docs-tag">process rows · workflow group · v0.12</div>
+          <p class="docs-what">过程行弱化：每个工具调用收成一行「图标 中文名 · 摘要」（读取 / 查找 / 搜索 / 执行 / 编辑 / 写入 / 子任务），思考过程是「思考 · 持续了 Ns」——灰字、无边框无背景，层级只靠颜色深浅。运行中保持折叠单行，失败才整行标红并在行尾写「失败」。</p>
+          <p class="docs-what">一轮回答结束后，这一轮的全部过程自动收拢成一行<b>「工作流程 · N 个步骤 · 时长」</b>；想看细节点开就是逐步原文，正文留在原位。有失败时行上直接标出失败数量。</p>
+          <p class="docs-what">运行状态只有一个地方：输入框上方那一行（流光标 + 中文动作 + 时长）。停止键改成与发送同轮廓的墨底白方块——中止是常规操作，红色只留给破坏性确认。运行中断的错误也收成一行「✗ 运行中断 · 一句话原因」，展开才看原始错误与建议。</p>
+          <div class="docs-how">
+            <div class="docs-how-t">你会遇到它的时候</div>
+            <ol>
+              <li>点发送的瞬间输入框清空、气泡同帧上屏，不用等「发了没发走」。</li>
+              <li>任务被中断后发消息被挡下，输入框上方出现「核对并继续上次任务」横幅，一键续跑。</li>
+              <li>回到跑了半天的会话，先看到交付结果，过程想看再展开。</li>
+            </ol>
+          </div>
+          <p class="docs-where"><b>在哪：</b>会话流本身；「工作流程」组在每轮回答末尾；恢复横幅在输入框上方。</p>
         </article>
 
         <p class="docs-foot-note">功能在持续补齐，推理档位贯通、跨会话记忆、自动更新都在路上——完整清单见 <a href="roadmap.html">路线图</a>；与同类形态的横向对比见 <a href="why.html">为什么是 Lectern</a>。</p>
@@ -257,12 +294,12 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.11.2" target="_blank" rel="noopener">v0.11.2</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.12.1" target="_blank" rel="noopener">v0.12.1</a>
     </div>
   </div>
 </footer>
 
-<script src="/theme.js?v=20260929b"></script>
+<script src="/theme.js?v=20261011a"></script>
 <script>
 /* 回卷演示：拖动时间轴 = 把会话截断到游标处，越过游标的轮次划掉 */
 (function () {

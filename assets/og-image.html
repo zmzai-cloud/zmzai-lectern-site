@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Lectern og image</title>
+<style>
+  :root {
+    --dark-bg: oklch(0.17 0.006 265);
+    --dark-ink: oklch(0.97 0.002 265);
+    --dark-line: oklch(0.32 0.008 265);
+    --dark-ink-2: oklch(0.72 0.010 265);
+    --spot: oklch(0.66 0.240 27);
+    --font-sans: "MiSans", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+    --font-serif: "Noto Serif SC", "Songti SC", serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--dark-bg);
+    color: var(--dark-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    padding: 64px 72px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.028) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.028) 1px, transparent 1px);
+    background-size: 96px 96px;
+  }
+  .top { display: flex; align-items: center; gap: 16px; position: relative; }
+  .top img { width: 44px; height: 44px; }
+  .wordmark { font-family: var(--font-mono); font-size: 22px; letter-spacing: 0.16em; font-weight: 500; }
+  .sub { font-size: 20px; color: var(--dark-ink-2); letter-spacing: 0.02em; }
+  .mid { position: relative; }
+  .eyebrow { font-family: var(--font-mono); font-size: 17px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dark-ink-2); margin-bottom: 22px; }
+  h1 { font-family: var(--font-serif); font-size: 82px; line-height: 1.14; font-weight: 700; letter-spacing: -0.01em; }
+  h1 em { font-style: normal; color: var(--spot); }
+  .desc { margin-top: 26px; font-size: 27px; line-height: 1.55; color: var(--dark-ink-2); max-width: 940px; }
+  .desc b { color: var(--dark-ink); font-weight: 500; }
+  .bottom { display: flex; align-items: flex-end; justify-content: space-between; position: relative; }
+  .tags { display: flex; gap: 12px; }
+  .tag {
+    font-family: var(--font-mono); font-size: 18px; color: var(--dark-ink-2);
+    border: 1px solid var(--dark-line); border-radius: 3px; padding: 9px 15px;
+  }
+  .url { font-family: var(--font-mono); font-size: 20px; color: var(--dark-ink-2); letter-spacing: 0.02em; }
+</style>
+</head>
+<body>
+  <div class="grid-lines"></div>
+  <div class="top">
+    <img src="../favicon.png" alt="">
+    <span class="wordmark">ZMZAI</span>
+    <span class="sub">· Lectern</span>
+  </div>
+  <div class="mid">
+    <div class="eyebrow">Desktop Agent Workbench</div>
+    <h1>桌面级 Agent<br>工作台<em>。</em></h1>
+    <p class="desc">本地运行 agent loop。<b>子代理并行探索</b>、独立 Host 执行、<b>合并前真跑验证</b>，会话与审计全在你自己的磁盘上。</p>
+  </div>
+  <div class="bottom">
+    <div class="tags">
+      <span class="tag">macOS · Apple Silicon</span>
+      <span class="tag">Windows · x64</span>
+      <span class="tag">数据本地</span>
+    </div>
+    <span class="url">lectern.zmzai.cloud</span>
+  </div>
+</body>
+</html>

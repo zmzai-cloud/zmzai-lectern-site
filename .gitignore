@@ -8,3 +8,10 @@ _archive/
 
 # 本地预览服务产生的缓存
 *.log
+
+# 字体源文件与临时 venv（16MB+24MB，仓里只留子集产物 fonts/）
+.ops/fonts/
+.ops/venv/
+.ops/charset.txt
+scripts/guard.log
+site.tgz

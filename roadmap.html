@@ -5,16 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roadmap · Lectern 桌面工作台</title>
 <meta name="description" content="方向收敛、节奏保守——每一项都先解决真实使用里绊脚的事，再谈宏大叙事。">
+<link rel="canonical" href="https://lectern.zmzai.cloud/roadmap.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lectern · 知末智云">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="Roadmap · Lectern 桌面工作台">
+<meta property="og:description" content="方向收敛、节奏保守——每一项都先解决真实使用里绊脚的事，再谈宏大叙事。">
+<meta property="og:url" content="https://lectern.zmzai.cloud/roadmap.html">
+<meta property="og:image" content="https://lectern.zmzai.cloud/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Roadmap · Lectern 桌面工作台">
+<meta name="twitter:description" content="方向收敛、节奏保守——每一项都先解决真实使用里绊脚的事。">
+<meta name="twitter:image" content="https://lectern.zmzai.cloud/og-image.png">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" href="/theme.css?v=20260929b">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
+<link rel="stylesheet" href="/theme.css?v=20261011a">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <a class="skip" href="#main">跳到内容</a>
 <nav>
   <div class="wrap nav-inner">
     <a class="lockup" href="index.html">
-      <img src="/logo.png" alt="zmzai">
+      <img src="/logo.png" alt="zmzai" width="22" height="22" loading="eager" decoding="async">
       <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
     </a>
     <div class="nav-links" id="navLinks">
@@ -26,7 +42,7 @@
       <a href="index.html#ecosystem">生态</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
-      <a class="nav-cta" href="index.html#download">下载 v0.11.2</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.12.1</a>
     </div>
       <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
   </div>
@@ -45,16 +61,17 @@
         <span class="ptl-num ptl-now" style="--i:4">04</span>
         <span class="ptl-num ptl-now" style="--i:5">05</span>
         <span class="ptl-num ptl-now" style="--i:6">06</span>
-        <span class="ptl-num" style="--i:7">07</span>
+        <span class="ptl-num ptl-now" style="--i:7">07</span>
         <span class="ptl-num" style="--i:8">08</span>
         <span class="ptl-num" style="--i:9">09</span>
         <span class="ptl-num" style="--i:10">10</span>
         <span class="ptl-num" style="--i:11">11</span>
         <span class="ptl-num" style="--i:12">12</span>
+        <span class="ptl-num" style="--i:13">13</span>
       </div>
       <div class="ptl-meta">
-        <span class="ptl-bar"><i style="width:50%"></i></span>
-        <span class="ptl-text"><b>6 / 12</b> 已上线 · v0.11.2 已发布</span>
+        <span class="ptl-bar"><i style="width:54%"></i></span>
+        <span class="ptl-text"><b>7 / 13</b> 已上线 · v0.12.1 已发布</span>
       </div>
     </div>
   </div>
@@ -64,9 +81,9 @@
     
     <div class="rm-grid reveal" data-delay="2">
       <div class="rm-col">
-        <div class="rm-flag"><span class="rm-flag-tag">SHIPPED · 已上线</span><span class="rm-flag-num">06 / 06</span></div>
+        <div class="rm-flag"><span class="rm-flag-tag">SHIPPED · 已上线</span><span class="rm-flag-num">07 / 07</span></div>
         <h3>交付三关卡 + 生产链三线</h3>
-        <p>0.10 立起交付的信任关卡；0.11（R0 收口）把生产链的地基打进产品。</p>
+        <p>0.10 立起交付的信任关卡；0.11（R0 收口）把生产链的地基打进产品；0.12 把对话过程本身做成了可读的东西。</p>
         <ul class="rm-items">
           <li><b>任务隔离工作区</b><small>每任务独立 git worktree + CAS 整合 + journal——已上线（0.10），旧会话记录自动兼容导入</small><i class="rm-li-bar"><i style="width:100%"></i></i></li>
           <li><b>真浏览器验证</b><small>内置 Chromium 验收 + 分项证据 + 一次修复闭环——已上线（0.10）。后续改进：验证计划由 agent 智能生成的深度对接仍在打磨</small><i class="rm-li-bar"><i style="width:100%"></i></i></li>
@@ -74,6 +91,7 @@
           <li><b>子代理生产链路</b><small>并行派生 + 父任务自动等候验收 + 崩溃恢复不重放——已上线（0.11，R0）</small><i class="rm-li-bar"><i style="width:100%"></i></i></li>
           <li><b>Host 命令可靠性</b><small>独立 Host 单执行者 + 命令回执 + 启动对账——已上线（0.11，R0）</small><i class="rm-li-bar"><i style="width:100%"></i></i></li>
           <li><b>合并结果实检</b><small>对实际合并结果跑验证计划，组合失败不推进目标——已上线（0.11，R0）</small><i class="rm-li-bar"><i style="width:100%"></i></i></li>
+          <li><b>会话流与子代理可见性</b><small>过程弱化成行、按轮次收拢「工作流程」；工作台「子代理」标签页实时跟随子会话转录；被挡下的一键续跑——已上线（0.12）</small><i class="rm-li-bar"><i style="width:100%"></i></i></li>
         </ul>
       </div>
       <div class="rm-col">
@@ -97,8 +115,8 @@
         </ul>
       </div>
       <div class="rm-grid-foot">
-        <span><b>12</b> 项 · <b>6</b> 项核心能力已上线 · <b>6</b> 项后续计划</span>
-        <span class="rm-foot-meta">v0.11.2 · 2026-10</span>
+        <span><b>13</b> 项 · <b>7</b> 项核心能力已上线 · <b>6</b> 项后续计划</span>
+        <span class="rm-foot-meta">v0.12.1 · 2026-10</span>
       </div>
     </div>
   </div>
@@ -156,11 +174,11 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.11.2" target="_blank" rel="noopener">v0.11.2</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.12.1" target="_blank" rel="noopener">v0.12.1</a>
     </div>
   </div>
 </footer>
 
-<script src="/theme.js?v=20260929b"></script>
+<script src="/theme.js?v=20261011a"></script>
 </body>
 </html>

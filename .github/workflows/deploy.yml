@@ -46,13 +46,21 @@ jobs:
       - name: 污染自检（data-page-node-id 残留）
         run: ./scripts/guard-pollution.sh --check
 
+      - name: 发版一致性门禁（版本号 / 直链 / 资源 / SEO 头）
+        run: python3 scripts/check-release.py --live
+
       # 不用 scp：HK_DEPLOY_KEY 是受限钥匙，authorized_keys 里 command= 指向
       # 服务器上的 /opt/zmzai/scripts/receive-static.sh（静态站点接收器，
-      # 只放行 html/css/js/png，解包前自动备份）。把 tar 从 stdin 管道灌进去即可。
+      # 只放行 html/css/js/png/svg/txt/json/xml/woff2，解包前自动备份）。
+      # COPYFILE_DISABLE=1 防 macOS AppleDouble（._xxx）混进包——历史上泄漏过 5 个。
       - name: 打包并部署
         if: steps.key.outputs.ready == 'yes'
         run: |
-          tar -czf site.tgz index.html features.html why.html roadmap.html theme.css theme.js
+          COPYFILE_DISABLE=1 tar -czf site.tgz \
+            index.html features.html why.html roadmap.html \
+            theme.css theme.js \
+            favicon.png apple-touch-icon.png og-image.png logo.png \
+            robots.txt sitemap.xml fonts
           ssh -o BatchMode=yes -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 \
               "$HK_USER@$HK_HOST" < site.tgz
@@ -60,8 +68,15 @@ jobs:
       - name: 冒烟
         if: steps.key.outputs.ready == 'yes'
         run: |
-          for p in / /features.html /why.html /roadmap.html /theme.css; do
+          for p in / /features.html /why.html /roadmap.html /theme.css /theme.js \
+                   /favicon.png /apple-touch-icon.png /og-image.png /logo.png \
+                   /robots.txt /sitemap.xml /fonts/misans-regular.woff2; do
             code=$(curl -s --compressed -o /dev/null -w '%{http_code}' "$SITE_URL$p")
             echo "$p -> $code"
             if [ "$code" != "200" ]; then echo "::error::$p 返回 $code"; exit 1; fi
           done
+          # 压缩与缓存头必须生效（曾经整站没有 encode，58KB CSS 原样传）
+          curl -sI -H 'Accept-Encoding: gzip' "$SITE_URL/theme.css" | grep -qi 'content-encoding: gzip' \
+            || { echo "::error::theme.css 未启用 gzip"; exit 1; }
+          curl -sI "$SITE_URL/theme.css" | grep -qi 'cache-control:.*immutable' \
+            || { echo "::error::theme.css 缺 immutable 缓存头"; exit 1; }

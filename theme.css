@@ -51,13 +51,17 @@
   --dur-fast: 120ms; --dur-base: 200ms; --dur-reveal: 400ms;
 }
 
-@font-face { font-family:'MiSans'; src:url('https://cdn.jsdelivr.net/gh/dsrkafuu/misans@main/raw/Normal/woff2/MiSans-Regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
-@font-face { font-family:'MiSans'; src:url('https://cdn.jsdelivr.net/gh/dsrkafuu/misans@main/raw/Normal/woff2/MiSans-Medium.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
-@font-face { font-family:'MiSans'; src:url('https://cdn.jsdelivr.net/gh/dsrkafuu/misans@main/raw/Normal/woff2/MiSans-Semibold.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
-@font-face { font-family:'Noto Serif SC'; src:url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc/files/noto-serif-sc-chinese-simplified-400-normal.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
-@font-face { font-family:'Noto Serif SC'; src:url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc/files/noto-serif-sc-chinese-simplified-700-normal.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
-@font-face { font-family:'JetBrains Mono'; src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
-@font-face { font-family:'JetBrains Mono'; src:url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+/* 字体：自托管子集（仅含本站文案用到的 890 个字符 + ASCII + 标点）。
+   源字体 MiSans / Noto Serif SC 全量 woff2 各 1.5~5MB 且无 unicode-range 分片，
+   直连 CDN 会让首屏字体流量到 16MB；子集化后合计 560KB。
+   缺字按字体栈逐字回退到 PingFang SC，不会出豆腐块；改文案后如需新字形，
+   重跑 scripts/build-fonts.sh。*/
+@font-face { font-family:'MiSans'; src:url('/fonts/misans-regular.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'MiSans'; src:url('/fonts/misans-medium.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
+@font-face { font-family:'MiSans'; src:url('/fonts/misans-semibold.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+@font-face { font-family:'Noto Serif SC'; src:url('/fonts/noto-serif-sc-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('/fonts/jetbrains-mono-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('/fonts/jetbrains-mono-500.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:swap; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -209,6 +213,7 @@ h2 { font-family: var(--font-serif); font-weight: 700; font-size: var(--fs-h2); 
 @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; } }
 
 /* ── 下载区 ── */
+.dl-release { margin-top: 14px; max-width: 720px; font-size: 14.5px; line-height: 1.85; color: var(--color-ink-2); }
 .dl-table { margin-top: 44px; }
 .dl-row {
   display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center;
@@ -245,14 +250,16 @@ footer { border-top: 1px solid var(--color-line); padding: 40px 0 56px; }
 
 /* ── 动效基座：scroll reveal + nav 滚动态（克制：只动 opacity/transform；
       揭幕 ≤400ms 不拖慢滚动，逐级延迟 60ms 步进） ── */
-.reveal { opacity: 0; transform: translateY(10px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
-.reveal.in { opacity: 1; transform: none; }
+/* 揭幕动效只在 JS 已接管时生效（<head> 里那行加 html.js）：
+   theme.js 加载失败或禁用 JS 时，内容不能停在 opacity:0 的整页空白态 */
+html.js .reveal { opacity: 0; transform: translateY(10px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
+html.js .reveal.in { opacity: 1; transform: none; }
 .reveal[data-delay="1"] { transition-delay: 60ms; }
 .reveal[data-delay="2"] { transition-delay: 120ms; }
 .reveal[data-delay="3"] { transition-delay: 180ms; }
 nav.scrolled { box-shadow: 0 1px 0 var(--color-line-strong), 0 10px 28px -18px oklch(0.21 0.008 265 / 0.25); }
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  html.js .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
   .wb-status i, .demo-state i { animation: none; }
 }
@@ -403,23 +410,25 @@ details[open] summary.faq-q::after { transform: rotate(45deg); }
 .band-dark.hero-stage .scene-orbit::before { border-color: oklch(.66 .24 27 / .11); }
 .band-dark.hero-stage .scene-orbit::after { border-color: oklch(.66 .24 27 / .07); }
 
-/* ═══ v10 武器区翻白：墨底开场之后立刻撞上白底，恢复全站白/墨交替 ═══
-   arsenal 系列样式统一引用 --color-dark-ink/line，这里局部重映射即可整块翻转 */
-#v10 {
+/* ═══ 武器区翻白：墨底开场之后立刻撞上白底，恢复全站白/墨交替 ═══
+   arsenal 系列样式统一引用 --color-dark-ink/line，这里局部重映射即可整块翻转。
+   用 class 而非 #id 作用域：0.11 内容更新时该 section 从 #v10 改名 #v11，
+   规则失配过——白底上留着近白文字，整块主打区几乎不可见。 */
+.arsenal-band {
   --color-dark-ink: var(--color-ink);
   --color-dark-line: var(--color-line);
   background: var(--color-bg);
   color: var(--color-ink);
 }
 /* 品红 em 在白底改为「黑字 + 品红马克笔高亮」：撞色更强且对比无虞 */
-#v10 .arsenal-head h2 em {
+.arsenal-band .arsenal-head h2 em {
   color: var(--color-ink);
   background: linear-gradient(to top, oklch(0.66 0.24 27 / .35) 0 24%, transparent 24%);
   padding: 0 .06em;
 }
 /* 白底武器区的品红点睛：大编号（大字号 ≥3:1）与清单 ▸ 项目符 */
-#v10 .arsenal-id .no { color: var(--color-spot-strong); }
-#v10 .arsenal-mech li::before { color: var(--color-spot-strong); opacity: 1; }
+.arsenal-band .arsenal-id .no { color: var(--color-spot-strong); }
+.arsenal-band .arsenal-mech li::before { color: var(--color-spot-strong); opacity: 1; }
 /* ── 执行脉冲电路：READ→EDIT→AUTHORIZE→DIFF→COMMIT，一颗品红脉冲沿线跑，
       逐站点亮（loop 即产品，Brand Expression；只动 transform/opacity）── */
 .run-circuit {

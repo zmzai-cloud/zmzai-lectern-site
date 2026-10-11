@@ -5,16 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lectern · 桌面 Agent 工作台 · 知末智云</title>
 <meta name="description" content="本地运行 agent loop 的 Electron 桌面工作台。子代理并行、独立 Host 执行、合并结果实检、断点续传与权限审计——与 Quill、Folio 同一设计系统。">
-<meta name="theme-color" content="#ffffff">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="stylesheet" href="/theme.css?v=20260929b">
+<link rel="canonical" href="https://lectern.zmzai.cloud/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lectern · 知末智云">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="Lectern · 桌面 Agent 工作台">
+<meta property="og:description" content="本地运行 agent loop：子代理并行探索、独立 Host 执行、合并前真跑验证，会话与审计全在你自己的磁盘上。">
+<meta property="og:url" content="https://lectern.zmzai.cloud/">
+<meta property="og:image" content="https://lectern.zmzai.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lectern · 桌面 Agent 工作台">
+<meta name="twitter:description" content="本地运行 agent loop：子代理并行探索、独立 Host 执行、合并前真跑验证。">
+<meta name="twitter:image" content="https://lectern.zmzai.cloud/og-image.png">
+<meta name="theme-color" content="#0E0F13">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
+<link rel="stylesheet" href="/theme.css?v=20261011a">
+<script>document.documentElement.classList.add('js');</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lectern",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "macOS 14+ (Apple Silicon), Windows 10 1809+ (x64)",
+  "url": "https://lectern.zmzai.cloud/",
+  "description": "本地运行 agent loop 的 Electron 桌面工作台：子代理并行、独立 Host 执行、合并结果实检。",
+  "softwareVersion": "0.12.1",
+  "datePublished": "2026-10-09",
+  "downloadUrl": "https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64.dmg",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+  "sameAs": ["https://github.com/zmzai-cloud/zmzai-lectern"]
+}
+</script>
 </head>
 <body>
 <a class="skip" href="#main">跳到内容</a>
 <nav>
   <div class="wrap nav-inner">
     <a class="lockup" href="index.html">
-      <img src="/logo.png" alt="zmzai">
+      <img src="/logo.png" alt="zmzai" width="22" height="22" loading="eager" decoding="async">
       <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
     </a>
     <div class="nav-links" id="navLinks">
@@ -40,8 +74,8 @@
         <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台<em>。</em></h1>
         <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试，还能派出<b>子代理</b>并行探索。每个任务在<b>独立工作区</b>中完成，合并前对结果<b>真跑验证</b>；网页改动可在<b>真实浏览器</b>中验收。会话和操作记录保存在本机。</p>
         <div class="hero-actions reveal in" data-delay="3">
-          <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
-          <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-Setup-0.12.1.exe">下载 Windows</a>
+          <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
+          <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-Setup-0.12.1.exe">下载 Windows</a>
           <span class="hero-meta">macOS 14+ · Apple Silicon / Windows 10 1809+ · x64</span>
         </div>
       </div>
@@ -73,7 +107,7 @@
     </div>
   </div>
 </header>
-<section id="v11">
+<section id="v11" class="arsenal-band">
   <div class="wrap">
     <div class="arsenal-head">
       <div class="sec-eyebrow reveal">0.11 · R0 生产链路收口</div>
@@ -213,22 +247,23 @@
 <section id="download" class="band-dark">
   <div class="wrap">
     <div class="sec-eyebrow reveal">Download</div>
-    <h2 class="reveal" data-delay="1">v0.12.1 · 会话流焕新：对话过程对齐 ZCode / Codex 的清爽语言——工具与思考弱化成行、按轮次收拢「工作流程」、运行状态只看一处；子代理进度在右侧「消息盒」实时可读，消息发送即达。</h2>
+    <h2 class="reveal" data-delay="1">挑一个平台装起来。</h2>
+    <p class="dl-release reveal" data-delay="1">v0.12.1 · 会话流焕新：对话过程对齐 ZCode / Codex 的清爽语言——工具与思考弱化成行、按轮次收拢「工作流程」、运行状态只看输入框上方一处；子代理进度在工作台「子代理」标签页实时可读，消息发送即达。</p>
     <div class="dl-table reveal" data-delay="2">
       <div class="dl-row">
         <div class="dl-os"><b>macOS</b><small>Apple Silicon · 14+ · v0.12.1</small></div>
         <div class="dl-links">
-          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64.dmg">.dmg · 安装镜像</a>
-          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64-mac.zip">.zip · 便携版</a>
-          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/SHA256SUMS.txt">SHA256</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64.dmg">.dmg · 安装镜像</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64-mac.zip">.zip · 便携版</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/SHA256SUMS.txt">SHA256</a>
         </div>
       </div>
       <div class="dl-row">
         <div class="dl-os"><b>Windows</b><small>x64 · 10 1809+ · v0.12.1</small></div>
         <div class="dl-links">
-          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-Setup-0.12.1.exe">.exe · 安装版</a>
-          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-win.zip">.zip · 便携版</a>
-          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/SHA256SUMS.txt">SHA256</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-Setup-0.12.1.exe">.exe · 安装版</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-win.zip">.zip · 便携版</a>
+          <a class="mono" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/SHA256SUMS.txt">SHA256</a>
         </div>
       </div>
       <div class="dl-row">
@@ -240,7 +275,7 @@
       </div>
     </div>
     <p class="dl-note reveal" data-delay="2">
-      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。0.10 的三道关卡（隔离工作区 / 真浏览器验证 / 桌面控制）与 0.11 的生产链三线（子代理 / Host 可靠性 / 合并实检）完整设计文档与验收记录见仓库 docs/；586 项自动化测试、75 项发版门禁与安装包 13 项全链 smoke 全绿。更新后会话与设置保留。
+      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。0.10 的三道关卡（隔离工作区 / 真浏览器验证 / 桌面控制）与 0.11 的生产链三线（子代理 / Host 可靠性 / 合并实检）完整设计文档与验收记录见仓库 docs/；589 项自动化测试与安装包 13 项全链 smoke 在发版前逐项复核。更新后会话与设置保留。
     </p>
   </div>
 </section>
@@ -293,10 +328,10 @@
     <h2>下载即用，数据归你。</h2>
     <p class="sec-desc">macOS 与 Windows 双平台，本地运行，数据归你。下载即用，五分钟进入第一个会话。</p>
     <div class="cta-actions">
-      <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64-mac.zip">
+      <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-0.12.1-arm64-mac.zip">
         下载 macOS <span class="arrow">→</span>
       </a>
-      <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-Setup-0.12.1.exe">下载 Windows</a>
+      <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releaseshttps://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.12.1/Lectern-Setup-0.12.1.exe">下载 Windows</a>
     </div>
     <p class="cta-meta">v0.12.1 · Apple Silicon / Windows x64 · 会话数据全程本地</p>
   </div>
@@ -312,7 +347,7 @@
   </div>
 </footer>
 
-<script src="/theme.js?v=20260929b"></script>
+<script src="/theme.js?v=20261011a"></script>
 <script>
 /* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
 (function () {

@@ -1,0 +1,98 @@
+zmzai.cloud {
+    reverse_proxy 127.0.0.1:3013
+}
+
+muzhi.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3014
+}
+
+auth.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3001
+}
+
+m.zmzai.cloud {
+    redir https://relay.zmzai.cloud{uri} 308
+}
+
+z.zmzai.cloud {
+    redir https://sandbox.zmzai.cloud{uri} 308
+}
+
+a.zmzai.cloud {
+    redir https://agent.zmzai.cloud{uri} 308
+}
+
+i.zmzai.cloud {
+    redir https://workos.zmzai.cloud{uri} 308
+}
+
+arena.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3000
+}
+
+# 记忆中心（zmzai-memory，认证在应用内：muzhi_session）
+# 旧 Basic Auth hash（已由记忆中心取代）：admin $2a$14$NQExzO8jo78WJ34bb42av.pH2qKcPLdFm0iP5AiP.hxCDMd3GKbs.
+k.zmzai.cloud {
+	redir https://memory.zmzai.cloud{uri} 308
+}
+
+# 行情服务（zmzai-data：A股 + 加密日线/报价，服务间 service-key 鉴权，仅内部调用）
+d.zmzai.cloud {
+    redir https://data.zmzai.cloud{uri} 308
+}
+
+lectern.zmzai.cloud {
+	root * /var/www/lectern
+	encode gzip zstd
+
+	# 部署备份/历史残留（*.bak*、*.backup*）曾被公开直达，这里兜底封死
+	@stale path */.bak* */.backup* /*.bak* /*.backup*
+	respond @stale "Not Found" 404
+
+	# HTML 每次校验（发版即生效）；带 ?v= 的样式与脚本可长期钉死；图片 1 天
+	@versioned path /theme.css /theme.js
+	header @versioned Cache-Control "public, max-age=31536000, immutable"
+	@media path *.png *.svg *.ico *.webp
+	header @media Cache-Control "public, max-age=86400"
+	@html path / /*.html
+	header @html Cache-Control "public, max-age=0, must-revalidate"
+
+	header Strict-Transport-Security "max-age=15552000"
+	header X-Content-Type-Options "nosniff"
+	header Referrer-Policy "strict-origin-when-cross-origin"
+
+	file_server
+}
+
+harness.zmzai.cloud {
+	redir https://lectern.zmzai.cloud{uri} 301
+}
+
+# ===== 2026-08-31 第二阶段：功能名子域（品牌名留在界面 Wordmark） =====
+relay.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3002
+}
+
+sandbox.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3010
+}
+
+agent.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3011
+}
+
+workos.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3012
+}
+
+memory.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3015
+}
+
+data.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3004
+}
+
+billing.zmzai.cloud {
+    reverse_proxy 127.0.0.1:3005
+}
