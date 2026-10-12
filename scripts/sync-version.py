@@ -17,13 +17,14 @@ VER = r"\d+\.\d+\.\d+"
 rel = json.loads((ROOT / "release.json").read_text(encoding="utf-8"))
 v = rel["version"]
 tag_url = f"https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v{v}"
-oss = f'{rel["oss_base"]}/v{v}/'
 
 RULES = [
     ("资源版本参数", rf'(<link rel="stylesheet" href="/theme\.css\?v=)[^"]+', r'\g<1>' + rel["asset_rev"]),
     ("资源版本参数", rf'(<script src="/theme\.js\?v=)[^"]+', r'\g<1>' + rel["asset_rev"]),
     ("Release tag 链接", rf'href="https://github\.com/zmzai-cloud/zmzai-lectern/releases/tag/v{VER}"', f'href="{tag_url}"'),
-    ("OSS 直链目录", rf'/harness/v{VER}/', oss),
+    # 只换版本段，不换目录前缀。曾经误写成把整段换成 oss（完整 URL），每次运行
+    # 都会往每个直链前多叠一个 "releaseshttps://..."，下载链接越同步越坏。
+    ("OSS 直链目录", rf'/harness/v{VER}/', f"/harness/v{v}/"),
     ("macOS/Windows 包名", rf'Lectern-(Setup-)?{VER}(\.exe|-arm64(?:-mac)?\.dmg|-arm64\.dmg|-arm64-mac\.zip|-win\.zip)', r'Lectern-\g<1>' + v + r'\g<2>'),
     ("导航下载按钮", rf'下载 v{VER}', f"下载 v{v}"),
     ("页脚版本链接", rf'>v{VER}</a>', f">v{v}</a>"),

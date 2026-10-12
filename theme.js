@@ -28,17 +28,47 @@
   var burger = document.querySelector('.nav-burger');
   var navLinks = document.querySelector('.nav-links');
   if (burger && navLinks) {
+    var setOpen = function (open) {
+      navLinks.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
     burger.addEventListener('click', function (e) {
       e.stopPropagation();
-      var open = navLinks.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setOpen(!navLinks.classList.contains('open'));
     });
     navLinks.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        navLinks.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        setOpen(false);
+        burger.focus();
       }
     });
+    document.addEventListener('click', function (e) {
+      if (navLinks.classList.contains('open') &&
+          !navLinks.contains(e.target) && !burger.contains(e.target)) setOpen(false);
+    });
+  }
+
+  /* ── features 页 TOC 滚动高亮：当前章节在侧栏目录中标出 ── */
+  var tocLinks = document.querySelectorAll('.docs-side a[href^="#f-"]');
+  if (tocLinks.length && 'IntersectionObserver' in window) {
+    var sections = [];
+    tocLinks.forEach(function (a) {
+      var el = document.querySelector(a.getAttribute('href'));
+      if (el) sections.push({ el: el, link: a });
+    });
+    var current = null;
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        if (current) current.classList.remove('active');
+        current = entry.target._tocLink;
+        current.classList.add('active');
+      });
+    }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+    sections.forEach(function (s) { s.el._tocLink = s.link; spy.observe(s.el); });
   }
 })();
 

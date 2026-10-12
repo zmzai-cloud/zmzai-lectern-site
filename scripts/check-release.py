@@ -45,12 +45,14 @@ for label, pattern in ANCHORS.items():
             if m and m.group(0) != v:
                 err(f"{page}: {label} 指向 v{m.group(0)}，release.json 是 v{v}")
 
-# 2. 只允许 release.json 里登记的直链，且每个 artifact 都要被首页引用
-oss_urls = set(re.findall(re.escape(rel["oss_base"]) + r"/[A-Za-z0-9._/\-]+", texts["index.html"]))
+# 2. 只允许 release.json 里登记的直链，且每个 artifact 都要被首页引用。
+#    按完整 href 属性提取再精确比对：曾经用子串扫描，URL 被同步脚本叠坏成
+#    "releaseshttps://..." 时照样匹配到干净尾巴，坏链接漏检上线。
+oss_hrefs = set(re.findall(r'href="(' + re.escape(rel["oss_base"]) + r'[^"]*)"', texts["index.html"]))
 allowed = {f'{rel["oss_base"]}/v{v}/{a}' for a in rel["artifacts"].values()}
-for u in sorted(oss_urls - allowed):
-    err(f"index.html: 下载直链不在 release.json 的 artifacts 里：{u.split('/')[-1]}")
-for u in sorted(allowed - oss_urls):
+for u in sorted(oss_hrefs - allowed):
+    err(f"index.html: 下载直链不在 release.json 的 artifacts 里：{u[-60:]}")
+for u in sorted(allowed - oss_hrefs):
     err(f"index.html: release.json 登记的 artifact 未被引用：{u.split('/')[-1]}")
 
 # 3. 站内链接与资源必须存在
@@ -95,6 +97,15 @@ if ".arsenal-band" not in css:
     err("theme.css: 武器区翻转规则不再挂在 .arsenal-band 上（改回 #id 作用域会随改名失效）")
 if not re.search(r'<section[^>]*class="[^"]*\barsenal-band\b', texts["index.html"]):
     err('index.html: 武器区 section 缺 class="arsenal-band"，白底翻转不生效')
+
+# 8. 交互护栏：当前页要标 aria-current；hover 态规则必须包在 (hover: hover) 里，
+#    裸 hover 在触屏上点击后会"粘住"（sticky hover）。
+for page, text in texts.items():
+    if 'aria-current="page"' not in text:
+        err(f'{page}: 导航缺 aria-current="page"')
+for line in css.splitlines():
+    if ":hover" in line and "@media (hover" not in line and line.lstrip().startswith((".", "a", "s", "#")):
+        err(f"theme.css: hover 规则未包进 @media (hover: hover)：{line.strip()[:60]}")
 
 if LIVE:
     # 只探站外 OSS 直链：它们必须先于落地页存在。本站新资源（og-image/sitemap/fonts）
