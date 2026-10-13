@@ -1,16 +1,16 @@
 {
-  "version": "0.13.0",
-  "release_date": "2026-10-12",
-  "pill": "v0.13.0 · 交互焕新 · 运行中可排队发送",
-  "release_note": "交互焕新：运行中也能排队发消息（不再被中止键顶掉）；发送瞬间气泡半透明、确认后转实；任务交付后结论段一眼可辨；删除会话改用应用内确认框，破坏性操作红色警示。会话流对齐 ZCode / Codex 的清爽语言。",
-  "asset_rev": "20261012a",
+  "version": "0.14.0",
+  "release_date": "2026-10-13",
+  "pill": "v0.14.0 · 项目记忆 · 跨会话记住项目知识",
+  "release_note": "项目记忆（K1）：登录即自动接通 memory.zmzai.cloud——每个项目首个任务自动建库，新任务开局注入项目约定/有效命令/架构决策/故障结论（会话里可见记忆来源）；交付后自动提炼知识候选、人工审阅后经本地 outbox 可靠写入（幂等键重试、状态不明先对账不盲发）。设置「记忆」区可换绑知识库（含 Agent 工作区跨端共享）、调写入策略、审阅候选与查看同步队列。",
+  "asset_rev": "20261013a",
   "site_url": "https://lectern.zmzai.cloud",
   "oss_base": "https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness",
   "artifacts": {
-    "macos_dmg": "Lectern-0.13.0-arm64.dmg",
-    "macos_zip": "Lectern-0.13.0-arm64-mac.zip",
-    "windows_exe": "Lectern-Setup-0.13.0.exe",
-    "windows_zip": "Lectern-0.13.0-win.zip",
+    "macos_dmg": "Lectern-0.14.0-arm64.dmg",
+    "macos_zip": "Lectern-0.14.0-arm64-mac.zip",
+    "windows_exe": "Lectern-Setup-0.14.0.exe",
+    "windows_zip": "Lectern-0.14.0-win.zip",
     "sha256": "SHA256SUMS.txt"
   }
 }
