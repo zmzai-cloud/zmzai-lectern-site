@@ -42,7 +42,7 @@
       <a href="index.html#ecosystem">生态</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
-      <a class="nav-cta" href="index.html#download">下载 v0.13.0</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.14.0</a>
     </div>
       <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
   </div>
@@ -52,7 +52,7 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal in">Features</div>
     <h1 class="reveal in" data-delay="1">每一个功能，摊开讲。</h1>
-    <p class="sec-desc reveal in" data-delay="2">本页逐项介绍 Lectern 的十四项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
+    <p class="sec-desc reveal in" data-delay="2">本页逐项介绍 Lectern 的十五项功能：它是什么、在哪里找到、怎么用。你也可以拖动回卷演示的时间轴，体验恢复到先前步骤的过程。</p>
     <aside class="page-pullquote reveal in" data-delay="3" aria-label="本页的功能分组">
       <span class="pq-cell pq-le">会话</span>
       <span class="pq-sep" aria-hidden="true"></span>
@@ -87,9 +87,10 @@
         <div class="docs-side-group">交付与执行</div>
         <a href="#f-browser-qa"><span class="docs-item-no">11</span>真浏览器验证</a>
         <a href="#f-computer-use"><span class="docs-item-no">12</span>桌面控制</a>
-        <a href="#f-subagents"><span class="docs-item-no">13</span>子代理生产链路</a>
+<a href="#f-subagents"><span class="docs-item-no">13</span>子代理生产链路</a>
         <div class="docs-side-group">对话体验</div>
         <a href="#f-stream"><span class="docs-item-no">14</span>会话流与工作流程</a>
+        <a href="#f-memory"><span class="docs-item-no">15</span>项目记忆</a>
       </aside>
 
       <div class="docs-main">
@@ -272,7 +273,17 @@
           <p class="docs-where"><b>在哪：</b>会话流本身；「工作流程」组在每轮回答末尾；恢复横幅在输入框上方。</p>
         </article>
 
-        <p class="docs-foot-note">功能在持续补齐，推理档位贯通、跨会话记忆、自动更新都在路上——完整清单见 <a href="roadmap.html">路线图</a>；与同类形态的横向对比见 <a href="why.html">为什么是 Lectern</a>。</p>
+        <article class="docs-item" id="f-memory">
+          <div class="docs-no">15</div>
+          <h2>项目记忆</h2>
+          <div class="docs-tag">recall injection · candidates · outbox · v0.14</div>
+          <p class="docs-what">登录后 Lectern 自动接通 <b>memory.zmzai.cloud</b>：每个项目跑第一个任务时自动创建专属知识库并绑定，之后的每个新任务开局，把召回的项目约定、有效命令、架构决策与故障结论作为背景注入（会话里有一行「项目记忆 N 条 · 来源」，点开看逐条与相关度）——不用每次重新交代「这个项目怎么构建、踩过什么坑」。</p>
+          <p class="docs-what">写入是受控的：任务交付后自动提炼 ≤5 条知识候选，默认进「待审」——你改写语句后采纳或丢弃；采纳的候选经本地持久 outbox 上传（幂等键 + 指数退避重试，状态不明先对账、绝不盲发），凭据失效自动暂停、恢复后续传。</p>
+          <p class="docs-what">知识库可换绑：选自己有权的任意库，包括 Agent 工作区的库——<b>网页版 Agent 攒下的项目记忆，桌面端直接复用</b>；换绑后旧待上传记录绝不发往新库。</p>
+          <p class="docs-where"><b>在哪：</b>设置 → 记忆（绑定/写入策略/候选待审/同步队列/最近召回）；会话流里的记忆来源行；memory.zmzai.cloud 的「访问令牌」页管理桌面端凭据。</p>
+        </article>
+
+        <p class="docs-foot-note">功能在持续补齐，推理档位贯通、自动更新都在路上——完整清单见 <a href="roadmap.html">路线图</a>；与同类形态的横向对比见 <a href="why.html">为什么是 Lectern</a>。</p>
 
       </div>
     </div>
@@ -294,7 +305,7 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.13.0" target="_blank" rel="noopener">v0.13.0</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.14.0" target="_blank" rel="noopener">v0.14.0</a>
     </div>
   </div>
 </footer>
