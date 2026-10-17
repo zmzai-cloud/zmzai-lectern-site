@@ -1,16 +1,16 @@
 {
-  "version": "0.14.1",
-  "release_date": "2026-10-16",
-  "pill": "v0.14.1 · K1 安全与可靠性修复",
-  "release_note": "K1 安全与可靠性修复：跨账户记忆隔离、单条记忆权限校验、retain 幂等与上游错误、expectedVersion 并发 CAS、换绑候选与 outbox 状态推进、PAT 撤销与 401 自愈。",
-  "asset_rev": "20261016a",
+  "version": "0.14.2",
+  "release_date": "2026-10-17",
+  "pill": "v0.14.2 · 消息流三处减法",
+  "release_note": "消息流阅读层级优化：任务交付后不再叠加重复的「本轮已结束」摘要；项目记忆引用行归位到对应轮次的任务目标前；工作流程收起行显示真实工具概览（读取 3 · 编辑 2 · 执行），长会话回看各组可辨。",
+  "asset_rev": "20261017a",
   "site_url": "https://lectern.zmzai.cloud",
   "oss_base": "https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness",
   "artifacts": {
-    "macos_dmg": "Lectern-0.14.1-arm64.dmg",
-    "macos_zip": "Lectern-0.14.1-arm64-mac.zip",
-    "windows_exe": "Lectern-Setup-0.14.1.exe",
-    "windows_zip": "Lectern-0.14.1-win.zip",
+    "macos_dmg": "Lectern-0.14.2-arm64.dmg",
+    "macos_zip": "Lectern-0.14.2-arm64-mac.zip",
+    "windows_exe": "Lectern-Setup-0.14.2.exe",
+    "windows_zip": "Lectern-0.14.2-win.zip",
     "sha256": "SHA256SUMS.txt"
   }
 }
