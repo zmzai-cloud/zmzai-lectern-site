@@ -1,16 +1,16 @@
 {
-  "version": "0.15.0",
-  "release_date": "2026-10-18",
-  "pill": "v0.15.0 · 应用内自动升级",
-  "release_note": "应用可以自己更新自己：新版本自动后台静默下载，退出时自动安装，下次打开即新版。macOS 替换前核验更新包并保留旧版回滚备份；任务运行中不会触发重启更新；可在设置中关闭自动更新改用手动检查。",
-  "asset_rev": "20261018a",
+  "version": "0.15.1",
+  "release_date": "2026-10-19",
+  "pill": "v0.15.1 · 更新修复",
+  "release_note": "修复应用内更新的安装路径与重复执行问题。有新版本时账户区常显更新图标，可一键下载并确认重启安装；任务运行中不会触发重启，避免打断工作。",
+  "asset_rev": "20261019a",
   "site_url": "https://lectern.zmzai.cloud",
   "oss_base": "https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness",
   "artifacts": {
-    "macos_dmg": "Lectern-0.15.0-arm64.dmg",
-    "macos_zip": "Lectern-0.15.0-arm64-mac.zip",
-    "windows_exe": "Lectern-Setup-0.15.0.exe",
-    "windows_zip": "Lectern-0.15.0-win.zip",
+    "macos_dmg": "Lectern-0.15.1-arm64.dmg",
+    "macos_zip": "Lectern-0.15.1-arm64-mac.zip",
+    "windows_exe": "Lectern-Setup-0.15.1.exe",
+    "windows_zip": "Lectern-0.15.1-win.zip",
     "sha256": "SHA256SUMS.txt"
   }
 }
