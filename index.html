@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261023c">
+<link rel="stylesheet" href="/theme.css?v=20261023d">
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -70,7 +70,7 @@
   <div class="hero-stage band-dark">
     <div class="wrap hero-grid">
       <div>
-        <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.16.0 · 更新日志</div>
+        <a class="release-pill reveal in" href="changelog.html"><span class="pill-dot" aria-hidden="true"></span>v0.16.0 · 更新日志</a>
         <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台<em>。</em></h1>
         <p class="hero-desc reveal in" data-delay="2">读代码、改项目、跑测试，复杂任务派<span class="nb"><b>子代理</b>并行</span>。每个任务<span class="nb">独立工作区</span>，合并结果<b>真跑验证</b>。</p>
         <div class="hero-actions reveal in" data-delay="3">
@@ -206,7 +206,7 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal">Download</div>
     <h2 class="reveal" data-delay="1">挑一个平台装起来。</h2>
-    <p class="dl-release reveal" data-delay="1">v0.16.0 · 悬停更新图标即可查看版本、日期与本次改动；下载完成后在应用内选择「稍后」或「重启以更新」，任务运行中不会打断工作。</p>
+    <p class="dl-release reveal" data-delay="1">v0.16.0 · 2026-10-21 · <a href="changelog.html">更新了什么 →</a></p>
     <div class="dl-table reveal" data-delay="2">
       <div class="dl-row">
         <div class="dl-os"><b>macOS</b><small>Apple Silicon · 14+ · v0.16.0</small></div>
@@ -233,7 +233,10 @@
       </div>
     </div>
     <p class="dl-note reveal" data-delay="2">
-      macOS 包未做开发者签名与公证，Windows 包未做代码签名，系统可能显示安全提示或阻止运行。0.10 的三道关卡（隔离工作区 / 真浏览器验证 / 桌面控制）与 0.11 的生产链三线（子代理 / Host 可靠性 / 合并实检）完整设计文档与验收记录见仓库 docs/；589 项自动化测试与安装包 13 项全链 smoke 在发版前逐项复核。更新后会话与设置保留。
+      Apple Silicon 选 .dmg；Intel Mac 暂不支持；Windows 10 1809 以下请升级。校验下载包：<code>shasum -a 256 文件名</code>（Windows 可用 <code>certutil -hashfile 文件名 SHA256</code>）。
+    </p>
+    <p class="dl-fine reveal" data-delay="2">
+      macOS 包未做开发者签名与公证，Windows 包未做代码签名，首次打开可能被系统拦截；处理方式见<a href="roadmap.html#faq">常见问题</a>。更新后会话与设置保留。
     </p>
   </div>
 </section>
@@ -300,12 +303,13 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="changelog.html">更新日志</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.16.0" target="_blank" rel="noopener">v0.16.0</a>
     </div>
   </div>
 </footer>
 
-<script src="/theme.js?v=20261023c"></script>
+<script src="/theme.js?v=20261023d"></script>
 <script>
 /* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
 (function () {

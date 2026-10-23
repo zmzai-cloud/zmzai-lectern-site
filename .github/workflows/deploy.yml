@@ -57,7 +57,7 @@ jobs:
         if: steps.key.outputs.ready == 'yes'
         run: |
           COPYFILE_DISABLE=1 tar -czf site.tgz \
-            index.html features.html why.html roadmap.html 404.html \
+            index.html features.html why.html roadmap.html changelog.html 404.html \
             theme.css theme.js \
             favicon.png apple-touch-icon.png og-image.png logo.png \
             robots.txt sitemap.xml fonts
@@ -68,7 +68,7 @@ jobs:
       - name: 冒烟
         if: steps.key.outputs.ready == 'yes'
         run: |
-          for p in / /features.html /why.html /roadmap.html /404.html /theme.css /theme.js \
+          for p in / /features.html /why.html /roadmap.html /changelog.html /404.html /theme.css /theme.js \
                    /favicon.png /apple-touch-icon.png /og-image.png /logo.png \
                    /robots.txt /sitemap.xml /fonts/misans-regular.woff2; do
             code=$(curl -s --compressed -o /dev/null -w '%{http_code}' "$SITE_URL$p")

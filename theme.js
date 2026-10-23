@@ -70,6 +70,53 @@
     }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
     sections.forEach(function (s) { s.el._tocLink = s.link; spy.observe(s.el); });
   }
+
+  /* ── features 筛选：按 article 的 data-group 驱动条目与侧栏，无 JS 时 chips 不出现 ── */
+  var filterBar = document.querySelector('.docs-filter');
+  if (filterBar) {
+    var chips = Array.prototype.slice.call(filterBar.querySelectorAll('.chip'));
+    var items = Array.prototype.slice.call(document.querySelectorAll('.docs-item'));
+    var sideLinks = [];
+    var sideLabels = [];
+    var currentLabel = null;
+    Array.prototype.forEach.call(document.querySelectorAll('.docs-side > *'), function (node) {
+      if (node.classList.contains('docs-side-group')) {
+        currentLabel = { el: node, links: [] };
+        sideLabels.push(currentLabel);
+      } else if (currentLabel && node.tagName === 'A') {
+        currentLabel.links.push(node);
+        sideLinks.push(node);
+      }
+    });
+    var groupFor = {};
+    items.forEach(function (item) { groupFor['#' + item.id] = item.getAttribute('data-group'); });
+
+    var applyFilter = function (filter) {
+      chips.forEach(function (chip) {
+        chip.setAttribute('aria-pressed', chip.getAttribute('data-filter') === filter ? 'true' : 'false');
+      });
+      items.forEach(function (item) {
+        item.hidden = filter !== 'all' && item.getAttribute('data-group') !== filter;
+      });
+      sideLinks.forEach(function (link) {
+        link.hidden = filter !== 'all' && groupFor[link.getAttribute('href')] !== filter;
+        if (link.hidden) link.classList.remove('active');
+      });
+      sideLabels.forEach(function (group) {
+        group.el.hidden = !group.links.some(function (link) { return !link.hidden; });
+      });
+      var section = document.getElementById('features-docs');
+      if (section) {
+        var target = section.getBoundingClientRect().top + window.scrollY - 60;
+        if (window.scrollY > target) window.scrollTo({ top: target, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    };
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () { applyFilter(chip.getAttribute('data-filter')); });
+    });
+    document.documentElement.classList.add('filters-ready');
+  }
 })();
 
 /* Shared playback controls for the two interactive product demonstrations. */

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="docs-page">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261023c">
+<link rel="stylesheet" href="/theme.css?v=20261023d">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -73,6 +73,16 @@
 
 <section id="features-docs">
   <div class="wrap">
+    <div class="docs-filter" role="group" aria-label="按分组筛选功能">
+      <button class="chip" type="button" data-filter="all" aria-pressed="true">全部</button>
+      <button class="chip" type="button" data-filter="sessions" aria-pressed="false">会话</button>
+      <button class="chip" type="button" data-filter="review" aria-pressed="false">执行与审阅</button>
+      <button class="chip" type="button" data-filter="efficiency" aria-pressed="false">效率</button>
+      <button class="chip" type="button" data-filter="data" aria-pressed="false">数据与安全</button>
+      <button class="chip" type="button" data-filter="delivery" aria-pressed="false">交付与执行</button>
+      <button class="chip" type="button" data-filter="pipeline" aria-pressed="false">生产链</button>
+      <button class="chip" type="button" data-filter="conversation" aria-pressed="false">对话体验</button>
+    </div>
     <div class="docs-layout">
 
       <aside class="docs-side" aria-label="功能目录">
@@ -104,16 +114,29 @@
 
       <div class="docs-main">
 
-        <article class="docs-item" id="f-sessions">
+        <article class="docs-item" id="f-sessions" data-group="sessions">
           <div class="docs-no">01</div>
           <h2>多会话管理</h2>
           <div class="docs-tag">sessions · sidebar</div>
           <p class="docs-what">左侧栏是全部会话的时间线：今天、本周、更早。会话可以置顶、归档、重命名，跨项目聚在一起，也能用 <span class="local-code">⌘P</span> 直接按名字跳转。</p>
           <p class="docs-what">有 agent 停下来等授权的会话，侧栏里会亮「待确认」徽标——它的优先级高于一切状态，扫一眼就知道哪条线卡住需要你。</p>
+          <div class="docs-preview" aria-hidden="true">
+            <div class="dp-cap"><span>sessions · 侧栏</span><span>CSS 示意</span></div>
+            <div class="dp-body">
+              <div class="dp-search">搜索会话</div>
+              <div class="dp-group">今天</div>
+              <div class="dp-sess-row is-active"><span class="dp-sess-name">重构客户端重连逻辑</span><span class="dp-tag dp-tag-wait">待确认</span></div>
+              <div class="dp-sess-row"><span class="dp-sess-name">迁移审计事件表</span><span class="dp-tag dp-tag-run">运行中</span></div>
+              <div class="dp-sess-row"><span class="dp-sess-name">补齐安装校验文档</span><span class="dp-sess-meta">2h</span></div>
+              <div class="dp-group dp-extra">本周</div>
+              <div class="dp-sess-row dp-extra"><span class="dp-sess-name">回卷事件溯源</span><span class="dp-sess-meta">周一</span></div>
+              <div class="dp-sess-row dp-extra"><span class="dp-sess-name">安装包 smoke 复验</span><span class="dp-sess-meta">周日</span></div>
+            </div>
+          </div>
           <p class="docs-where"><b>在哪：</b>主窗口左侧栏；跳转在 <span class="local-code">⌘P</span> 面板。</p>
         </article>
 
-        <article class="docs-item" id="f-rewind">
+        <article class="docs-item" id="f-rewind" data-group="sessions">
           <div class="docs-no">02</div>
           <h2>回卷</h2>
           <div class="docs-tag">rewind · truncate-from · event sourcing</div>
@@ -139,7 +162,7 @@
           <p class="docs-where"><b>在哪：</b>会话窗口底部的时间轴，拖动即回卷；游标停在哪一轮，续跑就从哪一轮开始。</p>
         </article>
 
-        <article class="docs-item" id="f-resume">
+        <article class="docs-item" id="f-resume" data-group="sessions">
           <div class="docs-no">03</div>
           <h2>断点续传</h2>
           <div class="docs-tag">sse resume · reconnect</div>
@@ -154,7 +177,7 @@
           </div>
         </article>
 
-        <article class="docs-item" id="f-worktree">
+        <article class="docs-item" id="f-worktree" data-group="sessions">
           <div class="docs-no">04</div>
           <h2>任务隔离工作区</h2>
           <div class="docs-tag">git worktree · full lifecycle · v0.10</div>
@@ -165,7 +188,7 @@
           <p class="docs-where"><b>在哪：</b>新建会话时勾选「worktree 隔离」；整合与丢弃入口在会话的变更看板。</p>
         </article>
 
-        <article class="docs-item" id="f-permission">
+        <article class="docs-item" id="f-permission" data-group="review">
           <div class="docs-no">05</div>
           <h2>权限授权</h2>
           <div class="docs-tag">hitl · permission cards</div>
@@ -182,16 +205,30 @@
           </div>
         </article>
 
-        <article class="docs-item" id="f-diff">
+        <article class="docs-item" id="f-diff" data-group="review">
           <div class="docs-no">06</div>
           <h2>Diff 审阅</h2>
           <div class="docs-tag">shiki highlight · changes panel</div>
           <p class="docs-what">右侧看板实时呈现本轮触碰的文件与变更，Shiki 按语言按需加载语法高亮，明暗主题跟随系统。改动是逐行的，不是一段模糊的「已修改」。</p>
           <p class="docs-what">确认与提交由你决定——机器不替你拍板。</p>
+          <div class="docs-preview" aria-hidden="true">
+            <div class="dp-cap"><span>changes · lib/retry.ts</span><span>+18 −6</span></div>
+            <div class="dp-body">
+              <div class="dp-code">
+                <div class="dp-ln"><span class="dp-gutter">41</span><span class="dp-del">− const delay = 1000 * attempt;</span></div>
+                <div class="dp-ln"><span class="dp-gutter">42</span><span class="dp-add">+ const MAX_BACKOFF = 15_000;</span></div>
+                <div class="dp-ln"><span class="dp-gutter">43</span><span class="dp-add">+ const delay = Math.min(</span></div>
+                <div class="dp-ln"><span class="dp-gutter">44</span><span class="dp-add">+   base * 2 ** attempt, MAX_BACKOFF</span></div>
+                <div class="dp-ln"><span class="dp-gutter">45</span><span class="dp-add">+ );</span></div>
+                <div class="dp-ln"><span class="dp-gutter">46</span><span class="dp-ctx">  await sleep(delay);</span></div>
+              </div>
+              <div class="dp-foot"><span>3 files changed</span><span class="dp-ok">14 tests passed</span></div>
+            </div>
+          </div>
           <p class="docs-where"><b>在哪：</b>会话右侧的 CHANGES 看板，随执行实时更新。</p>
         </article>
 
-        <article class="docs-item" id="f-cmdk">
+        <article class="docs-item" id="f-cmdk" data-group="efficiency">
           <div class="docs-no">07</div>
           <h2>命令与搜索</h2>
           <div class="docs-tag">cmd-K · cmd-P · cmd-Shift-F</div>
@@ -207,7 +244,7 @@
           </div>
         </article>
 
-        <article class="docs-item" id="f-context">
+        <article class="docs-item" id="f-context" data-group="efficiency">
           <div class="docs-no">08</div>
           <h2>上下文掌控</h2>
           <div class="docs-tag">@-mention · context meter</div>
@@ -216,7 +253,7 @@
           <p class="docs-where"><b>在哪：</b>底部 Composer 的 <span class="local-code">@</span> 引用与上下文占用条；模型选择在 Composer 右下角。</p>
         </article>
 
-        <article class="docs-item" id="f-tray">
+        <article class="docs-item" id="f-tray" data-group="data">
           <div class="docs-no">09</div>
           <h2>托盘常驻与通知</h2>
           <div class="docs-tag">menubar · notifications</div>
@@ -224,7 +261,7 @@
           <p class="docs-where"><b>在哪：</b>macOS 菜单栏（屏幕右上角）；通知走系统通知中心。</p>
         </article>
 
-        <article class="docs-item" id="f-audit">
+        <article class="docs-item" id="f-audit" data-group="data">
           <div class="docs-no">10</div>
           <h2>本地数据与审计</h2>
           <div class="docs-tag">sqlite · audit.db · local first</div>
@@ -233,17 +270,35 @@
           <p class="docs-where"><b>在哪：</b><span class="local-code">~/Library/Application Support/Lectern</span>（Windows 为 <span class="local-code">%APPDATA%\Lectern</span>）。</p>
         </article>
 
-        <article class="docs-item" id="f-browser-qa">
+        <article class="docs-item" id="f-browser-qa" data-group="delivery">
           <div class="docs-no">11</div>
           <h2>真浏览器验证</h2>
           <div class="docs-tag">built-in chromium · evidence · v0.10</div>
           <p class="docs-what">改了 Web 项目的交付，验收由应用内置的 Chromium 真跑一遍：加载路由、点按钮、填输入、断言 DOM——HTTP 200、有一张截图、没报 console 错，任何单项都不能单独算「通过」，功能断言说了算。</p>
           <p class="docs-what">证据分项可追溯：每个视口（桌面/移动等多档）每一步独立记录通过/失败，console 报错、资源加载失败、失败现场截图全部留痕。required 断言不过不放行；首次失败在同根预算内自动修复一次，第二次失败停手交还给你。</p>
           <p class="docs-what">验证前后核对代码指纹——验证后你改了一行代码，旧证据即作废，重新验证才可接受。</p>
+          <div class="docs-preview" aria-hidden="true">
+            <div class="dp-cap"><span>browser qa · 1440×900</span><span>required 断言</span></div>
+            <div class="dp-body">
+              <div class="dp-browser">
+                <div class="dp-url"><span class="dp-dots"><i></i><i></i><i></i></span><span>localhost:5173/workbench</span></div>
+                <div class="dp-page">
+                  <div class="dp-sk" style="width:34%"></div>
+                  <div class="dp-sk is-strong" style="width:62%"></div>
+                  <div class="dp-sk" style="width:48%"></div>
+                </div>
+              </div>
+              <div class="dp-checks">
+                <span class="dp-ok">路由 200</span>
+                <span class="dp-ok">功能断言 6 / 6</span>
+                <span class="dp-ok">console 0 error</span>
+              </div>
+            </div>
+          </div>
           <p class="docs-where"><b>在哪：</b>交付面板的「浏览器验证」区（项目需在 <span class="local-code">.lectern/workspace.json</span> 声明 devServer）。</p>
         </article>
 
-        <article class="docs-item" id="f-computer-use">
+        <article class="docs-item" id="f-computer-use" data-group="delivery">
           <div class="docs-no">12</div>
           <h2>桌面控制</h2>
           <div class="docs-tag">macos · accessibility · v0.10</div>
@@ -253,7 +308,7 @@
           <p class="docs-where"><b>在哪：</b>需要时 agent 请求桌面控制；顶部出现常驻控制条（显示正在控制的应用与停止入口）。首次使用需在系统设置授予「辅助功能」与「屏幕录制」权限。</p>
         </article>
 
-        <article class="docs-item" id="f-subagents">
+        <article class="docs-item" id="f-subagents" data-group="pipeline">
           <div class="docs-no">13</div>
           <h2>子代理生产链路</h2>
           <div class="docs-tag">agent_spawn · park · verify · v0.11</div>
@@ -270,10 +325,21 @@
             </ol>
           </div>
           <p class="docs-what">0.12 起，子代理的进展在<b>工作台「子代理」标签页</b>里实时可读：只读渲染子会话的完整转录，运行中的子代理即使不点开也会自动跟随，并行派生多个时用顶部标签切换——不再需要猜它卡在哪一步。</p>
+          <div class="docs-preview" aria-hidden="true">
+            <div class="dp-cap"><span>subagents · 2 并行</span><span>只读</span></div>
+            <div class="dp-body">
+              <div class="dp-node is-root"><i class="dp-dot"></i><span>主任务 · 会话流改造</span><em class="dp-state">running</em></div>
+              <div class="dp-branch">
+                <div class="dp-node"><i class="dp-dot is-done"></i><span>子代理 A · 梳理事件投影</span><em class="dp-state dp-ok">done</em></div>
+                <div class="dp-node"><i class="dp-dot is-live"></i><span>子代理 B · 盘点测试覆盖</span><em class="dp-state">running</em></div>
+              </div>
+              <div class="dp-result">已回收 1 / 2 · 父任务自动等候</div>
+            </div>
+          </div>
           <p class="docs-where"><b>在哪：</b>模型在需要并行探索时自动使用（agent_spawn 工具族）；子任务行在会话流里，完整转录在工作台右侧的「子代理」标签页。</p>
         </article>
 
-        <article class="docs-item" id="f-host">
+        <article class="docs-item" id="f-host" data-group="pipeline">
           <div class="docs-no">14</div>
           <h2>Host 命令可靠性</h2>
           <div class="docs-tag">single executor · receipt · v0.11</div>
@@ -292,7 +358,7 @@
           <p class="docs-where"><b>在哪：</b>无需单独开启——命令默认经独立 Host 执行；Host 异常会在执行结果里明确标注，恢复状态在应用重启后首屏可见。</p>
         </article>
 
-        <article class="docs-item" id="f-verify">
+        <article class="docs-item" id="f-verify" data-group="pipeline">
           <div class="docs-no">15</div>
           <h2>合并结果实检</h2>
           <div class="docs-tag">verify the merge · not the parts · v0.11</div>
@@ -309,7 +375,7 @@
           <p class="docs-where"><b>在哪：</b>会话变更看板的整合入口；验证计划写在项目仓库的 <span class="local-code">.lectern/verification.json</span>。</p>
         </article>
 
-        <article class="docs-item" id="f-stream">
+        <article class="docs-item" id="f-stream" data-group="conversation">
           <div class="docs-no">16</div>
           <h2>会话流与工作流程</h2>
           <div class="docs-tag">process rows · workflow group · v0.12</div>
@@ -327,7 +393,7 @@
           <p class="docs-where"><b>在哪：</b>会话流本身；「工作流程」组在每轮回答末尾；恢复横幅在输入框上方。</p>
         </article>
 
-        <article class="docs-item" id="f-memory">
+        <article class="docs-item" id="f-memory" data-group="conversation">
           <div class="docs-no">17</div>
           <h2>项目记忆</h2>
           <div class="docs-tag">recall injection · candidates · outbox · v0.14</div>
@@ -359,12 +425,13 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="changelog.html">更新日志</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.16.0" target="_blank" rel="noopener">v0.16.0</a>
     </div>
   </div>
 </footer>
 
-<script src="/theme.js?v=20261023c"></script>
+<script src="/theme.js?v=20261023d"></script>
 <script>
 /* 回卷演示：拖动时间轴 = 把会话截断到游标处，越过游标的轮次划掉 */
 (function () {

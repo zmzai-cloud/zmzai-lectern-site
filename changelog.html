@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>更新日志 · Lectern 桌面工作台</title>
+<meta name="description" content="Lectern 每个版本改了什么：更新体验、会话流、子代理、项目记忆与交付链路，按版本倒序记录。">
+<link rel="canonical" href="https://lectern.zmzai.cloud/changelog.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lectern · 知末智云">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="更新日志 · Lectern 桌面工作台">
+<meta property="og:description" content="每个版本改了什么，按版本倒序记录。">
+<meta property="og:url" content="https://lectern.zmzai.cloud/changelog.html">
+<meta property="og:image" content="https://lectern.zmzai.cloud/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="更新日志 · Lectern 桌面工作台">
+<meta name="twitter:description" content="每个版本改了什么，按版本倒序记录。">
+<meta name="twitter:image" content="https://lectern.zmzai.cloud/og-image.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
+<link rel="stylesheet" href="/theme.css?v=20261023d">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到内容</a>
+<nav>
+  <div class="wrap nav-inner">
+    <a class="lockup" href="index.html">
+      <img src="/logo.png" alt="zmzai" width="22" height="22" loading="eager" decoding="async">
+      <span class="lockup-word">ZMZAI<span class="lockup-sub">· Lectern</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#workflow">工作流</a>
+      <a href="index.html#features">特性</a>
+      <a href="features.html">功能说明</a>
+      <a href="why.html">优势</a>
+      <a href="roadmap.html">路线</a>
+      <a href="index.html#ecosystem">生态</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">zmzai.cloud ↗</a>
+      <a class="nav-cta" href="index.html#download">下载 v0.16.0</a>
+    </div>
+      <button class="nav-burger" aria-label="菜单" aria-expanded="false" aria-controls="navLinks"><i></i></button>
+  </div>
+</nav>
+
+<header class="page-head" id="main">
+  <div class="wrap">
+    <div class="sec-eyebrow reveal in">Changelog</div>
+    <h1 class="reveal in" data-delay="1">每一版，改了什么。</h1>
+    <p class="sec-desc reveal in" data-delay="2">版本倒序。只记用户能感知的变化，工程细节与校验记录在 GitHub Release 里。</p>
+    <div class="cl-now reveal in" data-delay="3">
+      <div class="cl-now-kicker">最新发布 · v0.16.0 · 2026-10-21</div>
+      <p class="cl-now-text">悬停更新图标即可查看版本、日期与本次改动；下载完成后在应用内选择「稍后」或「重启以更新」，任务运行中不会打断工作。</p>
+    </div>
+  </div>
+</header>
+
+<section id="history">
+  <div class="wrap cl-shell">
+
+    <article class="cl-entry" id="v0-16-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.16.0</h2>
+        <span class="cl-date">2026-10-21</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.16.0" target="_blank" rel="noopener">Release ↗</a>
+        <span class="cl-badge">最新</span>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">更新日志与应用内重启确认</p>
+        <ul class="cl-items">
+          <li>账户区更新图标支持悬停查看版本、发布日期与分组改动，下载前就知道这一版改了什么。</li>
+          <li>下载完成后在应用内选择「<b>稍后</b>」或「<b>重启以更新</b>」，不再弹系统确认框。</li>
+          <li>任务运行中仍可查看日志，但重启按钮禁用并说明原因，避免中止正在跑的任务。</li>
+          <li>发布日志随更新清单下发；旧客户端忽略该字段，更新清单格式保持兼容。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-15-1">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.15.1</h2>
+        <span class="cl-date">2026-10-19</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.15.1" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">更新安装链路修复</p>
+        <ul class="cl-items">
+          <li>修复 macOS 替换旧应用时定位错一层目录导致安装失败的问题。</li>
+          <li>手动重启与退出自动安装不再各拉起一次替换脚本，只执行一次。</li>
+          <li>检测到新版本时账户区直接显示更新图标，下载与就绪状态一眼可见。</li>
+          <li>替换保留旧版备份，新版启动成功后自动清理；下载残留同样自动清理。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-15-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.15.0</h2>
+        <span class="cl-date">2026-10-18</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.15.0" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">应用内自动升级</p>
+        <ul class="cl-items">
+          <li>启动检查到新版本后在后台<b>静默下载</b>，不打扰正在运行的任务。</li>
+          <li>下载完成后正常退出应用即自动安装，下次打开就是新版。</li>
+          <li>替换前解压并核验更新包，保留一份旧版作回滚；校验失败不动现有应用。</li>
+          <li>设置 → 通用可关闭自动更新，关闭后仍可从账户菜单手动检查。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-14-2">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.14.2</h2>
+        <span class="cl-date">2026-10-17</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.14.2" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">消息流三处减法</p>
+        <ul class="cl-items">
+          <li>任务已交付时不再叠加「本轮已结束」摘要卡，结论只出现一次。</li>
+          <li>项目记忆引用行移到最新一条用户消息前——召回属于那一轮任务，不是会话全局状态。</li>
+          <li>收起的工作流程行显示真实工具概览（如「读取 3 · 编辑 2 · 执行 · 42s」）。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-14-1">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.14.1</h2>
+        <span class="cl-date">2026-10-16</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.14.1" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">项目记忆安全与可靠性修复</p>
+        <ul class="cl-items">
+          <li>记忆凭据绑定服务端用户身份；退出或切换账户清理本地凭据与运行缓存。</li>
+          <li>单条记忆详情严格检查知识库可见权限，创建不会认领无归属的上游库。</li>
+          <li>retain 失败不再伪装成功；并发同键不重复发起写，状态不明进入显式对账。</li>
+          <li>outbox 原子领取；旧候选不会跨知识库重发，迟到回执不覆盖已失效记录。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-14-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.14.0</h2>
+        <span class="cl-date">2026-10-13</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.14.0" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">项目记忆（K1）</p>
+        <ul class="cl-items">
+          <li>登录自动接通 memory.zmzai.cloud，桌面端凭据后台签发与轮换。</li>
+          <li>每个项目跑第一个任务时自动创建专属知识库并绑定，零操作。</li>
+          <li>新任务把项目约定、有效命令、架构决策与故障结论作为背景注入，来源可展开。</li>
+          <li>交付后提炼 ≤5 条知识候选默认待审，可改写后采纳；写入策略可切换。</li>
+          <li>本地 outbox 幂等重试、状态不明先对账；可换绑包括 Agent 工作区在内的知识库。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-13-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.13.0</h2>
+        <span class="cl-date">2026-10-12</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.13.0" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">交互全流程走查修复</p>
+        <ul class="cl-items">
+          <li>运行中可<b>排队发送</b>：发送保持主位，中止退为次要描边，不再互相顶掉。</li>
+          <li>乐观气泡先半透明、落地转实；中断未确认时发送键指向恢复横幅。</li>
+          <li>交付后的结论段加一档字号与字重，过场叙述与最终答案一眼可分。</li>
+          <li>删除会话改用应用内确认框，破坏性操作单独分隔并常态标红。</li>
+          <li>搜索结果展示命中数，运行状态行改用中文短语。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-12-1">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.12.1</h2>
+        <span class="cl-date">2026-10-09</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.12.1" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">恢复横幅在桌面模式复活</p>
+        <ul class="cl-items">
+          <li>修复任务中断后被挡时桌面版只显示一行英文码 RECOVERY_REQUIRED 的问题。</li>
+          <li>Host 错误体对齐契约，前端识码双通道兜底；「核对并继续上次任务」横幅稳定出现。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-12-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.12.0</h2>
+        <span class="cl-date">2026-10-09</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.12.0" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">会话流改版 + 子代理消息盒</p>
+        <ul class="cl-items">
+          <li>过程行弱化为「图标 中文名 · 摘要」，思考行显示持续时长，失败才整行标红。</li>
+          <li>一轮结束后过程收拢成「工作流程 · N 个步骤 · 时长」，正文留在原位。</li>
+          <li>运行中断的错误收成一行「运行中断 · 一句话原因」，展开才看原始错误。</li>
+          <li>工作台新增「子代理」标签页，只读渲染子会话转录并自动跟随运行中的子代理。</li>
+          <li>点击发送瞬间清空输入框、气泡同帧上屏；失败完整恢复已输入内容。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-11-2">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.11.2</h2>
+        <span class="cl-date">2026-10-08</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.11.2" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">模型场景徽标与默认推荐</p>
+        <ul class="cl-items">
+          <li>模型选择弹层为精选模型展示「推荐 / 快速 / 深度」徽标与一句话场景说明。</li>
+          <li>精选模型自动置顶；新会话默认选中推荐模型，后台调整后自动跟随。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-11-1">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.11.1</h2>
+        <span class="cl-date">2026-10-08</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.11.1" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">Host 链路四项修复</p>
+        <ul class="cl-items">
+          <li>修复 Host 推理 401：会话凭据改用 AsyncLocalStorage 传播。</li>
+          <li>模型、推理力度、引用与图片随 prompt 透传，不再恒落兜底模型。</li>
+          <li>停止按钮加 10 秒兜底超时；权限面板不再重连后变成死面板。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-11-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.11.0</h2>
+        <span class="cl-date">2026-10-08</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.11.0" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">生产链路收口（R0）</p>
+        <ul class="cl-items">
+          <li>子代理生产链路：并行派生、父任务自动等候与唤醒、交付前验收门禁。</li>
+          <li>Host 单执行者 + 命令回执：同键重试拿回原结果，故障不静默重跑。</li>
+          <li>合并结果实检：对实际合并出的代码跑验证，组合失败不推进目标分支。</li>
+          <li>启动即对账：重启后遗留任务结算，首屏看到恢复后的真实状态。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-10-2">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.10.2</h2>
+        <span class="cl-date">2026-09-29</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.10.2" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">Host 崩溃循环修复</p>
+        <ul class="cl-items">
+          <li>Host 改为自包含 bundle，修复安装包启动即崩溃循环的问题。</li>
+          <li>终端真 PTY 随包分发；冒烟新增 Host 存活断言，此类缺陷不会再溜进发行包。</li>
+          <li>子代理失败不伪装成功；重启后排队子任务自动恢复，中断的进入恢复审查。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-10-1">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.10.1</h2>
+        <span class="cl-date">2026-09-24</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.10.1" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">0.10 收口</p>
+        <ul class="cl-items">
+          <li>armed 终端链修复：命令模式与请求体透传补齐。</li>
+          <li>浏览器验证支持默认计划；首次 required 失败可在同会话内自动修复一次。</li>
+          <li>packaged smoke 全链真验，含硬杀重启与租约恢复。</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="cl-entry" id="v0-10-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.10.0</h2>
+        <span class="cl-date">2026-09-24</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.10.0" target="_blank" rel="noopener">Release ↗</a>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">隔离工作区、真浏览器验证与桌面控制</p>
+        <ul class="cl-items">
+          <li>任务 worktree 全生命周期：CAS 整合、冲突保留现场、每一步落 integration journal。</li>
+          <li>内置 Chromium 真浏览器验收：分项证据、截图留痕、一次修复闭环。</li>
+          <li>macOS 桌面控制：辅助功能结构化操作、观察过期拒绝、⌘⇧⌫ 紧急停止。</li>
+          <li>验证证据绑定内容指纹；验证后源码再变，旧证据即作废。</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sub-cta">
+  <div class="wrap">
+    <h2 class="reveal">看完改动，装上再试。</h2>
+    <p class="sec-desc reveal">macOS 与 Windows 安装包都在下载页，会话与设置升级后保留。</p>
+    <div class="cta-actions reveal" data-delay="1">
+      <a class="btn btn-outline" href="index.html#download">返回下载 <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-left">zmzai.cloud · 知末智云 · 知其末梢，智在云端</div>
+    <div class="foot-links">
+      <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="changelog.html" aria-current="page">更新日志</a>
+      <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.16.0" target="_blank" rel="noopener">v0.16.0</a>
+    </div>
+  </div>
+</footer>
+
+<script src="/theme.js?v=20261023d"></script>
+</body>
+</html>

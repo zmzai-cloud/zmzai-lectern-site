@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261023c">
+<link rel="stylesheet" href="/theme.css?v=20261023d">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -129,6 +129,35 @@
       </div>
       </div>
     </div>
+
+    <div class="compare-block reveal" data-delay="3">
+      <div class="compare-intro">
+        <div class="sec-eyebrow">At a glance</div>
+        <h2 class="reveal">一张表看完。</h2>
+        <p class="sec-desc reveal">只列可验证的事实，不做排名；不确定的项<span class="nb">留「—」</span>。</p>
+      </div>
+      <div class="compare-scroll" role="region" aria-label="Lectern、IDE 插件与云端 Agent 的能力对照，可横向滚动" tabindex="0">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th scope="col">维度</th>
+              <th scope="col" class="is-le">Lectern <span class="compare-here">本产品</span></th>
+              <th scope="col">IDE 插件</th>
+              <th scope="col">云端 Agent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">执行位置</th><td class="is-le">本机</td><td>本机</td><td>云端</td></tr>
+            <tr><th scope="row">独立工作区</th><td class="is-le">每任务隔离</td><td>无</td><td>部分</td></tr>
+            <tr><th scope="row">合并前验证</th><td class="is-le">对合并结果真跑</td><td>无</td><td>无</td></tr>
+            <tr><th scope="row">会话回卷</th><td class="is-le">任意一轮截断重来</td><td>无</td><td>有限</td></tr>
+            <tr><th scope="row">数据留存</th><td class="is-le">全部在本机</td><td>本机</td><td>上传云端</td></tr>
+            <tr><th scope="row">并行子代理</th><td class="is-le">有</td><td>无</td><td>有</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="compare-note">对比基于 v0.16.0 · 2026-10 · IDE 插件与云端 Agent 按常见形态归纳，具体以各自产品为准。<span class="compare-swipe">左右滑动查看 →</span></p>
+    </div>
   </div>
 </section>
 <section id="local-first">
@@ -170,11 +199,12 @@
     <div class="foot-links">
       <a href="https://zmzai.cloud" target="_blank" rel="noopener">Folio</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern" target="_blank" rel="noopener">GitHub</a>
+      <a href="changelog.html">更新日志</a>
       <a href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.16.0" target="_blank" rel="noopener">v0.16.0</a>
     </div>
   </div>
 </footer>
 
-<script src="/theme.js?v=20261023c"></script>
+<script src="/theme.js?v=20261023d"></script>
 </body>
 </html>

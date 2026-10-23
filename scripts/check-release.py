@@ -79,7 +79,7 @@ for page, text in texts.items():
         if need not in text:
             err(f"{page}: 缺少 {need}")
 sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
-for page in PAGES:
+for page in PAGES + ["changelog.html"]:
     url = rel["site_url"] + ("/" if page == "index.html" else f"/{page}")
     if url not in sitemap:
         err(f"sitemap.xml: 缺少 {url}")
@@ -107,6 +107,59 @@ if ".foundation-grid" not in css:
 if 'docs-side-group">生产链' not in texts["features.html"]:
     err("features.html: 侧栏缺「生产链」分组")
 
+# 7b. 功能筛选、对照表与下载/更新日志入口
+feat = texts["features.html"]
+if 'class="docs-filter"' not in feat:
+    err("features.html: 缺筛选 chips 栏 .docs-filter")
+chip_groups = set(re.findall(r'data-filter="([^"]+)"', feat)) - {"all"}
+item_groups = set(re.findall(r'<article class="docs-item"[^>]*data-group="([^"]+)"', feat))
+if chip_groups != item_groups:
+    err(f"features.html: chips 分组 {sorted(chip_groups)} 与 data-group {sorted(item_groups)} 不一致")
+if len(re.findall(r'<article class="docs-item"', feat)) != 17:
+    err("features.html: 功能条目不是 17 项")
+if feat.count('class="docs-preview"') != 4:
+    err("features.html: CSS 示意预览应为 4 块（回卷另有交互演示）")
+if 'class="docs-demo"' not in feat:
+    err("features.html: 回卷交互演示缺失")
+if "html.filters-ready .docs-filter" not in css:
+    err("theme.css: 筛选栏未由 filters-ready 门控（无 JS 时应隐藏）")
+why = texts["why.html"]
+if 'class="compare-table"' not in why:
+    err("why.html: 缺横向对照表 .compare-table")
+if f"对比基于 v{v}" not in why:
+    err(f"why.html: 对照表版本戳未对齐 v{v}")
+if not re.search(r'<p class="dl-release[^"]*"[^>]*>v' + re.escape(v) + r' · ' + re.escape(rel["release_date"]) + r' · <a href="changelog.html">', texts["index.html"]):
+    err("index.html: 下载区版本行缺日期或更新日志链接")
+for page, text in texts.items():
+    if '<a href="changelog.html">更新日志</a>' not in text:
+        err(f"{page}: 页脚缺更新日志入口")
+
+# 7c. 更新日志页：最新版本/日期/说明必须与 release.json 一致，资源版本不得落后
+cl_path = ROOT / "changelog.html"
+if not cl_path.exists():
+    err("changelog.html: 文件缺失")
+else:
+    cl = cl_path.read_text(encoding="utf-8")
+    first_ver = re.search(r'<h2 class="cl-ver">v([^<]+)</h2>', cl)
+    if not first_ver or first_ver.group(1) != v:
+        err(f"changelog.html: 第一条版本不是 v{v}")
+    if f'<span class="cl-date">{rel["release_date"]}</span>' not in cl:
+        err(f"changelog.html: 最新版本日期不是 {rel['release_date']}")
+    if rel["release_note"] not in cl:
+        err("changelog.html: 页首说明与 release.json release_note 不一致")
+    for need in ("<link rel=\"canonical\"", "og:image", "name=\"description\"", "apple-touch-icon"):
+        if need not in cl:
+            err(f"changelog.html: 缺少 {need}")
+    if "documentElement.classList.add('js')" not in cl:
+        err("changelog.html: <head> 缺 html.js 引导脚本")
+    for rev in set(re.findall(r'\?v=([^"]+)', cl)):
+        if rev != rel["asset_rev"]:
+            err(f"changelog.html: 资源版本 {rev} 与 release.json asset_rev {rel['asset_rev']} 不一致")
+    for href in set(re.findall(r'href="((?!https?:|#|mailto:)[^"]+)"', cl)):
+        target = ROOT / href.split("#")[0].split("?")[0].lstrip("/")
+        if not target.exists():
+            err(f"changelog.html: 站内链接指向不存在的文件 {href}")
+
 # 8. 交互护栏：当前页要标 aria-current；hover 态规则必须包在 (hover: hover) 里，
 #    裸 hover 在触屏上点击后会"粘住"（sticky hover）。
 for page, text in texts.items():
@@ -131,6 +184,8 @@ for href in set(re.findall(r'href="((?!#|https?:|mailto:)[^"]+)"', nf)):
 for rev in set(re.findall(r'\?v=([^"]+)', nf)):
     if rev != rel["asset_rev"]:
         err(f"404.html: 资源版本 {rev} 与 release.json asset_rev {rel['asset_rev']} 不一致")
+if '<a href="/changelog.html">更新日志</a>' not in nf:
+    err("404.html: 页脚缺绝对路径的更新日志入口")
 
 if LIVE:
     # 只探站外 OSS 直链：它们必须先于落地页存在。本站新资源（og-image/sitemap/fonts）
