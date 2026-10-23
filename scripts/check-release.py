@@ -107,6 +107,22 @@ for line in css.splitlines():
     if ":hover" in line and "@media (hover" not in line and line.lstrip().startswith((".", "a", "s", "#")):
         err(f"theme.css: hover 规则未包进 @media (hover: hover)：{line.strip()[:60]}")
 
+# 9. 404 页：不收录；错误页会在任意层级响应，站内链接必须绝对路径；
+#    资源版本必须跟 release.json 一起走，否则 404 会钉死旧样式
+nf = (ROOT / "404.html").read_text(encoding="utf-8")
+if 'name="robots" content="noindex' not in nf:
+    err("404.html: 缺 robots noindex，错误页会被搜索引擎收录")
+for href in set(re.findall(r'href="((?!#|https?:|mailto:)[^"]+)"', nf)):
+    if not href.startswith("/"):
+        err(f"404.html: 站内链接必须用绝对路径（错误页在任意层级响应）：{href}")
+    else:
+        target = ROOT / href.split("#")[0].split("?")[0].lstrip("/")
+        if not target.exists():
+            err(f"404.html: 站内链接指向不存在的文件 {href}")
+for rev in set(re.findall(r'\?v=([^"]+)', nf)):
+    if rev != rel["asset_rev"]:
+        err(f"404.html: 资源版本 {rev} 与 release.json asset_rev {rel['asset_rev']} 不一致")
+
 if LIVE:
     # 只探站外 OSS 直链：它们必须先于落地页存在。本站新资源（og-image/sitemap/fonts）
     # 由这次部署才推上去，在这里探必然 404——那由 deploy.yml 的冒烟步骤负责。

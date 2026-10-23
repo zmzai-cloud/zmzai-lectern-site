@@ -62,6 +62,14 @@ lectern.zmzai.cloud {
 	header Referrer-Policy "strict-origin-when-cross-origin"
 
 	file_server
+
+	# 自定义 404：状态码保持 404，内容回落到本站错误页（不缓存）
+	handle_errors {
+		@404 expression {err.status_code} == 404
+		header Cache-Control "no-store"
+		rewrite @404 /404.html
+		file_server
+	}
 }
 
 harness.zmzai.cloud {

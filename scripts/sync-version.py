@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""把 release.json 的版本号与下载直链同步进四个 HTML。
+"""把 release.json 的版本号与下载直链同步进五个 HTML（含 404）。
 
 发版流程：改 release.json → python3 scripts/sync-version.py → git diff 复核。
 只动「锚定位置」（下载直链、tag 链接、CTA、pill、footer、资源版本号），
@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "features.html", "why.html", "roadmap.html"]
+PAGES = ["index.html", "features.html", "why.html", "roadmap.html", "404.html"]
 VER = r"\d+\.\d+\.\d+"
 
 rel = json.loads((ROOT / "release.json").read_text(encoding="utf-8"))

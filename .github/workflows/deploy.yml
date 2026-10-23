@@ -57,7 +57,7 @@ jobs:
         if: steps.key.outputs.ready == 'yes'
         run: |
           COPYFILE_DISABLE=1 tar -czf site.tgz \
-            index.html features.html why.html roadmap.html \
+            index.html features.html why.html roadmap.html 404.html \
             theme.css theme.js \
             favicon.png apple-touch-icon.png og-image.png logo.png \
             robots.txt sitemap.xml fonts
@@ -68,13 +68,18 @@ jobs:
       - name: 冒烟
         if: steps.key.outputs.ready == 'yes'
         run: |
-          for p in / /features.html /why.html /roadmap.html /theme.css /theme.js \
+          for p in / /features.html /why.html /roadmap.html /404.html /theme.css /theme.js \
                    /favicon.png /apple-touch-icon.png /og-image.png /logo.png \
                    /robots.txt /sitemap.xml /fonts/misans-regular.woff2; do
             code=$(curl -s --compressed -o /dev/null -w '%{http_code}' "$SITE_URL$p")
             echo "$p -> $code"
             if [ "$code" != "200" ]; then echo "::error::$p 返回 $code"; exit 1; fi
           done
+          # 错误页必须由 Caddy handle_errors 接管：状态码仍是 404，内容换成 404.html
+          nf_code=$(curl -s --compressed -o /tmp/nf.html -w '%{http_code}' "$SITE_URL/__missing-page__")
+          if [ "$nf_code" != "404" ] || ! grep -q '没有内容' /tmp/nf.html; then
+            echo "::error::自定义 404 未生效（HTTP $nf_code）"; exit 1
+          fi
           # 压缩与缓存头必须生效（曾经整站没有 encode，58KB CSS 原样传）
           curl -sI -H 'Accept-Encoding: gzip' "$SITE_URL/theme.css" | grep -qi 'content-encoding: gzip' \
             || { echo "::error::theme.css 未启用 gzip"; exit 1; }
