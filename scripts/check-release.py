@@ -95,13 +95,15 @@ for page, text in texts.items():
 #    否则首页主叙事会跳空；样式挂 class 不挂 #id，区块改名不会失配。
 if not re.search(r'<section[^>]*id="loop"', texts["index.html"]):
     err("index.html: 缺第二屏 #loop（产品闭环）")
-for target in ("f-subagents", "f-diff", "f-verify"):
+for target in ("f-subagents", "f-diff", "f-verify", "f-rewind", "f-resume", "f-audit"):
     if f'href="features.html#{target}"' not in texts["index.html"]:
-        err(f"index.html: 闭环卡片缺指向 features.html#{target} 的链接")
+        err(f"index.html: 卡片缺指向 features.html#{target} 的链接")
     if not re.search(rf'<article[^>]*id="{target}"', texts["features.html"]):
-        err(f"features.html: 缺 #{target} 条目（首页闭环卡片会跳空）")
+        err(f"features.html: 缺 #{target} 条目（首页卡片会跳空）")
 if ".loop-grid" not in css:
     err("theme.css: 产品闭环三卡样式 .loop-grid 缺失")
+if ".foundation-grid" not in css:
+    err("theme.css: Foundation 四卡样式 .foundation-grid 缺失")
 if 'docs-side-group">生产链' not in texts["features.html"]:
     err("features.html: 侧栏缺「生产链」分组")
 

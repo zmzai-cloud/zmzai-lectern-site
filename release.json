@@ -3,7 +3,7 @@
   "release_date": "2026-10-21",
   "pill": "v0.16.0 · 更新日志",
   "release_note": "悬停更新图标即可查看版本、日期与本次改动；下载完成后在应用内选择「稍后」或「重启以更新」，任务运行中不会打断工作。",
-  "asset_rev": "20261023b",
+  "asset_rev": "20261023c",
   "site_url": "https://lectern.zmzai.cloud",
   "oss_base": "https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness",
   "artifacts": {

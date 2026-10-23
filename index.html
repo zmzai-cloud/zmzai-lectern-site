@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261023b">
+<link rel="stylesheet" href="/theme.css?v=20261023c">
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -131,51 +131,37 @@
 
   <div class="wrap">
     <div class="sec-eyebrow reveal">Foundation</div>
-    <h2 class="reveal" data-delay="1">新武器脚下的底座。</h2>
-    <p class="sec-desc reveal" data-delay="2">生产链之下，是长期打磨的工作台基本面：执行过程全程可见、断线可续、会话可回卷、每次写盘与命令都有审计。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
-    <div class="features reveal" data-delay="2">
-      <div class="feature-row">
-        <div class="feature-no">01</div>
-        <div class="feature-name">会话回卷<small>rewind · truncate-from</small></div>
-        <div class="feature-text">会话底部的时间轴可拖回任意一轮之前，消息树在该点截断、agent 从那里重新出发。截断走事件溯源并下发 rewound 事件，被切掉的消息不会在重连重放时复活。</div>
-      </div>
-      <div class="feature-row">
-        <div class="feature-no">02</div>
-        <div class="feature-name">断点续传<small>sse resume · reconnect</small></div>
-        <div class="feature-text">事件流带序号，断线后从断点重放，配指数退避重连。弱网、休眠唤醒、代理切换都不再整页刷新重来。</div>
-      </div>
-      <div class="feature-row">
-        <div class="feature-no">03</div>
-        <div class="feature-name">增量投影<small>o(1) per event</small></div>
-        <div class="feature-text">事件流增量折叠成消息树，替代旧的全量重投影。几千条消息的会话照样流畅滚动，触顶自动分页加载历史。</div>
-      </div>
-      <div class="feature-row">
-        <div class="feature-no">04</div>
-        <div class="feature-name">Diff 审阅<small>shiki highlight</small></div>
-        <div class="feature-text">右侧看板实时呈现本轮触碰的文件与变更，Shiki 按语言按需加载高亮，明暗主题跟随系统。</div>
-      </div>
-      <div class="feature-row">
-        <div class="feature-no">05</div>
-        <div class="feature-name">命令与搜索<small>cmd-K · cmd-P · cmd-Shift-F</small></div>
-        <div class="feature-text">三模式命令面板：执行命令、跳转会话、全文搜索历史。键盘优先，和引擎对话不离开键盘。</div>
-      </div>
-      <div class="feature-row">
-        <div class="feature-no">06</div>
-        <div class="feature-name">权限审计<small>audit.db</small></div>
-        <div class="feature-text">每一次文件写入与命令执行都落独立审计库，manual / auto / fine-grained 三种来源分开记账，失败不阻塞主流程。</div>
-      </div>
-      <div class="feature-row">
-        <div class="feature-no">07</div>
-        <div class="feature-name">托盘常驻<small>menubar · darwin</small></div>
-        <div class="feature-text">菜单栏显示运行状态——运行中、等待授权一目了然；任务完成发系统通知，人不在屏幕前也不错过。</div>
-      </div>
-    </div>
-    <div class="feature-proof reveal" data-delay="2" aria-label="Lectern 变更审阅示意图">
-      <div class="proof-head"><span>●</span><b>review changes · lib/client.ts</b><span>14 tests passed</span></div>
-      <div class="proof-grid">
-        <div class="proof-code"><span>27&nbsp;&nbsp; function retryDelay(attempt: number) {</span><span class="removed">28&nbsp;&nbsp;&nbsp;&nbsp;return 1000;</span><span class="added">28&nbsp;&nbsp;&nbsp;&nbsp;return Math.min(1000 * 2 ** attempt, 15000);</span><span>29&nbsp;&nbsp; }</span><span>30</span><span class="added">31&nbsp;&nbsp; if (attempt &gt;= 3) setStatus(&quot;offline&quot;);</span></div>
-        <aside class="proof-aside"><b>本轮触碰的文件</b><div class="file"><span>lib/client.ts</span><span>+8 −1</span></div><div class="file"><span>lib/retry.ts</span><span>+12</span></div><div class="file"><span>tests/client.test.ts</span><span>+4</span></div></aside>
-      </div>
+    <h2 class="reveal" data-delay="1">看得见，<span class="nb">续得上</span>，退得回。</h2>
+    <p class="sec-desc reveal" data-delay="2">生产链之下，是长期打磨的基本面：执行过程全程可见、断线可续、会话可回卷、每次写盘与命令都有审计。每一项到底怎么用，见 <a href="features.html" style="border-bottom:1px solid var(--color-line-strong)">功能说明</a>。</p>
+    <div class="foundation-grid reveal" data-delay="2">
+      <a class="foundation-card" href="features.html#f-rewind">
+        <span class="foundation-no">01</span>
+        <h3>会话回卷</h3>
+        <span class="foundation-tag">rewind · truncate-from</span>
+        <p>拖时间轴回到任意一轮之前，从那里重新出发，被切掉的消息不会复活。</p>
+        <span class="foundation-more">了解更多 <span class="arrow">→</span></span>
+      </a>
+      <a class="foundation-card" href="features.html#f-resume">
+        <span class="foundation-no">02</span>
+        <h3>断点续传</h3>
+        <span class="foundation-tag">sse resume · reconnect</span>
+        <p>断线、休眠、切代理都不重来——事件从断点重放，画面接着刚才走。</p>
+        <span class="foundation-more">了解更多 <span class="arrow">→</span></span>
+      </a>
+      <a class="foundation-card" href="features.html#f-diff">
+        <span class="foundation-no">03</span>
+        <h3>Diff 审阅</h3>
+        <span class="foundation-tag">shiki highlight</span>
+        <p>右侧看板实时列出本轮触碰的文件与逐行变更，明暗主题跟随系统。</p>
+        <span class="foundation-more">了解更多 <span class="arrow">→</span></span>
+      </a>
+      <a class="foundation-card" href="features.html#f-audit">
+        <span class="foundation-no">04</span>
+        <h3>权限审计</h3>
+        <span class="foundation-tag">audit.db</span>
+        <p>每次写盘与命令执行单独记账，三种授权来源分开，事后可查可核。</p>
+        <span class="foundation-more">了解更多 <span class="arrow">→</span></span>
+      </a>
     </div>
   </div>
 </section>
@@ -183,25 +169,35 @@
   <div class="wrap">
     <div class="sec-eyebrow reveal">Workflow</div>
     <h2 class="reveal" data-delay="1">三步，一个本地循环。</h2>
-    <p class="sec-desc reveal" data-delay="2">没有云端排队，没有浏览器标签页——任务从下达到落地，全程跑在你自己的机器上。</p>
+    <p class="sec-desc reveal" data-delay="2">从装好到提交，没有云端排队，也没有浏览器标签页——三步都在你自己的机器上。</p>
     <div class="flow-grid reveal" data-delay="2">
       <div class="flow-step">
-        <div class="flow-vignette" aria-hidden="true"><div class="prompt-box"><span>你</span><br>重构客户端的重连逻辑，跑通测试后提交。</div><span class="prompt-send">发送　↵</span></div>
+        <div class="flow-vignette" aria-hidden="true">
+          <div class="install-box">
+            <div class="install-file"><b>Lectern-0.16.0-arm64.dmg</b><span>112 MB</span></div>
+            <span class="install-bar"><i></i></span>
+            <span class="install-done">下载完成 · 拖入 Applications</span>
+          </div>
+        </div>
         <div class="flow-no">01</div>
-        <div class="flow-name">下达任务<small class="flow-tag">prompt · natural language</small></div>
-        <p>用一句话交代要做什么，就像跟同事说话。要改哪个文件、跑什么命令、按什么标准收尾，一次说清。</p>
+        <div class="flow-name">装好<small class="flow-tag">download · install</small></div>
+        <p>挑一个平台下载，拖进 Applications 就能用。不需要装运行时，也不需要连服务器。</p>
+        <div class="flow-actions">
+          <a class="btn btn-solid flow-cta" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.16.0/Lectern-0.16.0-arm64.dmg">下载 macOS</a>
+          <a class="flow-alt" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.16.0/Lectern-Setup-0.16.0.exe">Windows .exe</a>
+        </div>
       </div>
       <div class="flow-step">
-        <div class="flow-vignette" aria-hidden="true"><span style="color:var(--color-ink-3)">bash · pnpm test client</span><div class="permission-dialog"><b>允许执行此命令？</b><p>需要在本机工作区运行测试。</p><div class="permission-actions"><span>拒绝</span><span>允许一次</span><span>总是允许</span></div></div></div>
+        <div class="flow-vignette" aria-hidden="true"><div class="prompt-box"><span>你</span><br>重构客户端的重连逻辑，跑通测试后提交。</div><span class="prompt-send">发送　↵</span></div>
         <div class="flow-no">02</div>
-        <div class="flow-name">授权执行<small class="flow-tag">read · edit · bash · authorize</small></div>
-        <p>Agent 读文件、改代码、跑命令、看结果，迭代推进。需要权限的动作会停下来问你，而不是擅自执行。</p>
+        <div class="flow-name">交代任务<small class="flow-tag">prompt · natural language</small></div>
+        <p>打开一个项目目录，用一句话说清目标与验收标准。要改哪个文件、跑什么命令、按什么标准收尾，一次说清。</p>
       </div>
       <div class="flow-step">
         <div class="flow-vignette" aria-hidden="true"><div class="diff-vignette"><span class="minus">− return 1000;</span><br><span class="plus">+ return Math.min(1000 * 2 ** attempt, 15000);</span><br><br><em>✓ 14 tests passed</em></div></div>
         <div class="flow-no">03</div>
-        <div class="flow-name">审阅落地<small class="flow-tag">diff · commit</small></div>
-        <p>每一处改动都呈现在右侧看板，带语法高亮。确认后由你决定提交——机器不替你拍板。</p>
+        <div class="flow-name">审阅落地<small class="flow-tag">diff · review · commit</small></div>
+        <p>看 diff、跑测试、决定是否提交；不满意就回卷到任意一轮之前重来。机器不替你拍板。</p>
       </div>
     </div>
   </div>
@@ -309,7 +305,7 @@
   </div>
 </footer>
 
-<script src="/theme.js?v=20261023b"></script>
+<script src="/theme.js?v=20261023c"></script>
 <script>
 /* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
 (function () {
