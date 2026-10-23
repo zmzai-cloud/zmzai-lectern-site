@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261021a">
+<link rel="stylesheet" href="/theme.css?v=20261023a">
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -72,12 +72,13 @@
       <div>
         <div class="release-pill reveal in"><span class="pill-dot" aria-hidden="true"></span>v0.16.0 · 更新日志</div>
         <h1 class="reveal in" data-delay="1">桌面级 Agent<br>工作台<em>。</em></h1>
-        <p class="hero-desc reveal in" data-delay="2">让 AI 帮你读代码、修改项目、运行测试，还能派出<b>子代理</b>并行探索。每个任务在<b>独立工作区</b>中完成，合并前对结果<b>真跑验证</b>；网页改动可在<b>真实浏览器</b>中验收。会话和操作记录保存在本机。</p>
+        <p class="hero-desc reveal in" data-delay="2">读代码、改项目、跑测试，复杂任务派<span class="nb"><b>子代理</b>并行</span>。每个任务<span class="nb">独立工作区</span>，合并结果<b>真跑验证</b>。</p>
         <div class="hero-actions reveal in" data-delay="3">
           <a class="btn btn-solid" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.16.0/Lectern-0.16.0-arm64-mac.zip">下载 macOS <span class="arrow">→</span></a>
           <a class="btn btn-outline" href="https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness/v0.16.0/Lectern-Setup-0.16.0.exe">下载 Windows</a>
-          <span class="hero-meta">macOS 14+ · Apple Silicon / Windows 10 1809+ · x64</span>
         </div>
+        <p class="hero-meta reveal in" data-delay="3">macOS 14+ · Apple Silicon / Windows 10 1809+ · x64</p>
+        <p class="hero-evidence reveal in" data-delay="3">源码开放 · 本地执行 · 数据不离开电脑</p>
       </div>
       <div class="workbench-scene reveal in" data-delay="1" aria-label="Lectern 工作台：会话、任务执行、文件变更和测试结果">
         <div class="wb">
@@ -95,15 +96,6 @@
         </div>
         <div class="scene-orbit" aria-hidden="true"></div>
       </div>
-    </div>
-    <div class="run-circuit" aria-hidden="true">
-      <span class="rc-tag"><i></i><b>LOCAL EXECUTION</b></span>
-      <span class="rc-node" style="--i:0">READ</span>
-      <span class="rc-node" style="--i:1">EDIT</span>
-      <span class="rc-node" style="--i:2">AUTHORIZE</span>
-      <span class="rc-node" style="--i:3">DIFF</span>
-      <span class="rc-node" style="--i:4">COMMIT</span>
-      <span class="rc-pulse"></span>
     </div>
   </div>
 </header>
@@ -347,7 +339,7 @@
   </div>
 </footer>
 
-<script src="/theme.js?v=20261021a"></script>
+<script src="/theme.js?v=20261023a"></script>
 <script>
 /* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
 (function () {
