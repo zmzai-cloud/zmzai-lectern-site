@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261023a">
+<link rel="stylesheet" href="/theme.css?v=20261023b">
 <script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
@@ -99,61 +99,31 @@
     </div>
   </div>
 </header>
-<section id="v11" class="arsenal-band">
+<section id="loop" class="loop">
+  <span id="v11" class="anchor-legacy" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="arsenal-head">
-      <div class="sec-eyebrow reveal">0.11 · R0 生产链路收口</div>
-      <h2 class="reveal" data-delay="1">单兵能干，<em>生产链扛事。</em></h2>
-      <p class="sec-desc reveal" data-delay="2">这一版把三件地基打进产品：agent 能<b>派子代理并行干活</b>、所有命令经<b>独立 Host 执行</b>且崩了可查可续、合并前对<b>合并结果真跑验证</b>——每一环失败都显式、可恢复、有证据。</p>
-    </div>
-    <div class="arsenal-list">
-      <div class="arsenal-row reveal">
-        <div class="arsenal-id"><span class="no">1</span><span class="cap">Subagents</span></div>
-        <div class="arsenal-main">
-          <h3>子代理生产链路</h3>
-          <div class="sub">agent_spawn · park · verify</div>
-          <p>Agent 可以派出多个<b>只读子代理并行探索</b>，自己继续推进主线；子代理收尾后父任务自动等候、验收、汇总——不需要你催「继续」。</p>
-        </div>
-        <ul class="arsenal-mech">
-          <li><b>子代理失败绝不伪装成完成</b>——失败原因进记录，父任务看得见才决定补救</li>
-          <li>多项目共享全局额度（全局 6 / 每任务 3）；任务树之外的操作一律拒绝</li>
-          <li>应用重启后：排队中的子任务自动恢复执行，中断的进入恢复审查，<b>不重放未知副作用</b></li>
-          <li>派生幂等：同一次派生重试只会拿到同一个子代理，不会重复执行</li>
-        </ul>
-      </div>
-      <div class="arsenal-row reveal">
-        <div class="arsenal-id"><span class="no">2</span><span class="cap">Host Reliability</span></div>
-        <div class="arsenal-main">
-          <h3>Host 命令可靠性</h3>
-          <div class="sub">single executor · receipt</div>
-          <p>所有命令经<b>独立 Host 进程</b>执行，与界面服务隔离。Host 出问题时明确报「结果未知」——<b>绝不静默换一条路重跑</b>，杜绝同一命令被执行两次。</p>
-        </div>
-        <ul class="arsenal-mech">
-          <li>每条命令可查<b>回执</b>：同一 requestId 重试只会拿回原结果，不会二次执行</li>
-          <li>多项目会话按持久归属路由；重复会话、缺失挂载按错误处理，<b>不静默串库</b></li>
-          <li>启动即对账：重启后遗留任务立即结算，<b>首屏看到的就是恢复后的真实状态</b></li>
-          <li>模式在启动时锁定：Host 故障不会悄悄退回进程内执行掩盖问题</li>
-        </ul>
-      </div>
-      <div class="arsenal-row reveal">
-        <div class="arsenal-id"><span class="no">3</span><span class="cap">Merge Verification</span></div>
-        <div class="arsenal-main">
-          <h3>合并结果实检</h3>
-          <div class="sub">verify the merge · not the parts</div>
-          <p>合并前对<b>实际合并出的代码</b>执行验证计划（比如真跑一遍测试）——两边测试各自通过、组合到一起挂掉时，<b>你的分支一动不动</b>。</p>
-        </div>
-        <ul class="arsenal-mech">
-          <li>验证证据绑定 merge commit + 内容指纹 + 计划版本；源码再变，旧证据一眼判失效</li>
-          <li>整合中断后恢复：重新验证放行，<b>不凭旧证据免检</b>，也不重复合并</li>
-          <li>验证集由仓库声明（.lectern/verification.json）；没有计划时按显式「接受未验证」放行并如实标注</li>
-          <li>整合期间别人推进了目标分支 → CAS 拒绝并保留现场，不覆盖任何人的工作</li>
-        </ul>
-      </div>
-    </div>
-    <div class="arsenal-foot reveal">
-      <span>T01–T06 · 子代理持久协调</span>
-      <span>T07–T09 · Host 单执行者</span>
-      <span>T10–T11 · 合并结果实检</span>
+    <div class="sec-eyebrow reveal">How it works</div>
+    <h2 class="reveal" data-delay="1">从一句话，<em>到可合并的改动。</em></h2>
+    <p class="loop-flow reveal" data-delay="2" aria-hidden="true"><span>派任务</span><i></i><span>审改动</span><i></i><span>验结果</span></p>
+    <div class="loop-grid reveal" data-delay="3">
+      <a class="loop-card" href="features.html#f-subagents">
+        <span class="loop-no">01</span>
+        <h3>派任务</h3>
+        <p>一句话交代目标，Agent 在独立工作区里读代码、改文件、跑测试；复杂任务可派只读子代理并行探索。</p>
+        <span class="loop-tags">worktree · subagents</span>
+      </a>
+      <a class="loop-card" href="features.html#f-diff">
+        <span class="loop-no">02</span>
+        <h3>审改动</h3>
+        <p>每处写盘与命令先过权限，Diff 实时进右侧看板；不满意可拖时间轴回卷，从任意一轮重来。</p>
+        <span class="loop-tags">diff · rewind · audit</span>
+      </a>
+      <a class="loop-card" href="features.html#f-verify">
+        <span class="loop-no">03</span>
+        <h3>验结果</h3>
+        <p>合并前对实际合并出的代码真跑验证；失败则分支一动不动，证据绑定 commit 指纹。</p>
+        <span class="loop-tags">verify merge · receipt</span>
+      </a>
     </div>
   </div>
 </section>
@@ -339,7 +309,7 @@
   </div>
 </footer>
 
-<script src="/theme.js?v=20261023a"></script>
+<script src="/theme.js?v=20261023b"></script>
 <script>
 /* hero 活工作台：单一时间轴 T∈[0,100] 驱动回放 + rewind 拖动(与 lectern rewind 能力同构) */
 (function () {

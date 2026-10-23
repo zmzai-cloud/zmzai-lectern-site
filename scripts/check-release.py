@@ -91,12 +91,19 @@ for page, text in texts.items():
     if "documentElement.classList.add('js')" not in text:
         err(f"{page}: <head> 缺 html.js 引导脚本")
 
-# 7. 武器区白底翻转必须挂在 class 上：0.11 把该 section 从 #v10 改名 #v11，
-#    规则失配后近白文字直接压在白底上，整块主打区几乎看不见。
-if ".arsenal-band" not in css:
-    err("theme.css: 武器区翻转规则不再挂在 .arsenal-band 上（改回 #id 作用域会随改名失效）")
-if not re.search(r'<section[^>]*class="[^"]*\barsenal-band\b', texts["index.html"]):
-    err('index.html: 武器区 section 缺 class="arsenal-band"，白底翻转不生效')
+# 7. 第二屏「产品闭环」守卫：三张卡必须链到 features 里真实存在的锚点，
+#    否则首页主叙事会跳空；样式挂 class 不挂 #id，区块改名不会失配。
+if not re.search(r'<section[^>]*id="loop"', texts["index.html"]):
+    err("index.html: 缺第二屏 #loop（产品闭环）")
+for target in ("f-subagents", "f-diff", "f-verify"):
+    if f'href="features.html#{target}"' not in texts["index.html"]:
+        err(f"index.html: 闭环卡片缺指向 features.html#{target} 的链接")
+    if not re.search(rf'<article[^>]*id="{target}"', texts["features.html"]):
+        err(f"features.html: 缺 #{target} 条目（首页闭环卡片会跳空）")
+if ".loop-grid" not in css:
+    err("theme.css: 产品闭环三卡样式 .loop-grid 缺失")
+if 'docs-side-group">生产链' not in texts["features.html"]:
+    err("features.html: 侧栏缺「生产链」分组")
 
 # 8. 交互护栏：当前页要标 aria-current；hover 态规则必须包在 (hover: hover) 里，
 #    裸 hover 在触屏上点击后会"粘住"（sticky hover）。
