@@ -3,7 +3,7 @@
   "release_date": "2026-10-24",
   "pill": "v0.17.1 · 更新日志",
   "release_note": "修复流式回复期间思考内容被当成正文渲染、把真正的回复顶掉的问题（0.17.0 引入；会话数据本身无损）",
-  "asset_rev": "20261024d",
+  "asset_rev": "20261024e",
   "site_url": "https://lectern.zmzai.cloud",
   "oss_base": "https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness",
   "artifacts": {
