@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261023d">
+<link rel="stylesheet" href="/theme.css?v=20261024a">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -54,8 +54,8 @@
     <h1 class="reveal in" data-delay="1">每一版，改了什么。</h1>
     <p class="sec-desc reveal in" data-delay="2">版本倒序。只记用户能感知的变化，工程细节与校验记录在 GitHub Release 里。</p>
     <div class="cl-now reveal in" data-delay="3">
-      <div class="cl-now-kicker">最新发布 · v0.16.0 · 2026-10-21</div>
-      <p class="cl-now-text">悬停更新图标即可查看版本、日期与本次改动；下载完成后在应用内选择「稍后」或「重启以更新」，任务运行中不会打断工作。</p>
+      <div class="cl-now-kicker">最新发布 · v0.17.0 · 2026-10-24</div>
+      <p class="cl-now-text">升级内置框架引擎（0.17.2 → 0.18.0）：模型回复从「攒一大段一次性蹦出」变为逐字流出</p>
     </div>
   </div>
 </header>
@@ -63,12 +63,29 @@
 <section id="history">
   <div class="wrap cl-shell">
 
+    <article class="cl-entry" id="v0-17-0">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.17.0</h2>
+        <span class="cl-date">2026-10-24</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.17.0" target="_blank" rel="noopener">Release ↗</a>
+        <span class="cl-badge">最新</span>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">消息流真流式 + 更新器断点续传</p>
+        <ul class="cl-items">
+          <li>升级内置框架引擎（0.17.2 → 0.18.0）：模型回复从「攒一大段一次性蹦出」变为<b>逐字流出</b>。</li>
+          <li>长回复的中间快照写入降频，会话重放更快，事件日志不再随回复长度膨胀。</li>
+          <li>更新包下载支持断点续传与失败自动重试，弱网环境升级更稳。</li>
+          <li>下载源故障时自动回退镜像；安装失败时给出可诊断的错误信息。</li>
+        </ul>
+      </div>
+    </article>
+
     <article class="cl-entry" id="v0-16-0">
       <div class="cl-head">
         <h2 class="cl-ver">v0.16.0</h2>
         <span class="cl-date">2026-10-21</span>
         <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.16.0" target="_blank" rel="noopener">Release ↗</a>
-        <span class="cl-badge">最新</span>
       </div>
       <div class="cl-body">
         <p class="cl-title">更新日志与应用内重启确认</p>
@@ -338,6 +355,6 @@
   </div>
 </footer>
 
-<script src="/theme.js?v=20261023d"></script>
+<script src="/theme.js?v=20261024a"></script>
 </body>
 </html>
