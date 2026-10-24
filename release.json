@@ -1,16 +1,16 @@
 {
-  "version": "0.17.0",
+  "version": "0.17.1",
   "release_date": "2026-10-24",
-  "pill": "v0.17.0 · 更新日志",
-  "release_note": "升级内置框架引擎（0.17.2 → 0.18.0）：模型回复从「攒一大段一次性蹦出」变为逐字流出",
-  "asset_rev": "20261024c",
+  "pill": "v0.17.1 · 更新日志",
+  "release_note": "修复流式回复期间思考内容被当成正文渲染、把真正的回复顶掉的问题（0.17.0 引入；会话数据本身无损）",
+  "asset_rev": "20261024d",
   "site_url": "https://lectern.zmzai.cloud",
   "oss_base": "https://zmzai.oss-cn-beijing.aliyuncs.com/releases/harness",
   "artifacts": {
-    "macos_dmg": "Lectern-0.17.0-arm64.dmg",
-    "macos_zip": "Lectern-0.17.0-arm64-mac.zip",
-    "windows_exe": "Lectern-Setup-0.17.0.exe",
-    "windows_zip": "Lectern-0.17.0-win.zip",
+    "macos_dmg": "Lectern-0.17.1-arm64.dmg",
+    "macos_zip": "Lectern-0.17.1-arm64-mac.zip",
+    "windows_exe": "Lectern-Setup-0.17.1.exe",
+    "windows_zip": "Lectern-0.17.1-win.zip",
     "sha256": "SHA256SUMS.txt"
   }
 }
