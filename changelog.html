@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/misans-regular.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/noto-serif-sc-700.woff2">
-<link rel="stylesheet" href="/theme.css?v=20261024b">
+<link rel="stylesheet" href="/theme.css?v=20261024c">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -54,8 +54,8 @@
     <h1 class="reveal in" data-delay="1">每一版，改了什么。</h1>
     <p class="sec-desc reveal in" data-delay="2">版本倒序。只记用户能感知的变化，工程细节与校验记录在 GitHub Release 里。</p>
     <div class="cl-now reveal in" data-delay="3">
-      <div class="cl-now-kicker">最新发布 · v0.17.0 · 2026-10-24</div>
-      <p class="cl-now-text">升级内置框架引擎（0.17.2 → 0.18.0）：模型回复从「攒一大段一次性蹦出」变为逐字流出</p>
+      <div class="cl-now-kicker">最新发布 · v0.17.1 · 2026-10-24</div>
+      <p class="cl-now-text">修复流式回复期间思考内容被当成正文渲染、把真正的回复顶掉的问题</p>
     </div>
   </div>
 </header>
@@ -63,12 +63,26 @@
 <section id="history">
   <div class="wrap cl-shell">
 
+    <article class="cl-entry" id="v0-17-1">
+      <div class="cl-head">
+        <h2 class="cl-ver">v0.17.1</h2>
+        <span class="cl-date">2026-10-24</span>
+        <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.17.1" target="_blank" rel="noopener">Release ↗</a>
+        <span class="cl-badge">最新</span>
+      </div>
+      <div class="cl-body">
+        <p class="cl-title">修复流式期间思考内容串入正文</p>
+        <ul class="cl-items">
+          <li>修复 0.17.0 引入的问题：流式回复期间，模型的思考内容被当成正文渲染，把真正的回复顶掉（会话数据本身无损，刷新或重开后显示正常）。</li>
+        </ul>
+      </div>
+    </article>
+
     <article class="cl-entry" id="v0-17-0">
       <div class="cl-head">
         <h2 class="cl-ver">v0.17.0</h2>
         <span class="cl-date">2026-10-24</span>
         <a class="cl-link" href="https://github.com/zmzai-cloud/zmzai-lectern/releases/tag/v0.17.0" target="_blank" rel="noopener">Release ↗</a>
-        <span class="cl-badge">最新</span>
       </div>
       <div class="cl-body">
         <p class="cl-title">消息流真流式 + 更新器断点续传</p>
@@ -355,6 +369,6 @@
   </div>
 </footer>
 
-<script src="/theme.js?v=20261024b"></script>
+<script src="/theme.js?v=20261024c"></script>
 </body>
 </html>
